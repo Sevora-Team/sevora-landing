@@ -1,48 +1,113 @@
 ---
-// A static host serves this single 404.html for every locale, so it shows both languages.
+// Static hosts serve this one 404.html for every URL. It renders each language and an inline
+// script shows the one matching the requested path (Serbian, the default, without JavaScript).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
 import Logo from '@/components/ui/Logo.astro';
 import { defaultLang, langTags, languages, type Lang } from '@/i18n/locales';
 import { useTranslations } from '@/i18n/utils';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 const langs = Object.keys(languages) as Lang[];
-const t = useTranslations(defaultLang);
+const pages = langs.map((lang) => {
+  const { notFound } = useTranslations(lang);
+  return { lang, home: getRelativeLocaleUrl(lang), notFound, title: `${notFound.title} · SEVORA` };
+});
+const titles = Object.fromEntries(pages.map(({ lang, title }) => [lang, title]));
 ---
 
-<BaseLayout title={`${t.notFound.title} · SEVORA`} noindex>
-  <main class="not-found wrap" data-theme="dark">
-    <Logo />
-    {langs.map((lang) => {
-      const { notFound } = useTranslations(lang);
-      const Heading = lang === defaultLang ? 'h1' : 'h2';
-      return (
-        <section lang={langTags[lang]}>
-          <Heading class="h2">{notFound.title}</Heading>
-          <p class="lead">{notFound.body}</p>
-          <Button href={getRelativeLocaleUrl(lang)} variant="ghost" icon="arrow-forward">
-            {notFound.home}
-          </Button>
-        </section>
-      );
-    })}
+<BaseLayout title={titles[defaultLang]} noindex>
+  <main class="not-found section-dark" data-theme="dark">
+    {pages.map(({ lang, home, notFound }) => (
+      <div class="content" data-lang={lang} lang={langTags[lang]} hidden={lang !== defaultLang}>
+        <Logo size="lg" href={home} />
+        <p class="mono-label code">404</p>
+        <h1 class="display">{notFound.title}</h1>
+        <p class="lead">{notFound.body}</p>
+        <Button href={home}>{notFound.home}</Button>
+      </div>
+    ))}
+    <Glyphs name="dome" class="dome" />
   </main>
 </BaseLayout>
+
+<script is:inline define:vars={{ titles, tags: langTags, defaultLang }}>
+  const lang = location.pathname.split('/')[1];
+  if (lang !== defaultLang && lang in titles) {
+    document.documentElement.lang = tags[lang];
+    document.title = titles[lang];
+    document.querySelectorAll('[data-lang]').forEach((el) => {
+      el.hidden = el.dataset.lang !== lang;
+    });
+  }
+</script>
 
 <style>
   .not-found {
     display: grid;
-    align-content: center;
-    gap: 56px;
+    place-items: center;
     min-height: 100vh;
-    padding-block: 64px;
-    background: var(--bg);
+    min-height: 100svh;
+    padding: 64px var(--gutter) 240px;
   }
 
-  section {
+  .not-found::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 65% at 0% 100%, rgb(66 202 215 / 0.11), transparent 70%),
+      radial-gradient(35% 45% at 100% 0%, rgb(66 202 215 / 0.05), transparent 70%);
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
     display: grid;
-    justify-items: start;
-    gap: 16px;
+    justify-items: center;
+    text-align: center;
+    animation: rise 0.9s var(--ease) both;
+  }
+
+  .content[hidden] {
+    display: none;
+  }
+
+  .code {
+    margin-top: 48px;
+    color: var(--accent-text);
+    letter-spacing: 0.14em;
+  }
+
+  .display {
+    max-width: 16ch;
+    margin-top: 16px;
+  }
+
+  .lead {
+    max-width: 44ch;
+    margin: 20px 0 32px;
+  }
+
+  .dome {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    height: 320px;
+    opacity: 0.75;
+    pointer-events: none;
+    animation: rise 1.4s var(--ease) 0.35s both;
+  }
+
+  @media (max-width: 640px) {
+    .not-found {
+      padding: 48px 16px 200px;
+    }
+
+    .dome {
+      height: 240px;
+    }
   }
 </style>

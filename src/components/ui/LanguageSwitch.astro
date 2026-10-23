@@ -22,6 +22,19 @@ const path = getPathWithoutLocale(Astro.url);
   ))}
 </div>
 
+<script>
+  // Keep the reader's place: open the other language at the section currently in view.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>('.switch a[hreflang]');
+    if (!link || link.hasAttribute('aria-current') || window.scrollY < 120) return;
+    const line = window.innerHeight * 0.45;
+    const inView = [...document.querySelectorAll('main section[id]')]
+      .filter((section) => section.getBoundingClientRect().top <= line)
+      .pop();
+    if (inView) link.hash = inView.id;
+  });
+</script>
+
 <style>
   .switch {
     display: inline-flex;

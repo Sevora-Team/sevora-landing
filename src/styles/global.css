@@ -9,9 +9,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+}
+
+/* Smooth in-page navigation (a clicked link has focus), but jump straight to a #section on page load. */
+html:focus-within {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -241,7 +245,7 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:focus-within {
     scroll-behavior: auto;
   }
 

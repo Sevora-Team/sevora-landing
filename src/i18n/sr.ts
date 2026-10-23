@@ -387,7 +387,7 @@ export const sr = {
   notFound: {
     title: 'Stranica nije pronađena',
     body: 'Stranica koju tražiš ne postoji ili je premeštena.',
-    home: 'Nazad na početnu',
+    home: 'Idi na početnu',
   },
 };
 

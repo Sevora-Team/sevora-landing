@@ -4,13 +4,14 @@ import mark from '@/assets/brand/sevora-mark.webp';
 
 interface Props {
   size?: 'md' | 'lg';
+  href?: string;
 }
 
-const { size = 'md' } = Astro.props;
+const { size = 'md', href = '#top' } = Astro.props;
 const px = size === 'lg' ? 48 : 36;
 ---
 
-<a class:list={['logo', `logo-${size}`]} href="#top" aria-label="SEVORA">
+<a class:list={['logo', `logo-${size}`]} href={href} aria-label="SEVORA">
   <Image src={mark} alt="" width={px} height={px} densities={[1, 2]} loading="eager" />
   <span aria-hidden="true">SEVORA</span>
 </a>
