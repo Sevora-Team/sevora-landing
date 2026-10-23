@@ -1,8 +1,20 @@
 // @ts-check
+import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
+  // TODO: set the production URL before launch; it enables the sitemap and hreflang links.
+  // site: 'https://…',
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'sr',
+        // Keep in sync with langTags in src/i18n/ui.ts
+        locales: { sr: 'sr-Latn', en: 'en' },
+      },
+    }),
+  ],
   i18n: {
     locales: ['sr', 'en'],
     defaultLocale: 'sr',

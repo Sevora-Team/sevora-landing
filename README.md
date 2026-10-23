@@ -24,12 +24,19 @@ Landing & presentational pages for the Sevora ecosystem, built with [Astro](http
 ## Project structure
 
 ```text
+public/                 # Served as-is (favicon.ico)
 src/
-├── assets/brand/   # Logo and brand images (optimized by astro:assets)
-├── i18n/           # UI strings (ui.ts) and locale helpers (utils.ts)
-├── layouts/        # Page shells (BaseLayout: <head>, fonts, favicons, hreflang)
-├── pages/          # Routes — Serbian (default) at /, English under /en/
-└── styles/         # Design tokens (tokens.css) and global base styles
+├── assets/
+│   ├── brand/          # Logo and brand images (optimized by astro:assets)
+│   └── icons/          # SVG icons, imported as components
+├── components/
+│   ├── sections/       # Landing page sections (Hero, …)
+│   ├── ui/             # Reusable UI building blocks (Icon, …)
+│   └── HomePage.astro  # The landing page, shared by every locale
+├── i18n/               # UI strings (ui.ts) and locale helpers (utils.ts)
+├── layouts/            # Page shells (BaseLayout: <head>, fonts, favicons, hreflang)
+├── pages/              # Routes — Serbian (default) at /, English under /en/, 404, robots.txt
+└── styles/             # Design tokens (tokens.css) and global base styles
 ```
 
 ## Conventions
@@ -41,12 +48,21 @@ src/
   never raw hex values. Light is the page default; sections opt into `data-theme="dark"`.
 - **Fonts:** IBM Plex Sans and IBM Plex Mono, self-hosted through the Astro Fonts API
   (`--font-sans`, `--font-mono`).
+- **Locale pages stay thin:** `pages/index.astro` and `pages/en/index.astro` only render
+  `HomePage`; components read the language from the URL with `getLangFromUrl`.
+- **Icons:** Material Symbols Outlined (weight 300, optical size 20, Apache-2.0) as SVG
+  components. Use `<Icon name="arrow-forward" />`; to add one, put its SVG in
+  `src/assets/icons/` and register it in `src/components/ui/icons.ts`. Icons are decorative
+  (`aria-hidden`) unless you pass a `label`.
+- **Interactivity:** plain `<script>` tags in components (custom elements where a component
+  repeats), no UI framework.
 - **Imports:** use the `@/` alias for anything under `src/`.
 
 ## Before launch
 
-- Set `site` in `astro.config.mjs` to the production URL — this turns on the `hreflang`
-  alternate links in `BaseLayout`.
+- Set `site` in `astro.config.mjs` to the production URL. This turns on the sitemap
+  (`@astrojs/sitemap`), the `Sitemap:` line in `robots.txt` and the `hreflang` alternate
+  links in `BaseLayout`.
 
 ## License
 

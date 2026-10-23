@@ -1,0 +1,10 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section id="top" data-theme="dark">
+  <h1>{t('hero.title')}</h1>
+  <p>{t('hero.lead')}</p>
+</section>

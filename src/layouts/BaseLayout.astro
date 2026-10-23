@@ -2,18 +2,24 @@
 import { Font, getImage } from 'astro:assets';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import sevoraMark from '@/assets/brand/sevora-mark.webp';
-import { defaultLang, languages, type Lang } from '@/i18n/ui';
+import { defaultLang, langTags, languages, type Lang } from '@/i18n/ui';
 import { getLangFromUrl, getPathWithoutLocale, useTranslations } from '@/i18n/utils';
 import '@/styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Keep the page out of search results (e.g. the 404 page). */
+  noindex?: boolean;
 }
 
 const lang: Lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const { title = t('site.title'), description = t('site.description') } = Astro.props;
+const {
+  title = t('site.title'),
+  description = t('site.description'),
+  noindex = false,
+} = Astro.props;
 
 const [favicon, appleTouchIcon] = await Promise.all([
   getImage({ src: sevoraMark, width: 32, height: 32, format: 'png' }),
@@ -22,22 +28,23 @@ const [favicon, appleTouchIcon] = await Promise.all([
 
 // hreflang alternates need absolute production URLs, so they are only emitted once `site` is set.
 const path = getPathWithoutLocale(Astro.url);
-const alternates = Astro.site
-  ? [
-      ...(Object.keys(languages) as Lang[]).map((code) => ({
-        hreflang: code,
-        href: new URL(getRelativeLocaleUrl(code, path), Astro.site).href,
-      })),
-      {
-        hreflang: 'x-default',
-        href: new URL(getRelativeLocaleUrl(defaultLang, path), Astro.site).href,
-      },
-    ]
-  : [];
+const alternates =
+  Astro.site && !noindex
+    ? [
+        ...(Object.keys(languages) as Lang[]).map((code) => ({
+          hreflang: langTags[code],
+          href: new URL(getRelativeLocaleUrl(code, path), Astro.site).href,
+        })),
+        {
+          hreflang: 'x-default',
+          href: new URL(getRelativeLocaleUrl(defaultLang, path), Astro.site).href,
+        },
+      ]
+    : [];
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={langTags[lang]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,11 +52,14 @@ const alternates = Astro.site
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#03060c" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href={favicon.src} />
     <link rel="apple-touch-icon" href={appleTouchIcon.src} />
     {alternates.map(({ hreflang, href }) => (
       <link rel="alternate" hreflang={hreflang} href={href} />
     ))}
+    {Astro.site && <link rel="sitemap" href="/sitemap-index.xml" />}
     <Font cssVariable="--font-sans" preload />
     <Font cssVariable="--font-mono" />
   </head>
