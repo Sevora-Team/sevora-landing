@@ -1,29 +1,48 @@
 ---
 // A static host serves this single 404.html for every locale, so it shows both languages.
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import Icon from '@/components/ui/Icon.astro';
-import { langTags, languages, type Lang } from '@/i18n/ui';
+import Button from '@/components/ui/Button.astro';
+import Logo from '@/components/ui/Logo.astro';
+import { defaultLang, langTags, languages, type Lang } from '@/i18n/locales';
 import { useTranslations } from '@/i18n/utils';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-const [primary, ...others] = Object.keys(languages) as Lang[];
-const t = useTranslations(primary);
+const langs = Object.keys(languages) as Lang[];
+const t = useTranslations(defaultLang);
 ---
 
-<BaseLayout title={`${t('notFound.title')} · SEVORA`} noindex>
-  <main>
-    {[primary, ...others].map((lang) => {
-      const tl = useTranslations(lang);
+<BaseLayout title={`${t.notFound.title} · SEVORA`} noindex>
+  <main class="not-found wrap" data-theme="dark">
+    <Logo />
+    {langs.map((lang) => {
+      const { notFound } = useTranslations(lang);
+      const Heading = lang === defaultLang ? 'h1' : 'h2';
       return (
         <section lang={langTags[lang]}>
-          {lang === primary ? <h1>{tl('notFound.title')}</h1> : <h2>{tl('notFound.title')}</h2>}
-          <p>{tl('notFound.body')}</p>
-          <a href={getRelativeLocaleUrl(lang)}>
-            <Icon name="arrow-back" />
-            {tl('notFound.home')}
-          </a>
+          <Heading class="h2">{notFound.title}</Heading>
+          <p class="lead">{notFound.body}</p>
+          <Button href={getRelativeLocaleUrl(lang)} variant="ghost" icon="arrow-forward">
+            {notFound.home}
+          </Button>
         </section>
       );
     })}
   </main>
 </BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    align-content: center;
+    gap: 56px;
+    min-height: 100vh;
+    padding-block: 64px;
+    background: var(--bg);
+  }
+
+  section {
+    display: grid;
+    justify-items: start;
+    gap: 16px;
+  }
+</style>

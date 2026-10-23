@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import mark from '@/assets/brand/sevora-mark.webp';
+
+interface Props {
+  size?: 'md' | 'lg';
+}
+
+const { size = 'md' } = Astro.props;
+const px = size === 'lg' ? 48 : 36;
+---
+
+<a class:list={['logo', `logo-${size}`]} href="#top" aria-label="SEVORA">
+  <Image src={mark} alt="" width={px} height={px} densities={[1, 2]} loading="eager" />
+  <span aria-hidden="true">SEVORA</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font: 600 17px/1 var(--font-sans);
+    letter-spacing: 0.16em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo-lg {
+    gap: 12px;
+    font-size: 20px;
+  }
+
+  img {
+    transition: transform 0.4s var(--ease);
+  }
+
+  .logo:hover img {
+    transform: rotate(-6deg) scale(1.04);
+  }
+</style>

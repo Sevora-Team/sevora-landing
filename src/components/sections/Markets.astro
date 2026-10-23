@@ -1,0 +1,536 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+import Button from '@/components/ui/Button.astro';
+import PriceCell from '@/components/ui/PriceCell.astro';
+import { links } from '@/data/links';
+import { changePercent, instruments, ticker } from '@/data/markets';
+import { numberLocales } from '@/i18n/locales';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { buildChart, CHART_HEIGHT, CHART_WIDTH } from '@/lib/chart';
+import { formatNumber } from '@/lib/format';
+
+const lang = getLangFromUrl(Astro.url);
+const { markets: t, sample } = useTranslations(lang);
+const locale = numberLocales[lang];
+const gridLines = [14, 118, 222, 326];
+
+const panels = instruments.map((instrument, i) => {
+  const { levels, decimals, bias } = instrument;
+  const format = (v: number) => formatNumber(v, decimals, locale);
+  const chart = buildChart(instrument);
+  return {
+    id: `instrument-${i}`,
+    instrument,
+    selected: i === 0,
+    chart,
+    format,
+    tags: [
+      { label: 'R2', value: levels.r2, mark: chart.levels.r2 },
+      { label: 'R1', value: levels.r1, mark: chart.levels.r1 },
+      { label: 'P', value: levels.pivot, mark: chart.levels.pivot },
+      { label: 'S1', value: levels.s1, mark: chart.levels.s1 },
+    ],
+    plan: t.plan(bias, format(levels.pivot), format(bias === 'long' ? levels.s1 : levels.r1)),
+  };
+});
+---
+
+<section class="section-dark" id="trzista" data-theme="dark">
+  <div class="analysis">
+    <div class="intro reveal">
+      <h2 class="h2">{t.title}</h2>
+      <p class="lead">{t.lead}</p>
+      <div class="btn-row">
+        <Button href={links.dashboard}>{t.primary}</Button>
+        <Button href={links.dashboard} variant="ghost" icon="north-east">
+          {t.secondary}
+        </Button>
+      </div>
+    </div>
+
+    <div class="panel reveal">
+      <div class="chips" role="group" aria-label={t.symbolsLabel}>
+        {panels.map(({ id, instrument, selected }) => (
+          <button
+            class="chip"
+            type="button"
+            aria-pressed={selected}
+            aria-controls={id}
+            data-symbol={instrument.symbol}
+            data-last={instrument.last}
+            data-prev={instrument.prev}
+            data-span={instrument.levels.r2 - instrument.levels.s1}
+          >
+            {instrument.symbol}
+          </button>
+        ))}
+      </div>
+
+      {panels.map(({ id, instrument, selected, chart, format, tags, plan }) => (
+        <div class="instrument" id={id} hidden={!selected}>
+          <div class="top">
+            <div>
+              <p class="mono-label">{instrument.symbol} · 1h</p>
+              <PriceCell
+                value={instrument.last}
+                change={changePercent(instrument)}
+                decimals={instrument.decimals}
+                lang={lang}
+                gold={instrument.symbol === 'XAU/USD'}
+                size="lg"
+                quote={instrument.symbol}
+              />
+            </div>
+            <div class="badges">
+              <Badge tone="session">{t.session}</Badge>
+              <Badge tone={instrument.bias === 'long' ? 'up' : 'down'}>
+                {instrument.bias === 'long' ? t.long : t.short}
+              </Badge>
+            </div>
+          </div>
+
+          <div class="chart">
+            <svg
+              viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
+              preserveAspectRatio="none"
+              role="img"
+              aria-label={t.chartLabel(instrument.symbol)}
+            >
+              {gridLines.map((y) => (
+                <line class="grid-line" x1="0" x2={CHART_WIDTH} y1={y} y2={y} />
+              ))}
+              {tags.map(({ label, mark }) => (
+                <line
+                  class:list={['level', { pivot: label === 'P' }]}
+                  x1="0"
+                  x2={CHART_WIDTH}
+                  y1={mark.y}
+                  y2={mark.y}
+                />
+              ))}
+              <path class="wick-up" d={chart.wicksUp} />
+              <path class="wick-down" d={chart.wicksDown} />
+              <path class="body-up" d={chart.bodiesUp} />
+              <path class="body-down" d={chart.bodiesDown} />
+              <path class="average" d={chart.average} />
+              <line class="last" x1="0" x2={CHART_WIDTH} y1={chart.last.y} y2={chart.last.y} />
+            </svg>
+            <div class="tags" aria-hidden="true">
+              {tags.map(({ label, value, mark }) => (
+                <span class="tag" style={`top: ${mark.percent}%`}>
+                  <b>{label}</b>
+                  {format(value)}
+                </span>
+              ))}
+              <span class="tag tag-last" style={`top: ${chart.last.percent}%`}>
+                {format(instrument.last)}
+              </span>
+            </div>
+          </div>
+
+          <dl class="levels">
+            {tags.map(({ label, value }) => (
+              <div>
+                <dt>{label === 'P' ? t.pivot : label}</dt>
+                <dd>{format(value)}</dd>
+              </div>
+            ))}
+          </dl>
+          <p class="plan">{plan}</p>
+          <p class="caption note">{t.sampleNote}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="ticker">
+    <p class="caption">{t.tickerTitle}</p>
+    <div class="marquee">
+      <ul class="marquee-track">
+        {[false, true].map((duplicate) =>
+          ticker.map(({ symbol, value, change, decimals }) => (
+            <li aria-hidden={duplicate ? 'true' : undefined}>
+              <span class="mono-label">{symbol}</span>
+              <PriceCell
+                value={value}
+                change={change}
+                decimals={decimals}
+                lang={lang}
+                gold={symbol === 'XAU/USD'}
+                quote={symbol}
+              />
+            </li>
+          )),
+        )}
+      </ul>
+    </div>
+    <p class="sr-only">{sample}</p>
+  </div>
+</section>
+
+<script>
+  import { numberLocales } from '@/i18n/locales';
+  import { formatChange, formatNumber } from '@/lib/format';
+
+  // Instrument switcher
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('#trzista .chip')];
+  let selected = chips.find((chip) => chip.getAttribute('aria-pressed') === 'true') ?? chips[0];
+
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      selected = chip;
+      chips.forEach((c) => {
+        const on = c === chip;
+        c.setAttribute('aria-pressed', String(on));
+        const panel = document.getElementById(c.getAttribute('aria-controls') ?? '');
+        if (panel) panel.hidden = !on;
+      });
+    }),
+  );
+
+  // Sample price ticks for the selected instrument: drift toward the last price with small noise.
+  const locale = numberLocales[document.documentElement.lang.startsWith('en') ? 'en' : 'sr'];
+  const prices = new Map<string, number>();
+
+  setInterval(() => {
+    if (!selected || document.hidden) return;
+    const { symbol = '', last, prev, span } = selected.dataset;
+    const target = Number(last);
+    const current = prices.get(symbol) ?? target;
+    const next = current + (target - current) * 0.18 + (Math.random() - 0.5) * Number(span) * 0.012;
+    prices.set(symbol, next);
+    const change = Math.round(((next - Number(prev)) / Number(prev)) * 10000) / 100;
+
+    document.querySelectorAll<HTMLElement>(`[data-quote="${symbol}"]`).forEach((cell) => {
+      const decimals = Number(cell.dataset.decimals);
+      const value = cell.querySelector('[data-value]');
+      const changeText = cell.querySelector('[data-change]');
+      if (value) value.textContent = formatNumber(next, decimals, locale);
+      if (changeText) changeText.textContent = formatChange(change, locale);
+      cell.classList.toggle('tick-up', next > current);
+      cell.classList.toggle('tick-down', next < current);
+      setTimeout(() => cell.classList.remove('tick-up', 'tick-down'), 200);
+    });
+  }, 2600);
+</script>
+
+<style>
+  @keyframes reveal-chart {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .analysis {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: 56px;
+    padding: 120px var(--gutter) 80px;
+  }
+
+  .analysis::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(45% 60% at 100% 100%, rgb(66 202 215 / 0.07), transparent 70%);
+  }
+
+  .analysis > * {
+    position: relative;
+  }
+
+  .intro .btn-row {
+    margin-top: 12px;
+  }
+
+  /* The shared instrument chips sit between the selected instrument's header and its chart. */
+  .panel {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+  }
+
+  .instrument {
+    display: contents;
+  }
+
+  .instrument[hidden] {
+    display: none;
+  }
+
+  .instrument > * {
+    order: 2;
+  }
+
+  .instrument > .top {
+    order: 0;
+  }
+
+  .chips {
+    order: 1;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    gap: 2px;
+    margin-top: 16px;
+    padding: 3px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+  }
+
+  .chip {
+    padding: 5px 12px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-muted);
+    font: 500 12px/16px var(--font-mono);
+    cursor: pointer;
+    transition:
+      background-color 0.2s var(--ease),
+      color 0.2s var(--ease);
+  }
+
+  .chip:hover {
+    color: var(--text);
+  }
+
+  .chip[aria-pressed='true'] {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+  }
+
+  .top .mono-label {
+    margin-bottom: 4px;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .chart {
+    position: relative;
+    height: 280px;
+    margin-top: 20px;
+  }
+
+  .chart svg {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: calc(100% - 88px);
+    height: 100%;
+    overflow: visible;
+    animation: reveal-chart 1.6s var(--ease) 0.3s both;
+  }
+
+  .chart svg * {
+    vector-effect: non-scaling-stroke;
+  }
+
+  .grid-line {
+    stroke: var(--border);
+  }
+
+  .level {
+    stroke: var(--border-strong);
+    stroke-dasharray: 3 5;
+  }
+
+  .level.pivot {
+    stroke: var(--text-muted);
+    stroke-dasharray: 1 4;
+  }
+
+  .last {
+    stroke: var(--price);
+    stroke-dasharray: 2 3;
+    opacity: 0.8;
+  }
+
+  .wick-up {
+    stroke: var(--up);
+  }
+
+  .wick-down {
+    stroke: var(--down);
+  }
+
+  .body-up {
+    fill: var(--up);
+  }
+
+  .body-down {
+    fill: var(--down);
+  }
+
+  .average {
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: 1.25;
+  }
+
+  .tags {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 84px;
+  }
+
+  .tag {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    background: var(--surface-raised);
+    color: var(--text-body);
+    font: 500 12px/16px var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    transform: translateY(-50%);
+  }
+
+  .tag b {
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .tag-last {
+    color: var(--price);
+  }
+
+  .levels {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 16px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .levels div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .levels dt {
+    font: 400 12px/16px var(--font-mono);
+    color: var(--text-muted);
+  }
+
+  .levels dd {
+    margin: 0;
+    font: 500 14px/20px var(--font-mono);
+    color: var(--text);
+  }
+
+  .plan {
+    margin: 16px 0 0;
+    font: 400 14px/22px var(--font-sans);
+  }
+
+  .note {
+    margin-top: 12px;
+  }
+
+  .ticker {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    padding: 28px 0 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .marquee {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 56px;
+    width: max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    animation: marquee 48s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-track li {
+    display: flex;
+    flex: none;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  @media (max-width: 1080px) {
+    .analysis {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .analysis {
+      gap: 40px;
+      padding: 64px 16px 48px;
+    }
+
+    .panel {
+      padding: 16px;
+    }
+
+    .chart {
+      height: 220px;
+    }
+
+    .chart svg {
+      width: calc(100% - 80px);
+    }
+
+    .levels {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 12px;
+    }
+
+    .ticker {
+      padding: 24px 0 28px;
+    }
+
+    .marquee-track {
+      gap: 36px;
+    }
+  }
+</style>

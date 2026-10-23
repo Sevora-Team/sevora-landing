@@ -1,0 +1,304 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { links } from '@/data/links';
+import { prices, YEARLY_DISCOUNT } from '@/data/pricing';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { pricing } = useTranslations(lang);
+const { currency, locale } = prices[lang];
+const money = new Intl.NumberFormat(locale, {
+  style: 'currency',
+  currency,
+  maximumFractionDigits: 0,
+}).format;
+
+function paid(monthly: number) {
+  const yearly = Math.round(monthly * (1 - YEARLY_DISCOUNT));
+  return {
+    monthly: money(monthly),
+    yearly: money(yearly),
+    yearlyNote: pricing.noteYearly(money(yearly * 12)),
+  };
+}
+
+const plans = [
+  { ...pricing.plans.free, price: undefined, featured: false },
+  { ...pricing.plans.starter, price: paid(prices[lang].starter), featured: false },
+  { ...pricing.plans.premium, price: paid(prices[lang].premium), featured: true },
+];
+---
+
+<section class="section pricing" id="paketi">
+  <div class="wrap">
+    <div class="intro-center reveal">
+      <h2 class="h2" style="max-width: 18ch">
+        {pricing.title}
+      </h2>
+      <p class="lead">{pricing.lead}</p>
+    </div>
+
+    <fieldset class="billing">
+      <legend class="sr-only">{pricing.billingLabel}</legend>
+      <input class="sr-only" type="radio" name="billing" id="billing-monthly" checked />
+      <label for="billing-monthly">{pricing.monthly}</label>
+      <input class="sr-only" type="radio" name="billing" id="billing-yearly" />
+      <label for="billing-yearly">
+        {pricing.yearly}
+        <span class="save">−{YEARLY_DISCOUNT * 100}%</span>
+      </label>
+    </fieldset>
+
+    <div class="plans">
+      {plans.map(({ name, description, items, cta, price, featured }) => (
+        <article
+          class:list={['plan', 'reveal', { featured }]}
+          data-theme={featured ? 'dark' : undefined}
+        >
+          <div>
+            <h3 class="h3">{name}</h3>
+            <p class="body-sm description">{description}</p>
+          </div>
+          <div>
+            {price ? (
+              <>
+                <p class="price monthly">
+                  <strong>{price.monthly}</strong>
+                  <span class="per">{pricing.perMonth}</span>
+                </p>
+                <p class="price yearly">
+                  <strong>{price.yearly}</strong>
+                  <s>{price.monthly}</s>
+                  <span class="per">{pricing.perMonth}</span>
+                </p>
+                <p class="caption note monthly">{pricing.noteMonthly}</p>
+                <p class="caption note yearly">{price.yearlyNote}</p>
+              </>
+            ) : (
+              <>
+                <p class="price">
+                  <strong>{money(0)}</strong>
+                  <span class="per">{pricing.forever}</span>
+                </p>
+                <p class="caption note">{pricing.noteFree}</p>
+              </>
+            )}
+          </div>
+          <div class="features">
+            <p class="caption">{pricing.included}</p>
+            <ul>
+              {items.map((item) => (
+                <li>
+                  <Icon name="check" class="check" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Button class="cta" href={links.signup} variant={featured ? 'primary' : 'ghost'}>
+            {cta}
+          </Button>
+        </article>
+      ))}
+    </div>
+
+    <p class="caption guarantee">
+      <Icon name="verified-user" size={16} />
+      {pricing.guarantee}
+    </p>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding-top: 0;
+  }
+
+  /* Billing toggle: a segmented radio group; the checked option picks which prices show. */
+  .billing {
+    /* Anchors the visually hidden radios, so focusing one doesn't scroll the page. */
+    position: relative;
+    display: flex;
+    gap: 2px;
+    width: max-content;
+    margin: 0 auto 32px;
+    padding: 4px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+  }
+
+  .billing label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    color: var(--text-muted);
+    font: 500 14px/20px var(--font-sans);
+    cursor: pointer;
+    transition:
+      background-color 0.25s var(--ease),
+      color 0.25s var(--ease);
+  }
+
+  .billing label:hover {
+    color: var(--text);
+  }
+
+  .billing input:checked + label {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .billing input:focus-visible + label {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .save {
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+    font: 500 12px/16px var(--font-mono);
+  }
+
+  .billing input:checked + label .save {
+    background: var(--on-accent);
+    color: var(--accent);
+  }
+
+  .pricing:has(#billing-monthly:checked) .yearly,
+  .pricing:has(#billing-yearly:checked) .monthly {
+    display: none;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .plan {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    transition:
+      border-color 0.25s var(--ease),
+      transform 0.35s var(--ease);
+  }
+
+  .plan:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+  }
+
+  .featured {
+    border-color: var(--accent-border);
+    background: var(--bg);
+  }
+
+  .featured:hover {
+    border-color: var(--accent);
+  }
+
+  .description {
+    margin-top: 6px;
+  }
+
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .price strong {
+    font: 400 44px/52px var(--font-sans);
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .price s {
+    font: 400 18px/24px var(--font-sans);
+    color: var(--text-muted);
+  }
+
+  .per {
+    font: 400 14px/16px var(--font-sans);
+    color: var(--text-muted);
+  }
+
+  .note {
+    min-height: 16px;
+    margin-top: 4px;
+  }
+
+  .features {
+    display: grid;
+    gap: 14px;
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--surface-hover);
+  }
+
+  .features ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .check {
+    flex: none;
+    margin-top: 2px;
+    color: var(--accent-text);
+  }
+
+  .cta {
+    justify-content: center;
+    margin-top: auto;
+  }
+
+  .guarantee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+
+  .guarantee svg {
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 1080px) {
+    .plans {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .plan {
+      padding: 24px;
+    }
+  }
+</style>

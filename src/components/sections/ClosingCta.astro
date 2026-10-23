@@ -1,0 +1,83 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import { links } from '@/data/links';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section class="cta section-dark" data-theme="dark">
+  <div class="wrap content">
+    <h2 class="display reveal">{t.cta.title}</h2>
+    <p class="lead reveal">{t.cta.lead}</p>
+    <div class="btn-row reveal">
+      <Button href={links.signup}>{t.actions.start}</Button>
+      <Button href="#paketi" variant="ghost" icon="north-east">
+        {t.actions.seePlans}
+      </Button>
+    </div>
+  </div>
+  <Glyphs name="dome" class="dome" />
+</section>
+
+<style>
+  .cta {
+    min-height: 620px;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(50% 60% at 100% 100%, rgb(66 202 215 / 0.09), transparent 70%);
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    padding-top: 104px;
+    text-align: center;
+  }
+
+  .display {
+    max-width: 15ch;
+  }
+
+  .lead {
+    max-width: 52ch;
+    margin-top: 20px;
+  }
+
+  .btn-row {
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .dome {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    height: 300px;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .cta {
+      min-height: 560px;
+    }
+
+    .content {
+      padding-top: 64px;
+    }
+
+    .btn-row > * {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+</style>

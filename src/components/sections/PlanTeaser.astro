@@ -1,0 +1,149 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import Icon from '@/components/ui/Icon.astro';
+import LockedCard from '@/components/ui/LockedCard.astro';
+import { GOLD, instruments } from '@/data/markets';
+import { numberLocales } from '@/i18n/locales';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { formatNumber } from '@/lib/format';
+
+const lang = getLangFromUrl(Astro.url);
+const { teaser } = useTranslations(lang);
+const gold = instruments.find((i) => i.symbol === GOLD)!;
+const bias = gold.bias === 'long' ? 'Long' : 'Short';
+
+const levelRows = [
+  { label: 'R1', value: formatNumber(gold.levels.r1, gold.decimals, numberLocales[lang]) },
+  { label: 'R2' },
+  { label: 'S1' },
+  { label: 'S2' },
+];
+const scenarioRows = [
+  { label: 'Bias', value: bias },
+  ...teaser.scenarios.rows.map((label) => ({ label })),
+];
+---
+
+<section class="section teaser" id="plan">
+  <div class="wrap split">
+    <div class="intro reveal">
+      <h2 class="h2">{teaser.title}</h2>
+      <p class="lead">{teaser.lead}</p>
+      <div class="btn-row">
+        <Button href="#paketi">{teaser.cta}</Button>
+      </div>
+    </div>
+
+    <div class="snapshot reveal" data-theme="dark">
+      <Glyphs name="band" align="xMaxYMin" class="texture" />
+      <div class="snapshot-head">
+        <span class="icon-circle">
+          <Icon name="event-note" />
+        </span>
+        <h3 class="h3">{teaser.snapshot}</h3>
+      </div>
+      <div class="box">
+        {[
+          { ...teaser.levels, rows: levelRows },
+          { ...teaser.scenarios, rows: scenarioRows },
+        ].map(({ title, text, footer, rows }) => (
+          <div class="item">
+            <h4 class="h4">{title}</h4>
+            <p class="body-sm">{text}</p>
+            <LockedCard
+              rows={rows}
+              footer={footer}
+              cta={teaser.unlock}
+              ctaHref="#paketi"
+              lockedLabel={teaser.locked}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .teaser {
+    padding-top: 0;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: 56px;
+  }
+
+  .intro .btn-row {
+    margin-top: 12px;
+  }
+
+  .snapshot {
+    position: relative;
+    padding: 32px;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--bg);
+  }
+
+  .snapshot > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .snapshot > .texture {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 0;
+    height: 160px;
+    opacity: 0.7;
+  }
+
+  .snapshot-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .box {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Grows so both locked cards line up at the bottom. */
+  .item .body-sm {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 1080px) {
+    .split {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .snapshot {
+      padding: 20px;
+    }
+
+    .box {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

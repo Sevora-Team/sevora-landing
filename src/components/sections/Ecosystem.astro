@@ -1,0 +1,198 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { links } from '@/data/links';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem;
+---
+
+<section class="section ecosystem" id="ekosistem">
+  <div class="wrap grid">
+    <article class="card reveal" data-theme="dark">
+      <Glyphs name="bars" align="xMaxYMin" class="texture" />
+      <div>
+        <span class="icon-circle">
+          <Icon name="storefront" />
+        </span>
+        <h3 class="h3">{shop.title}</h3>
+        <p class="body-sm">{shop.text}</p>
+      </div>
+      <ul class="chips">
+        {shop.items.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <div class="btn-row">
+        <Button href={links.shop} size="sm" icon="north-east">
+          {shop.cta}
+        </Button>
+      </div>
+    </article>
+
+    <article class="card card-grey reveal">
+      <div>
+        <span class="icon-circle">
+          <Icon name="handshake" />
+        </span>
+        <h3 class="h3">{affiliate.title}</h3>
+        <p class="body-sm">{affiliate.text}</p>
+      </div>
+      <p class="stat">
+        <strong>{affiliate.stat}</strong>
+        <span>{affiliate.statText}</span>
+      </p>
+      <ol class="steps">
+        {affiliate.steps.map((step, i) => (
+          <li>
+            <span class="number">{String(i + 1).padStart(2, '0')}</span>
+            {step}
+          </li>
+        ))}
+      </ol>
+      <div class="btn-row">
+        <Button href={links.affiliate} variant="ghost" size="sm" icon="north-east">
+          {affiliate.cta}
+        </Button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .ecosystem {
+    padding-top: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 16px;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    min-height: 440px;
+    padding: 40px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--bg);
+    transition: border-color 0.25s var(--ease);
+  }
+
+  .card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card > .texture {
+    position: absolute;
+    inset: 0 0 0 auto;
+    z-index: 0;
+    width: 46%;
+    height: 100%;
+    opacity: 0.55;
+  }
+
+  .card-grey {
+    border-color: transparent;
+    background: var(--surface-hover);
+  }
+
+  .h3 {
+    margin-top: 20px;
+  }
+
+  .card .body-sm {
+    max-width: 42ch;
+    margin-top: 10px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 560px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chips li {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    font: 400 13px/18px var(--font-sans);
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
+  }
+
+  .stat strong {
+    font: 400 64px/68px var(--font-sans);
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  .stat span {
+    max-width: 22ch;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .steps {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+
+  .steps li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  .number {
+    font: 500 12px/16px var(--font-mono);
+    letter-spacing: 0.06em;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 1080px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .card {
+      min-height: 0;
+      padding: 24px;
+    }
+
+    .stat strong {
+      font-size: 48px;
+      line-height: 52px;
+    }
+  }
+</style>

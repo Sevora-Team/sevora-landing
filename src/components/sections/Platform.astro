@@ -1,0 +1,251 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { links } from '@/data/links';
+import type { Dictionary } from '@/i18n/sr';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import type { TextureName } from '@/lib/glyphs';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const { platform } = t;
+
+const features: {
+  id: keyof Dictionary['platform']['features'];
+  icon: IconName;
+  texture: TextureName;
+}[] = [
+  { id: 'analysis', icon: 'insights', texture: 'globe' },
+  { id: 'plan', icon: 'event-note', texture: 'bars' },
+  { id: 'scenarios', icon: 'call-split', texture: 'stair' },
+  { id: 'journal', icon: 'menu-book', texture: 'diag' },
+  { id: 'mentor', icon: 'psychology', texture: 'rings' },
+  { id: 'alerts', icon: 'notifications', texture: 'wave' },
+  { id: 'calendar', icon: 'calendar-month', texture: 'bars' },
+  { id: 'bots', icon: 'smart-toy', texture: 'globe' },
+  { id: 'propFirm', icon: 'verified-user', texture: 'stair' },
+  { id: 'academy', icon: 'school', texture: 'diag' },
+];
+---
+
+<section class="section" id="platforma">
+  <div class="wrap">
+    <p class="statement">
+      {platform.statement.map(({ text, tone }) => (
+        <span class:list={[tone && `tone-${tone}`]}>{text}</span>
+      ))}
+    </p>
+
+    <div class="carousel">
+      <div class="controls reveal">
+        <p class="caption">{platform.toolsCount}</p>
+        <div class="arrows">
+          <button class="arrow" type="button" aria-label={platform.prev} data-direction="-1">
+            <Icon name="arrow-back" />
+          </button>
+          <button class="arrow" type="button" aria-label={platform.next} data-direction="1">
+            <Icon name="arrow-forward" />
+          </button>
+        </div>
+      </div>
+
+      <ul class="rail">
+        {features.map(({ id, icon, texture }) => {
+          const feature = platform.features[id];
+          return (
+            <li class="card reveal" data-theme="dark">
+              <Glyphs name={texture} align="xMidYMid" class="texture" />
+              <div class="card-top">
+                <span class="icon-circle">
+                  <Icon name={icon} />
+                </span>
+                <span class="caption">{feature.tier}</span>
+              </div>
+              <div>
+                <h3 class="h3">{feature.title}</h3>
+                <p class="body-sm">{feature.text}</p>
+                <Button href={links.dashboard} variant="ghost" size="sm" icon="north-east">
+                  {t.actions.more}
+                </Button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  const rail = document.querySelector<HTMLElement>('#platforma .rail');
+  document.querySelectorAll<HTMLButtonElement>('#platforma .arrow').forEach((button) =>
+    button.addEventListener('click', () => {
+      const card = rail?.firstElementChild as HTMLElement | null;
+      const step = (card?.offsetWidth ?? 300) + 16;
+      rail?.scrollBy({ left: Number(button.dataset.direction) * step, behavior: 'smooth' });
+    }),
+  );
+</script>
+
+<style>
+  @keyframes ink {
+    from {
+      opacity: 0.18;
+    }
+  }
+
+  .statement {
+    max-width: 30ch;
+    margin: 20px 0 0;
+    font: 400 34px/46px var(--font-sans);
+    letter-spacing: -0.015em;
+    color: var(--text);
+  }
+
+  /* Words darken as the statement scrolls into view. */
+  @supports (animation-timeline: view()) {
+    .statement span {
+      animation: ink linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+  }
+
+  .tone-accent {
+    color: var(--accent-text);
+  }
+
+  .tone-muted {
+    color: var(--text-muted);
+  }
+
+  .carousel {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    align-items: end;
+    gap: 32px;
+    margin-top: 72px;
+  }
+
+  .controls {
+    display: grid;
+    gap: 16px;
+    padding-bottom: 8px;
+  }
+
+  .arrows {
+    display: flex;
+    gap: 8px;
+  }
+
+  .arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 0.2s var(--ease);
+  }
+
+  .arrow:hover {
+    background: var(--surface-hover);
+  }
+
+  .rail {
+    display: flex;
+    gap: 16px;
+    margin: 0 calc(-1 * var(--gutter)) 0 0;
+    padding: 0 var(--gutter) 4px 0;
+    overflow-x: auto;
+    list-style: none;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex: 0 0 300px;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 420px;
+    padding: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--bg);
+    scroll-snap-align: start;
+    transition: border-color 0.25s var(--ease);
+  }
+
+  .card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card > .texture {
+    position: absolute;
+    inset: 56px 0 auto;
+    z-index: 0;
+    height: 190px;
+    pointer-events: none;
+    transition: transform 0.8s var(--ease);
+  }
+
+  .card:hover > .texture {
+    transform: scale(1.04) translateY(-4px);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card .body-sm {
+    margin: 8px 0 16px;
+  }
+
+  @media (max-width: 1080px) {
+    .carousel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .controls {
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .statement {
+      font-size: 24px;
+      line-height: 34px;
+    }
+
+    .rail {
+      margin-right: -16px;
+      padding-right: 16px;
+    }
+
+    .card {
+      flex-basis: 260px;
+      height: 380px;
+    }
+  }
+</style>

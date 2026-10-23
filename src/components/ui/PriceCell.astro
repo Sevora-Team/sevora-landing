@@ -1,0 +1,95 @@
+---
+import { numberLocales, type Lang } from '@/i18n/locales';
+import { useTranslations } from '@/i18n/utils';
+import { formatChange, formatNumber } from '@/lib/format';
+
+interface Props {
+  value: number;
+  /** Change in %; omit to show the value only. */
+  change?: number;
+  decimals: number;
+  lang: Lang;
+  /** Gold prices use the warm price colour. */
+  gold?: boolean;
+  size?: 'md' | 'lg';
+  /** Instrument symbol; marks the cell for live sample-price updates. */
+  quote?: string;
+}
+
+const { value, change, decimals, lang, gold = false, size = 'md', quote } = Astro.props;
+const t = useTranslations(lang);
+const locale = numberLocales[lang];
+const direction =
+  change === undefined ? undefined : change > 0 ? 'up' : change < 0 ? 'down' : 'flat';
+---
+
+<span
+  class:list={['price', { gold, lg: size === 'lg' }]}
+  data-quote={quote}
+  data-decimals={quote ? decimals : undefined}
+>
+  <span class="value" data-value>
+    {formatNumber(value, decimals, locale)}
+  </span>
+  {change !== undefined && direction && (
+    <span class:list={['change', direction]}>
+      {direction !== 'flat' && <span aria-hidden="true">{direction === 'up' ? '▲' : '▼'} </span>}
+      <span data-change>{formatChange(change, locale)}</span>
+      <span class="sr-only"> {t.price[direction]}</span>
+    </span>
+  )}
+</span>
+
+<style>
+  .price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .value {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--text);
+    transition: color 0.2s ease;
+  }
+
+  .lg .value {
+    font-size: 31px;
+    line-height: 38px;
+  }
+
+  .gold .value {
+    color: var(--price);
+  }
+
+  .change {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .up {
+    color: var(--up);
+  }
+
+  .down {
+    color: var(--down);
+  }
+
+  .flat {
+    color: var(--text-muted);
+  }
+
+  /* Set briefly by the live-price script when the sample price moves. */
+  .tick-up .value {
+    color: var(--up);
+  }
+
+  .tick-down .value {
+    color: var(--down);
+  }
+</style>

@@ -1,9 +1,35 @@
 ---
-// The landing page, shared by every locale. Section components read the
-// language from the URL, so locale pages only need to render this.
-import Hero from '@/components/sections/Hero.astro';
+// The landing page, shared by every locale. Components read the language from the URL,
+// so locale pages only need to render this.
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+import About from './sections/About.astro';
+import Academy from './sections/Academy.astro';
+import ClosingCta from './sections/ClosingCta.astro';
+import Contact from './sections/Contact.astro';
+import Ecosystem from './sections/Ecosystem.astro';
+import Faq from './sections/Faq.astro';
+import Hero from './sections/Hero.astro';
+import Markets from './sections/Markets.astro';
+import PlanTeaser from './sections/PlanTeaser.astro';
+import Platform from './sections/Platform.astro';
+import Pricing from './sections/Pricing.astro';
+import Steps from './sections/Steps.astro';
 ---
 
+<Header />
 <main>
   <Hero />
+  <About />
+  <Markets />
+  <Platform />
+  <PlanTeaser />
+  <Steps />
+  <Academy />
+  <Ecosystem />
+  <Pricing />
+  <Faq />
+  <Contact />
+  <ClosingCta />
 </main>
+<Footer />

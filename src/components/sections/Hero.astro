@@ -1,10 +1,219 @@
 ---
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import PriceCell from '@/components/ui/PriceCell.astro';
+import { links } from '@/data/links';
+import { changePercent, GOLD, instruments } from '@/data/markets';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const t = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const gold = instruments.find((i) => i.symbol === GOLD)!;
 ---
 
-<section id="top" data-theme="dark">
-  <h1>{t('hero.title')}</h1>
-  <p>{t('hero.lead')}</p>
+<section class="hero section-dark" id="top" data-theme="dark">
+  <div class="wrap content">
+    <h1 class="display rise" style="--delay: 0.08s">
+      {t.hero.title}
+    </h1>
+    <p class="lead rise" style="--delay: 0.16s">
+      {t.hero.lead}
+    </p>
+    <div class="btn-row rise" style="--delay: 0.24s">
+      <Button href={links.signup}>{t.hero.primary}</Button>
+      <Button href="#platforma" variant="ghost" icon="north-east">
+        {t.hero.secondary}
+      </Button>
+    </div>
+    <p class="markets caption rise" style="--delay: 0.36s">
+      {t.hero.markets}
+    </p>
+  </div>
+
+  <div class="dome-drift">
+    <Glyphs name="dome" class="dome" />
+  </div>
+
+  <!-- Stepped notch where the light page cuts into the hero -->
+  <div class="notch notch-low" aria-hidden="true"></div>
+  <div class="notch notch-high" data-theme="light">
+    <div class="quote">
+      <span class="mono-label symbol">{gold.symbol}</span>
+      <PriceCell
+        value={gold.last}
+        change={changePercent(gold)}
+        decimals={gold.decimals}
+        lang={lang}
+        gold
+        quote={gold.symbol}
+      />
+      <span class="caption">{t.sample}</span>
+    </div>
+  </div>
 </section>
+
+<style>
+  @keyframes drift {
+    to {
+      transform: translateY(60px);
+    }
+  }
+
+  .hero {
+    min-height: 904px;
+    /* Slide under the sticky header. */
+    margin-top: -84px;
+    padding-top: 84px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 65% at 0% 100%, rgb(66 202 215 / 0.11), transparent 70%),
+      radial-gradient(35% 45% at 100% 0%, rgb(66 202 215 / 0.05), transparent 70%);
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .display {
+    max-width: 16ch;
+    margin-top: 20px;
+  }
+
+  .lead {
+    max-width: 52ch;
+    margin-top: 20px;
+  }
+
+  .btn-row {
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .markets {
+    margin-top: 28px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  .dome-drift {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .dome-drift {
+      animation: drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 700px;
+    }
+  }
+
+  .dome {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    height: 400px;
+    animation: rise 1.4s var(--ease) 0.35s both;
+  }
+
+  .notch {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-top-left-radius: 24px;
+    background: var(--page);
+  }
+
+  /* Concave corner joining each step to the page below it. */
+  .notch::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    bottom: 0;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle at 0 0, transparent 23.5px, var(--page) 24px);
+  }
+
+  .notch-low {
+    z-index: 2;
+    width: 56%;
+    height: 46px;
+  }
+
+  .notch-high {
+    z-index: 3;
+    width: 40%;
+    height: 104px;
+  }
+
+  .notch-high::before {
+    bottom: 46px;
+  }
+
+  .quote {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    padding: 6px var(--gutter) 0 40px;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: 828px;
+      margin-top: -68px;
+      padding-top: 68px;
+    }
+
+    .content {
+      padding-top: 48px;
+    }
+
+    .btn-row > * {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+
+    .dome {
+      height: 300px;
+    }
+
+    .notch-low {
+      width: 86%;
+      height: 38px;
+    }
+
+    .notch-high {
+      width: 72%;
+      height: 92px;
+    }
+
+    .notch-high::before {
+      bottom: 38px;
+    }
+
+    .quote {
+      gap: 10px;
+      padding: 4px 16px 0 24px;
+    }
+
+    .symbol {
+      display: none;
+    }
+  }
+</style>

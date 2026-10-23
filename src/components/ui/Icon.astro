@@ -10,7 +10,8 @@ interface Props {
   class?: string;
 }
 
-const { name, size = 20, label, class: className } = Astro.props;
+// `rest` carries the parent's scoped-style attribute, so parents can style the icon.
+const { name, size = 20, label, class: className, ...rest } = Astro.props;
 const Svg = icons[name];
 ---
 
@@ -23,4 +24,5 @@ const Svg = icons[name];
   role={label ? 'img' : undefined}
   aria-label={label}
   aria-hidden={label ? undefined : 'true'}
+  {...rest}
 />

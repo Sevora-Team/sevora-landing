@@ -2,7 +2,7 @@
 import { Font, getImage } from 'astro:assets';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import sevoraMark from '@/assets/brand/sevora-mark.webp';
-import { defaultLang, langTags, languages, type Lang } from '@/i18n/ui';
+import { defaultLang, langTags, languages, type Lang } from '@/i18n/locales';
 import { getLangFromUrl, getPathWithoutLocale, useTranslations } from '@/i18n/utils';
 import '@/styles/global.css';
 
@@ -13,13 +13,9 @@ interface Props {
   noindex?: boolean;
 }
 
-const lang: Lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const {
-  title = t('site.title'),
-  description = t('site.description'),
-  noindex = false,
-} = Astro.props;
+const { title = t.meta.title, description = t.meta.description, noindex = false } = Astro.props;
 
 const [favicon, appleTouchIcon] = await Promise.all([
   getImage({ src: sevoraMark, width: 32, height: 32, format: 'png' }),

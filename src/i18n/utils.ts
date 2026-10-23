@@ -1,4 +1,8 @@
-import { defaultLang, languages, ui, type Lang, type UiKey } from './ui';
+import { en } from './en';
+import { defaultLang, languages, type Lang } from './locales';
+import { sr, type Dictionary } from './sr';
+
+const dictionaries: Record<Lang, Dictionary> = { sr, en };
 
 export function isLang(value: string | undefined): value is Lang {
   return value !== undefined && value in languages;
@@ -16,8 +20,6 @@ export function getPathWithoutLocale(url: URL): string {
   return segments.length ? `${segments.join('/')}/` : '';
 }
 
-export function useTranslations(lang: Lang) {
-  return function t(key: UiKey): string {
-    return ui[lang][key] ?? ui[defaultLang][key];
-  };
+export function useTranslations(lang: Lang): Dictionary {
+  return dictionaries[lang];
 }

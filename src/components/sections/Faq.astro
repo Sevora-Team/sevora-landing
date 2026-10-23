@@ -1,0 +1,102 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { faq } = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section class="section faq" id="pitanja">
+  <div class="wrap layout">
+    <h2 class="h2 reveal">{faq.title}</h2>
+    <div class="items">
+      {faq.items.map(({ question, answer }) => (
+        <details name="faq" class="reveal">
+          <summary>
+            {question}
+            <span class="toggle">
+              <Icon name="expand-more" />
+            </span>
+          </summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding-top: 0;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    align-items: start;
+    gap: 56px;
+  }
+
+  .items {
+    border-top: 1px solid var(--border);
+  }
+
+  details {
+    border-bottom: 1px solid var(--border);
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 0;
+    color: var(--text);
+    font: 400 19px/28px var(--font-sans);
+    list-style: none;
+    cursor: pointer;
+    transition: color 0.2s var(--ease);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover {
+    color: var(--accent-text);
+  }
+
+  .toggle {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-hover);
+    color: var(--text);
+    transition: transform 0.3s var(--ease);
+  }
+
+  details[open] .toggle {
+    transform: rotate(180deg);
+  }
+
+  details p {
+    max-width: 64ch;
+    margin: 0;
+    padding: 0 56px 24px 0;
+    animation: fade 0.35s var(--ease) both;
+  }
+
+  @media (max-width: 1080px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    details p {
+      padding-right: 0;
+    }
+  }
+</style>

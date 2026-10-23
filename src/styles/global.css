@@ -1,5 +1,7 @@
 @import './tokens.css';
 
+/* Reset */
+
 *,
 *::before,
 *::after {
@@ -12,18 +14,16 @@ html {
   text-size-adjust: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text-body);
   font: 400 16px/26px var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+[data-theme='dark'] {
+  color: var(--text-body);
 }
 
 [id] {
@@ -40,7 +40,13 @@ a {
   color: inherit;
 }
 
-:where(a, button, summary, input, textarea, select):focus-visible {
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+:where(a, button, summary, input, textarea):focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
@@ -55,4 +61,194 @@ a {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Typography */
+
+.display {
+  margin: 0;
+  font: 400 64px/70px var(--font-sans);
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.h2 {
+  margin: 0;
+  font: 400 44px/52px var(--font-sans);
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.h3 {
+  margin: 0;
+  font: 400 25px/32px var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.h4 {
+  margin: 0;
+  font: 500 17px/24px var(--font-sans);
+  color: var(--text);
+}
+
+.lead {
+  margin: 0;
+  max-width: 56ch;
+  font: 400 18px/28px var(--font-sans);
+  color: var(--text-body);
+}
+
+.body-sm {
+  margin: 0;
+  font: 400 14px/22px var(--font-sans);
+}
+
+.caption {
+  margin: 0;
+  font: 400 12px/16px var(--font-sans);
+  color: var(--text-muted);
+}
+
+.mono-label {
+  margin: 0;
+  font: 500 12px/16px var(--font-mono);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .display {
+    font-size: 40px;
+    line-height: 46px;
+  }
+
+  .h2 {
+    font-size: 31px;
+    line-height: 38px;
+  }
+
+  .h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .lead {
+    font-size: 17px;
+    line-height: 27px;
+  }
+}
+
+/* Layout */
+
+.wrap {
+  position: relative;
+  width: 100%;
+  padding-inline: var(--gutter);
+}
+
+/* A light section on the page ground. */
+.section {
+  padding-block: 120px;
+}
+
+/* A full-bleed dark section. */
+.section-dark {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Heading + lead, centred above a section's content. */
+.intro-center {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+/* Heading + lead + actions, start-aligned. */
+.intro {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding-inline: 16px;
+  }
+
+  .section {
+    padding-block: 72px;
+  }
+}
+
+/* Round icon badge used on cards and lists. */
+.icon-circle {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+/* Motion */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes up-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+/* Load-in for above-the-fold content; stagger with --delay. */
+.rise {
+  animation: rise 0.9s var(--ease) var(--delay, 0s) both;
+}
+
+/* Elements ease up as they scroll into view (CSS only, where supported). */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: up-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

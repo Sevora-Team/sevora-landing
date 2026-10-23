@@ -30,6 +30,7 @@
   --price: #8c5a00;
   --danger: #c2323f;
   --on-danger: #ffffff;
+  --glyph: #33424f;
 }
 
 [data-theme='dark'] {
@@ -56,6 +57,7 @@
   --price: #f5b544;
   --danger: #f0616d;
   --on-danger: #03060c;
+  --glyph: #a9b4bf;
 }
 
 :root {
@@ -76,6 +78,8 @@
   --radius-panel: 28px;
   --radius-pill: 999px;
 
+  /* The light page ground, kept constant inside dark sections (e.g. the hero notch). */
+  --page: #f3f6f9;
   --gutter: clamp(16px, 4.4vw, 72px);
   --header-height: 68px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);

@@ -1,0 +1,123 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Icon from './ui/Icon.astro';
+import LanguageSwitch from './ui/LanguageSwitch.astro';
+import Logo from './ui/Logo.astro';
+
+const { footer } = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<footer class="footer section-dark" data-theme="dark">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <Logo size="lg" />
+        <p class="body-sm about">{footer.about}</p>
+        <LanguageSwitch />
+      </div>
+      {footer.columns.map(({ title, links }) => (
+        <nav aria-label={title}>
+          <h2 class="mono-label heading">{title}</h2>
+          <ul>
+            {links.map(({ label, href }) => (
+              <li>
+                <a href={href}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+
+    <div class="risk">
+      <Icon name="info" />
+      <p class="body-sm">{footer.risk}</p>
+    </div>
+
+    <div class="base">
+      <p class="caption">{footer.copyright}</p>
+      <p class="caption">{footer.legal}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 72px 0 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .about {
+    max-width: 34ch;
+    margin: 16px 0 20px;
+  }
+
+  .heading {
+    margin-bottom: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li a {
+    color: var(--text-body);
+    font-size: 14px;
+    line-height: 22px;
+    text-decoration: none;
+    transition: color 0.2s var(--ease);
+  }
+
+  li a:hover {
+    color: var(--text);
+  }
+
+  .risk {
+    display: flex;
+    gap: 12px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .risk svg {
+    flex: none;
+  }
+
+  .risk p {
+    max-width: 100ch;
+  }
+
+  .base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1080px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer {
+      padding-top: 56px;
+    }
+  }
+</style>

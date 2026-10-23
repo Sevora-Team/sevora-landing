@@ -1,0 +1,122 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import { links } from '@/data/links';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import type { TextureName } from '@/lib/glyphs';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const { items } = t.steps;
+
+const steps: { step: (typeof items)[keyof typeof items]; texture: TextureName }[] = [
+  { step: items.connect, texture: 'wave' },
+  { step: items.analyze, texture: 'bars' },
+  { step: items.act, texture: 'globe' },
+];
+---
+
+<section class="section-dark" id="kako-radi" data-theme="dark">
+  <div class="head">
+    <h2 class="h2 reveal">{t.steps.title}</h2>
+    <Button class="reveal" href={links.signup} icon="north-east">
+      {t.actions.start}
+    </Button>
+  </div>
+  <ol class="steps">
+    {steps.map(({ step, texture }, i) => (
+      <li class="step reveal">
+        <div class="visual">
+          <Glyphs name={texture} class="texture" />
+        </div>
+        <p class="number">{String(i + 1).padStart(2, '0')}</p>
+        <h3 class="h3">{step.title}</h3>
+        <p>{step.text}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    padding: 120px var(--gutter) 56px;
+  }
+
+  .head .h2 {
+    max-width: 640px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+
+  .step {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: 32px var(--gutter) 64px;
+    border-right: 1px solid var(--border);
+    transition: background-color 0.3s var(--ease);
+  }
+
+  .step:last-child {
+    border-right: 0;
+  }
+
+  .step:hover {
+    background: var(--surface);
+  }
+
+  .visual {
+    height: 150px;
+    margin-bottom: 12px;
+  }
+
+  .texture {
+    transition: transform 0.8s var(--ease);
+  }
+
+  .step:hover .texture {
+    transform: translateY(-6px);
+  }
+
+  .number {
+    margin: 0;
+    font: 500 12px/16px var(--font-mono);
+    letter-spacing: 0.06em;
+    color: var(--accent-text);
+  }
+
+  .step p:last-child {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .head {
+      padding: 64px 16px 40px;
+    }
+
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .step {
+      padding: 28px var(--gutter) 36px;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>

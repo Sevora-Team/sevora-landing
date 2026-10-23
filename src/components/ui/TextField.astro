@@ -1,0 +1,55 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'input'> & HTMLAttributes<'textarea'>, 'id'> & {
+  label: string;
+  name: string;
+  /** Renders a `<textarea>`. */
+  multiline?: boolean;
+};
+
+const { label, name, multiline = false, class: className, ...rest } = Astro.props;
+const id = `field-${name}`;
+---
+
+<div class:list={['field', className]}>
+  <label for={id}>{label}</label>
+  {multiline ? <textarea id={id} name={name} {...rest} /> : <input id={id} name={name} {...rest} />}
+</div>
+
+<style>
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+
+  label {
+    font: 500 14px/20px var(--font-sans);
+    color: var(--text);
+  }
+
+  input,
+  textarea {
+    padding: 11px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font: 400 14px/22px var(--font-sans);
+    transition: border-color 0.2s var(--ease);
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: var(--accent-border);
+  }
+
+  textarea {
+    min-height: 96px;
+    resize: vertical;
+  }
+
+  ::placeholder {
+    color: var(--text-muted);
+  }
+</style>

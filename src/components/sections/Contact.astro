@@ -1,0 +1,329 @@
+---
+import { PUBLIC_CONTACT_ENDPOINT } from 'astro:env/client';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import TextField from '@/components/ui/TextField.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { contact } = useTranslations(getLangFromUrl(Astro.url));
+
+const channels: {
+  channel: (typeof contact.channels)[keyof typeof contact.channels];
+  icon: IconName;
+}[] = [
+  { channel: contact.channels.email, icon: 'mail' },
+  { channel: contact.channels.discord, icon: 'forum' },
+  { channel: contact.channels.response, icon: 'schedule' },
+];
+---
+
+<section class="contact" id="kontakt">
+  <div class="wrap layout">
+    <div class="info intro reveal">
+      <h2 class="h2">{contact.title}</h2>
+      <p class="lead">{contact.lead}</p>
+      <ul class="channels">
+        {channels.map(({ channel, icon }) => (
+          <li>
+            <span class="icon-circle">
+              <Icon name={icon} />
+            </span>
+            <span>
+              <strong>{channel.title}</strong>
+              <span class="caption">{channel.text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="form-area reveal">
+      <form class="form" method="post" action={PUBLIC_CONTACT_ENDPOINT}>
+        <div class="row">
+          <TextField
+            label={contact.name}
+            name="name"
+            autocomplete="name"
+            placeholder={contact.namePlaceholder}
+            required
+          />
+          <TextField
+            label={contact.email}
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder={contact.emailPlaceholder}
+            required
+          />
+        </div>
+
+        <fieldset class="topics">
+          <legend>{contact.topic}</legend>
+          {contact.topics.map((topic, i) => (
+            <label>
+              <input class="sr-only" type="radio" name="topic" value={topic} checked={i === 0} />
+              <span>{topic}</span>
+            </label>
+          ))}
+        </fieldset>
+
+        <TextField
+          label={contact.message}
+          name="message"
+          multiline
+          rows={5}
+          placeholder={contact.messagePlaceholder}
+          required
+        />
+
+        <div class="foot">
+          <p class="caption consent">{contact.consent}</p>
+          <Button type="submit" icon="north-east" data-sending={contact.sending}>
+            {contact.send}
+          </Button>
+        </div>
+        <p class="error" role="alert" hidden>
+          <Icon name="info" size={16} />
+          {contact.error}
+        </p>
+      </form>
+
+      <div class="done" role="status" hidden>
+        <Icon name="check-circle" size={44} class="done-icon" />
+        <h3 class="h3">{contact.doneTitle}</h3>
+        <p class="body-sm">{contact.doneText}</p>
+        <Button variant="ghost" size="sm" class="again">
+          {contact.again}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const area = document.querySelector<HTMLElement>('#kontakt .form-area');
+  const form = area?.querySelector<HTMLFormElement>('form');
+  const done = area?.querySelector<HTMLElement>('.done');
+  const error = area?.querySelector<HTMLElement>('.error');
+  const submit = form?.querySelector<HTMLButtonElement>('[type="submit"]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form || !done || !error || !submit) return;
+
+    const label = submit.innerHTML;
+    submit.disabled = true;
+    submit.textContent = submit.dataset.sending ?? '';
+    error.hidden = true;
+
+    try {
+      // `action` falls back to this page when no endpoint is configured; only send to a real one.
+      if (!form.getAttribute('action')) throw new Error('No contact endpoint configured');
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) throw new Error(`Contact endpoint responded ${response.status}`);
+      form.hidden = true;
+      done.hidden = false;
+      form.reset();
+    } catch (cause) {
+      console.error(cause);
+      error.hidden = false;
+    } finally {
+      submit.disabled = false;
+      submit.innerHTML = label;
+    }
+  });
+
+  done?.querySelector('.again')?.addEventListener('click', () => {
+    if (!form || !done) return;
+    done.hidden = true;
+    form.hidden = false;
+    form.querySelector('input')?.focus();
+  });
+</script>
+
+<style>
+  .contact {
+    padding-block: 120px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    gap: 96px;
+  }
+
+  .info {
+    position: sticky;
+    top: 120px;
+  }
+
+  .channels {
+    width: 100%;
+    margin: 16px 0 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+
+  .channels li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .channels li > span:last-child {
+    display: grid;
+    gap: 2px;
+  }
+
+  .channels strong {
+    font: 500 15px/22px var(--font-sans);
+    color: var(--text);
+  }
+
+  .form {
+    display: grid;
+    gap: 28px;
+  }
+
+  .form[hidden] {
+    display: none;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  legend {
+    margin-bottom: 8px;
+    padding: 0;
+    font: 500 14px/20px var(--font-sans);
+    color: var(--text);
+  }
+
+  /* Anchors the visually hidden radio, so focusing it doesn't scroll the page. */
+  .topics label {
+    position: relative;
+  }
+
+  .topics span {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    font: 400 14px/20px var(--font-sans);
+    cursor: pointer;
+    transition:
+      background-color 0.2s var(--ease),
+      color 0.2s var(--ease),
+      border-color 0.2s var(--ease);
+  }
+
+  .topics span:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .topics input:checked + span {
+    border-color: var(--accent-border);
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+
+  .topics input:focus-visible + span {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .consent {
+    max-width: 40ch;
+  }
+
+  .error {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--danger);
+    font: 400 14px/20px var(--font-sans);
+  }
+
+  .error[hidden] {
+    display: none;
+  }
+
+  .done {
+    display: grid;
+    justify-items: start;
+    align-content: center;
+    gap: 12px;
+    min-height: 440px;
+    animation: rise 0.5s var(--ease) both;
+  }
+
+  .done[hidden] {
+    display: none;
+  }
+
+  .done-icon {
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 1080px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    .info {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact {
+      padding-block: 72px;
+    }
+
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .foot > * {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+</style>
