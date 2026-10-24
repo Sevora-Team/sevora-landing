@@ -1,14 +1,15 @@
 ---
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
+import FramedPanel from '@/components/ui/FramedPanel.astro';
 import { links } from '@/data/links';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 interface Props {
-  /** Defaults to the home page's closing copy and a link to the plans page. */
+  /** Defaults to the home page's closing copy, sign-up and a link to the plans page. */
   title?: string;
   lead?: string;
+  primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
 }
 
@@ -17,48 +18,45 @@ const t = useTranslations(lang);
 const {
   title = t.cta.title,
   lead = t.cta.lead,
+  primary = { label: t.actions.start, href: links.signup },
   secondary = { label: t.actions.seePlans, href: getPageUrl(lang, 'plans') },
 } = Astro.props;
 ---
 
-<section class="cta section-dark" data-theme="dark">
-  <div class="wrap content">
-    <h2 class="display reveal">{title}</h2>
-    <p class="lead reveal">{lead}</p>
-    <div class="btn-row reveal">
-      <Button href={links.signup}>{t.actions.start}</Button>
-      <Button href={secondary.href} variant="ghost" icon="north-east">
-        {secondary.label}
-      </Button>
-    </div>
+<section class="cta section-dark band-haze" data-theme="dark">
+  <div class="wrap">
+    <FramedPanel class="content">
+      <h2 class="display reveal-title">{title}</h2>
+      <p class="lead reveal">{lead}</p>
+      <div class="btn-row reveal">
+        <Button href={primary.href}>{primary.label}</Button>
+        <Button href={secondary.href} variant="ghost" icon="north-east">
+          {secondary.label}
+        </Button>
+      </div>
+    </FramedPanel>
   </div>
-  <Glyphs name="dome" class="dome" />
 </section>
 
 <style>
   .cta {
-    min-height: 620px;
+    padding-block: 72px 120px;
   }
 
   .cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(50% 60% at 100% 100%, rgb(66 202 215 / 0.09), transparent 70%);
+    background:
+      radial-gradient(55% 70% at 100% 100%, var(--haze), transparent 70%),
+      radial-gradient(40% 50% at 0% 0%, rgb(22 164 173 / 0.1), transparent 70%);
   }
 
   .content {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    justify-items: center;
-    padding-top: 104px;
-    text-align: center;
+    padding: 96px 48px 104px;
   }
 
   .display {
     max-width: 15ch;
+    font-size: 56px;
+    line-height: 62px;
   }
 
   .lead {
@@ -71,22 +69,22 @@ const {
     margin-top: 32px;
   }
 
-  .dome {
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 1;
-    height: 300px;
-    opacity: 0.75;
-    pointer-events: none;
-  }
-
   @media (max-width: 640px) {
     .cta {
-      min-height: 560px;
+      padding-block: 40px 72px;
     }
 
     .content {
-      padding-top: 64px;
+      padding: 64px 20px 72px;
+    }
+
+    .display {
+      font-size: 34px;
+      line-height: 40px;
+    }
+
+    .btn-row {
+      justify-self: stretch;
     }
 
     .btn-row > * {

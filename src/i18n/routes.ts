@@ -5,6 +5,7 @@ import { getLangFromUrl, getPathWithoutLocale } from './utils';
 /** Each page's slug per language. A new page gets an entry here and a file in each `src/pages` tree. */
 export const routes = {
   home: { sr: '', en: '' },
+  about: { sr: 'o-nama', en: 'about' },
   academy: { sr: 'akademija', en: 'academy' },
   plans: { sr: 'paketi', en: 'pricing' },
   contact: { sr: 'kontakt', en: 'contact' },
@@ -20,18 +21,6 @@ export interface PageLink {
 
 /** A labelled link, either inside the site or to an external `href`. */
 export type SiteLink = { label: string } & (PageLink | { href: string });
-
-/**
- * A header item: a home section, a page, or both (a page with a teaser section on home).
- * The home page's scroll spy follows `section`; other pages mark the item for their own `page`.
- */
-export type NavItem = { label: string } & (
-  { section: string; page?: Page } | { section?: undefined; page: Page }
-);
-
-export function getNavHref(lang: Lang, item: NavItem): string {
-  return item.page ? getPageUrl(lang, item.page) : getPageUrl(lang, 'home', item.section);
-}
 
 export function getPageUrl(lang: Lang, page: Page, hash?: string): string {
   const url = getRelativeLocaleUrl(lang, routes[page][lang]);

@@ -18,9 +18,16 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
+/* One continuous backdrop: sections are transparent, so soft teal glows flow through the page. */
 body {
   margin: 0;
-  background: var(--bg);
+  overflow-x: clip;
+  background:
+    radial-gradient(1100px 900px at 105% 14%, rgb(22 164 173 / 0.1), transparent 70%),
+    radial-gradient(1000px 900px at -5% 30%, rgb(22 164 173 / 0.07), transparent 70%),
+    radial-gradient(1100px 1000px at 105% 50%, rgb(22 164 173 / 0.08), transparent 70%),
+    radial-gradient(1000px 900px at -5% 70%, rgb(22 164 173 / 0.07), transparent 70%),
+    radial-gradient(1100px 900px at 105% 88%, rgb(22 164 173 / 0.08), transparent 70%), var(--page);
   color: var(--text-body);
   font: 400 16px/26px var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -151,16 +158,42 @@ textarea {
   padding-inline: var(--gutter);
 }
 
-/* A light section on the page ground. */
+/* A section on the page ground. */
 .section {
   padding-block: 120px;
 }
 
-/* A full-bleed dark section. */
+/* A full-bleed dark band: a translucent deepening that fades in and out, so the backdrop
+   flows through. Heroes and the footer replace this background with their own. */
 .section-dark {
   position: relative;
   overflow: hidden;
-  background: var(--bg);
+  background: linear-gradient(
+    180deg,
+    rgb(2 4 8 / 0) 0%,
+    rgb(2 4 8 / 0.6) 220px,
+    rgb(2 4 8 / 0.6) calc(100% - 220px),
+    rgb(2 4 8 / 0) 100%
+  );
+}
+
+/* A dark band's corner haze (its ::before) fades out before the band ends. */
+.band-haze::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 220px,
+    #000 calc(100% - 220px),
+    transparent 100%
+  );
+}
+
+.band-haze > * {
+  position: relative;
 }
 
 /* Heading + lead, centred above a section's content. */
@@ -208,6 +241,31 @@ textarea {
   color: var(--text);
 }
 
+[data-theme='dark'] .icon-circle {
+  background: rgb(66 202 215 / 0.16);
+  color: var(--accent);
+}
+
+/* The solid accent variant, for list and trust items. */
+.icon-circle-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* A photo filling its positioned box. */
+.photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Motion */
 
 @keyframes rise {
@@ -226,25 +284,131 @@ textarea {
 @keyframes up-in {
   from {
     opacity: 0;
-    translate: 0 28px;
+    translate: 0 70px;
+    scale: 0.96;
+    filter: blur(2px);
+  }
+}
+
+@keyframes in-left {
+  from {
+    opacity: 0;
+    translate: -80px 0;
+    filter: blur(1.5px);
+  }
+}
+
+@keyframes in-right {
+  from {
+    opacity: 0;
+    translate: 80px 0;
+    filter: blur(1.5px);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    translate: 0 60px;
+    scale: 0.92;
+    rotate: -1.5deg;
+  }
+}
+
+@keyframes wipe-up {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 -20% 0);
+  }
+}
+
+@keyframes icon-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+    rotate: -30deg;
+  }
+}
+
+@keyframes photo-drift {
+  from {
+    scale: 1.28;
+    translate: 0 -7%;
+  }
+
+  to {
+    scale: 1.04;
+    translate: 0 7%;
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(3px);
   }
 }
 
 /* Load-in for above-the-fold content; stagger with --delay. */
 .rise {
-  animation: rise 0.9s var(--ease) var(--delay, 0s) both;
+  animation: hero-in 1.15s var(--ease-out) var(--delay, 0s) both;
 }
 
 /* Elements ease up as they scroll into view (CSS only, where supported).
    Scroll-driven animations use longhands: the minifier folds a shorthand plus
    animation-timeline into one invalid `animation` value, which browsers drop. */
 @supports (animation-timeline: view()) {
-  .reveal {
-    animation-name: up-in;
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-pop,
+  .reveal-title,
+  .reveal-icon,
+  .parallax img {
     animation-timing-function: linear;
     animation-fill-mode: both;
     animation-timeline: view();
-    animation-range: entry 0% entry 55%;
+    animation-range: entry 0% cover 30%;
+  }
+
+  .reveal {
+    animation-name: up-in;
+  }
+
+  /* Pairs slide in from opposite sides. */
+  .reveal-left {
+    animation-name: in-left;
+  }
+
+  .reveal-right {
+    animation-name: in-right;
+  }
+
+  .reveal-pop {
+    animation-name: pop-in;
+  }
+
+  /* Section titles wipe up out of a mask. */
+  .reveal-title {
+    animation-name: wipe-up;
+    animation-range: entry 10% cover 32%;
+  }
+
+  .reveal-icon {
+    animation-name: icon-in;
+    animation-range: entry 20% cover 40%;
+  }
+
+  /* Photos zoom out with a slow parallax as they pass through the viewport. */
+  .parallax img {
+    animation-name: photo-drift;
+    animation-range: cover 0% cover 100%;
   }
 }
 

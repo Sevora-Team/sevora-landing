@@ -8,10 +8,10 @@ export function formatNumber(value: number, decimals: number, locale: string): s
 }
 
 /** Signed percentage with a typographic minus, e.g. `+0.42%` / `−1.10%`. */
-export function formatChange(change: number, locale: string): string {
+export function formatChange(change: number, locale: string, decimals = 2): string {
   const formatted = new Intl.NumberFormat(locale, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
     signDisplay: 'exceptZero',
   }).format(change);
   return `${formatted.replace('-', '−')}%`;

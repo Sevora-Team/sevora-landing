@@ -12,7 +12,9 @@ import CreditCard from '@/assets/icons/credit-card.svg';
 import EventNote from '@/assets/icons/event-note.svg';
 import EventRepeat from '@/assets/icons/event-repeat.svg';
 import ExpandMore from '@/assets/icons/expand-more.svg';
+import Flag from '@/assets/icons/flag.svg';
 import Forum from '@/assets/icons/forum.svg';
+import Groups from '@/assets/icons/groups.svg';
 import Handshake from '@/assets/icons/handshake.svg';
 import Info from '@/assets/icons/info.svg';
 import Insights from '@/assets/icons/insights.svg';
@@ -24,13 +26,17 @@ import Notifications from '@/assets/icons/notifications.svg';
 import PlayCircle from '@/assets/icons/play-circle.svg';
 import Psychology from '@/assets/icons/psychology.svg';
 import Quiz from '@/assets/icons/quiz.svg';
+import RocketLaunch from '@/assets/icons/rocket-launch.svg';
 import Schedule from '@/assets/icons/schedule.svg';
 import School from '@/assets/icons/school.svg';
+import Shield from '@/assets/icons/shield.svg';
 import SmartToy from '@/assets/icons/smart-toy.svg';
 import StackedLineChart from '@/assets/icons/stacked-line-chart.svg';
 import Storefront from '@/assets/icons/storefront.svg';
+import SwipeUp from '@/assets/icons/swipe-up.svg';
 import Translate from '@/assets/icons/translate.svg';
 import VerifiedUser from '@/assets/icons/verified-user.svg';
+import Visibility from '@/assets/icons/visibility.svg';
 import WorkspacePremium from '@/assets/icons/workspace-premium.svg';
 
 export const icons = {
@@ -45,7 +51,9 @@ export const icons = {
   'event-note': EventNote,
   'event-repeat': EventRepeat,
   'expand-more': ExpandMore,
+  flag: Flag,
   forum: Forum,
+  groups: Groups,
   handshake: Handshake,
   info: Info,
   insights: Insights,
@@ -57,13 +65,17 @@ export const icons = {
   'play-circle': PlayCircle,
   psychology: Psychology,
   quiz: Quiz,
+  'rocket-launch': RocketLaunch,
   schedule: Schedule,
   school: School,
+  shield: Shield,
   'smart-toy': SmartToy,
   'stacked-line-chart': StackedLineChart,
   storefront: Storefront,
+  'swipe-up': SwipeUp,
   translate: Translate,
   'verified-user': VerifiedUser,
+  visibility: Visibility,
   'workspace-premium': WorkspacePremium,
 } as const satisfies Record<string, SvgComponent>;
 

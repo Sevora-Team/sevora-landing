@@ -3,7 +3,6 @@
 // script shows the one matching the requested path (Serbian, the default, without JavaScript).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
 import Logo from '@/components/ui/Logo.astro';
 import { defaultLang, langTags, languages, type Lang } from '@/i18n/locales';
 import { useTranslations } from '@/i18n/utils';
@@ -28,7 +27,6 @@ const titles = Object.fromEntries(pages.map(({ lang, title }) => [lang, title]))
         <Button href={home}>{notFound.home}</Button>
       </div>
     ))}
-    <Glyphs name="dome" class="dome" />
   </main>
 </BaseLayout>
 
@@ -49,7 +47,8 @@ const titles = Object.fromEntries(pages.map(({ lang, title }) => [lang, title]))
     place-items: center;
     min-height: 100vh;
     min-height: 100svh;
-    padding: 64px var(--gutter) 240px;
+    padding: 64px var(--gutter);
+    background: var(--bg);
   }
 
   .not-found::before {
@@ -58,8 +57,8 @@ const titles = Object.fromEntries(pages.map(({ lang, title }) => [lang, title]))
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(55% 65% at 0% 100%, rgb(66 202 215 / 0.11), transparent 70%),
-      radial-gradient(35% 45% at 100% 0%, rgb(66 202 215 / 0.05), transparent 70%);
+      radial-gradient(60% 75% at 0% 100%, var(--haze), transparent 70%),
+      radial-gradient(45% 55% at 100% 0%, rgb(22 164 173 / 0.16), transparent 70%);
   }
 
   .content {
@@ -68,7 +67,7 @@ const titles = Object.fromEntries(pages.map(({ lang, title }) => [lang, title]))
     display: grid;
     justify-items: center;
     text-align: center;
-    animation: rise 0.9s var(--ease) both;
+    animation: hero-in 1.15s var(--ease-out) both;
   }
 
   .content[hidden] {
@@ -91,23 +90,9 @@ const titles = Object.fromEntries(pages.map(({ lang, title }) => [lang, title]))
     margin: 20px 0 32px;
   }
 
-  .dome {
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 1;
-    height: 320px;
-    opacity: 0.75;
-    pointer-events: none;
-    animation: rise 1.4s var(--ease) 0.35s both;
-  }
-
   @media (max-width: 640px) {
     .not-found {
-      padding: 48px 16px 200px;
-    }
-
-    .dome {
-      height: 240px;
+      padding: 48px 16px;
     }
   }
 </style>

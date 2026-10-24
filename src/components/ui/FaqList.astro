@@ -14,7 +14,7 @@ const { items, name, size = 'md' } = Astro.props;
 
 <div class:list={['faq-list', `faq-${size}`]}>
   {items.map(({ question, answer }) => (
-    <details name={name} class="reveal">
+    <details name={name} class="reveal-left">
       <summary>
         {question}
         <span class="toggle">
@@ -33,6 +33,7 @@ const { items, name, size = 'md' } = Astro.props;
 
   details {
     border-bottom: 1px solid var(--border);
+    animation-range: entry 0% cover 22%;
   }
 
   summary {

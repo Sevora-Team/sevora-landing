@@ -1,6 +1,6 @@
 ---
 import { links } from '@/data/links';
-import { getNavHref, getPageFromUrl } from '@/i18n/routes';
+import { getPageFromUrl, getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
@@ -9,11 +9,10 @@ import Logo from './ui/Logo.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const page = getPageFromUrl(Astro.url) ?? 'home';
-// Other pages mark their own item; on the home page the scroll spy marks the section in view.
+const page = getPageFromUrl(Astro.url);
 const items = t.nav.items.map((item) => ({
-  ...item,
-  href: getNavHref(lang, item),
+  label: item.label,
+  href: getPageUrl(lang, item.page),
   current: item.page === page ? ('page' as const) : undefined,
 }));
 ---
@@ -22,9 +21,9 @@ const items = t.nav.items.map((item) => ({
   <div class="wrap">
     <div class="bar">
       <Logo />
-      <nav class="nav" aria-label={t.nav.label} data-spy={page === 'home' ? '' : undefined}>
-        {items.map(({ label, href, section, current }) => (
-          <a href={href} data-section={section} aria-current={current}>
+      <nav class="nav" aria-label={t.nav.label}>
+        {items.map(({ label, href, current }) => (
+          <a href={href} aria-current={current}>
             {label}
           </a>
         ))}
@@ -89,50 +88,22 @@ const items = t.nav.items.map((item) => ({
     if (event.key === 'Escape') setMenu(false);
   });
 
-  // Scroll spy (home page only): highlight the section under the upper half of the viewport.
-  // Items that only lead to another page have no section and are left alone.
-  const navLinks = [
-    ...(header?.querySelectorAll<HTMLAnchorElement>('.nav[data-spy] a[data-section]') ?? []),
-  ];
-  const sections = navLinks.map((link) => document.getElementById(link.dataset.section ?? ''));
-  let frame = 0;
-
   // Firefox lacks CSS scroll timelines, so the header's scrolled state is toggled here instead.
-  const solidFallback = !CSS.supports('animation-timeline: scroll()');
-
-  function syncSolid() {
-    if (header && solidFallback) header.dataset.scrolled = String(window.scrollY > 24);
-  }
-
-  function onScroll() {
-    frame = 0;
-    syncActive();
+  if (header && !CSS.supports('animation-timeline: scroll()')) {
+    let frame = 0;
+    const syncSolid = () => {
+      frame = 0;
+      header.dataset.scrolled = String(window.scrollY > 24);
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        frame ||= requestAnimationFrame(syncSolid);
+      },
+      { passive: true },
+    );
     syncSolid();
   }
-
-  function syncActive() {
-    if (!navLinks.length) return;
-    const headerHeight = header?.offsetHeight ?? 0;
-    const line = headerHeight + (window.innerHeight - headerHeight) * 0.45;
-    // Nothing is marked over the hero, before the first section is reached.
-    let active = -1;
-    sections.forEach((section, i) => {
-      if (section && section.getBoundingClientRect().top <= line) active = i;
-    });
-    navLinks.forEach((link, i) => {
-      if (i === active) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    });
-  }
-
-  window.addEventListener(
-    'scroll',
-    () => {
-      frame ||= requestAnimationFrame(onScroll);
-    },
-    { passive: true },
-  );
-  onScroll();
 </script>
 
 <style>
@@ -307,6 +278,10 @@ const items = t.nav.items.map((item) => ({
     color: var(--text);
     font: 400 20px/28px var(--font-sans);
     text-decoration: none;
+  }
+
+  .mobile-nav > a[aria-current] {
+    color: var(--accent-text);
   }
 
   .mobile-actions {

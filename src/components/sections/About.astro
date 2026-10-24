@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import academyPhoto from '@/assets/photos/home/academy.webp';
+import analysisPhoto from '@/assets/photos/home/analysis.webp';
+import mentorPhoto from '@/assets/photos/home/mentor.webp';
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const { about } = useTranslations(getLangFromUrl(Astro.url));
@@ -8,16 +11,18 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
 
 <section class="section" id="o-nama">
   <div class="wrap">
-    <div class="intro-center reveal">
-      <h2 class="h2" style="max-width: 20ch">
+    <div class="intro-center">
+      <h2 class="h2 reveal-title" style="max-width: 20ch">
         {about.title}
       </h2>
-      <p class="lead">{about.lead}</p>
+      <p class="lead reveal">{about.lead}</p>
     </div>
 
     <div class="grid">
-      <article class="card card-grey reveal">
-        <div class="lines" aria-hidden="true"></div>
+      <article class="card reveal" data-theme="dark">
+        <div class="photo parallax">
+          <Image src={analysisPhoto} alt="" />
+        </div>
         <div>
           <h3 class="h3" style="max-width: 13ch">
             {about.analysis.title}
@@ -32,7 +37,9 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
       </article>
 
       <article class="card reveal" data-theme="dark">
-        <Glyphs name="wave" class="texture" />
+        <div class="photo parallax">
+          <Image src={mentorPhoto} alt="" />
+        </div>
         <div>
           <h3 class="h3" style="max-width: 14ch">
             {about.mentor.title}
@@ -46,7 +53,10 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
         </div>
       </article>
 
-      <article class="card reveal" data-theme="dark">
+      <article class="card faint reveal" data-theme="dark">
+        <div class="photo parallax">
+          <Image src={academyPhoto} alt="" />
+        </div>
         <p class="label">{about.academy.label}</p>
         <div>
           <p class="stat">{about.academy.value}</p>
@@ -70,12 +80,12 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
     flex-direction: column;
     justify-content: space-between;
     gap: 24px;
-    min-height: 340px;
+    min-height: 380px;
     padding: 28px;
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: 1px solid var(--teal-line);
     border-radius: var(--radius-card);
-    background: var(--surface);
+    background: var(--bg);
     transition:
       border-color 0.25s var(--ease),
       transform 0.35s var(--ease);
@@ -91,33 +101,48 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
     z-index: 1;
   }
 
-  .card-grey {
-    border-color: transparent;
-    background: var(--surface-hover);
+  /* Stagger the row as it scrolls in. */
+  .card:nth-child(2) {
+    animation-range: entry 6% cover 36%;
+  }
+
+  .card:nth-child(3) {
+    animation-range: entry 12% cover 42%;
+  }
+
+  .card > .photo {
+    position: absolute;
+    z-index: 0;
+  }
+
+  .photo img {
+    transition: transform 1s var(--ease);
+  }
+
+  .card:hover .photo img {
+    transform: scale(1.045);
+  }
+
+  /* Keeps the text legible at the top and bottom of the card. */
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(3 6 12 / 0.78) 0%,
+      rgb(3 6 12 / 0.18) 42%,
+      rgb(3 6 12 / 0.82) 100%
+    );
+  }
+
+  .faint .photo img {
+    opacity: 0.4;
   }
 
   .card .body-sm {
     max-width: 30ch;
     margin-top: 10px;
-  }
-
-  .card > .lines,
-  .card > .texture {
-    position: absolute;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .lines {
-    inset: 0 0 0 38%;
-    background: repeating-linear-gradient(90deg, var(--border-strong) 0 1px, transparent 1px 6px);
-    opacity: 0.28;
-    mask-image: linear-gradient(90deg, transparent, #000 55%);
-  }
-
-  .texture {
-    inset: auto 0 0;
-    height: 58%;
   }
 
   .label {
@@ -130,7 +155,7 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
     margin: 6px 0 0;
     font: 400 56px/60px var(--font-sans);
     letter-spacing: -0.03em;
-    color: var(--text);
+    color: var(--accent);
   }
 
   @media (max-width: 1080px) {
@@ -145,7 +170,7 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
     }
 
     .card {
-      min-height: 300px;
+      min-height: 340px;
     }
   }
 </style>

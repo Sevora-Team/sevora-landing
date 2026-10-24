@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+import affiliatePhoto from '@/assets/photos/home/affiliate.webp';
+import shopPhoto from '@/assets/photos/home/shop.webp';
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { links } from '@/data/links';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -10,8 +12,10 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
 
 <section class="section ecosystem" id="ekosistem">
   <div class="wrap grid">
-    <article class="card reveal" data-theme="dark">
-      <Glyphs name="bars" align="xMaxYMin" class="texture" />
+    <article class="card card-teal reveal-left" data-theme="dark">
+      <div class="photo parallax">
+        <Image src={shopPhoto} alt="" />
+      </div>
       <div>
         <span class="icon-circle">
           <Icon name="storefront" />
@@ -31,7 +35,10 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
       </div>
     </article>
 
-    <article class="card card-grey reveal">
+    <article class="card card-grey reveal-right">
+      <div class="photo parallax">
+        <Image src={affiliatePhoto} alt="" />
+      </div>
       <div>
         <span class="icon-circle">
           <Icon name="handshake" />
@@ -90,23 +97,32 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
     border-color: var(--border-strong);
   }
 
-  .card > * {
-    position: relative;
-    z-index: 1;
+  .card-teal {
+    border-color: var(--teal-line);
+    background: var(--teal-grad);
   }
 
-  .card > .texture {
-    position: absolute;
-    inset: 0 0 0 auto;
-    z-index: 0;
-    width: 46%;
-    height: 100%;
-    opacity: 0.55;
+  .card-teal:hover {
+    border-color: rgb(66 202 215 / 0.5);
   }
 
   .card-grey {
-    border-color: transparent;
-    background: var(--surface-hover);
+    border-color: var(--teal-line-soft);
+    background: var(--teal-glass-lifted);
+  }
+
+  .card > .photo {
+    position: relative;
+    height: 230px;
+    border-radius: var(--radius);
+  }
+
+  .photo img {
+    transition: transform 1s var(--ease);
+  }
+
+  .card:hover .photo img {
+    transform: scale(1.045);
   }
 
   .h3 {
@@ -188,6 +204,10 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
     .card {
       min-height: 0;
       padding: 24px;
+    }
+
+    .card > .photo {
+      height: 180px;
     }
 
     .stat strong {

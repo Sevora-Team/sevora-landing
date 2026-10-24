@@ -1,69 +1,118 @@
 ---
+import { getImage, Image } from 'astro:assets';
+import photo from '@/assets/photos/heroes/home.webp';
+import photoMobile from '@/assets/photos/heroes/home-mobile.webp';
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
-import PriceCell from '@/components/ui/PriceCell.astro';
+import Icon from '@/components/ui/Icon.astro';
 import { links } from '@/data/links';
-import { changePercent, GOLD, instruments } from '@/data/markets';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const gold = instruments.find((i) => i.symbol === GOLD)!;
+const t = useTranslations(getLangFromUrl(Astro.url));
+// Phones get a portrait crop with the subject higher up.
+const mobile = await getImage({ src: photoMobile, width: 800 });
 ---
 
 <section class="hero section-dark" id="top" data-theme="dark">
+  <picture class="photo">
+    <source media="(max-width: 640px)" srcset={mobile.src} />
+    <Image
+      src={photo}
+      alt=""
+      widths={[960, 1920]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </picture>
+
   <div class="wrap content">
-    <h1 class="display rise" style="--delay: 0.08s">
+    <h1 class="display rise" style="--delay: 0.2s">
       {t.hero.title}
     </h1>
-    <p class="lead rise" style="--delay: 0.16s">
+    <p class="lead rise" style="--delay: 0.36s">
       {t.hero.lead}
     </p>
-    <div class="btn-row rise" style="--delay: 0.24s">
+    <div class="btn-row rise" style="--delay: 0.52s">
       <Button href={links.signup}>{t.hero.primary}</Button>
       <Button href="#platforma" variant="ghost" icon="north-east">
         {t.hero.secondary}
       </Button>
     </div>
-    <p class="markets caption rise" style="--delay: 0.36s">
+    <p class="markets caption rise" style="--delay: 0.68s">
       {t.hero.markets}
     </p>
   </div>
 
-  <div class="dome-drift">
-    <Glyphs name="dome" class="dome" />
-  </div>
-
-  <!-- Stepped notch where the light page cuts into the hero -->
-  <div class="notch notch-low" aria-hidden="true"></div>
-  <div class="notch notch-high" data-theme="light">
-    <div class="quote">
-      <span class="mono-label symbol">{gold.symbol}</span>
-      <PriceCell
-        value={gold.last}
-        change={changePercent(gold)}
-        decimals={gold.decimals}
-        lang={lang}
-        gold
-        quote={gold.symbol}
-      />
-      <span class="caption">{t.sample}</span>
-    </div>
-  </div>
+  <a class="scroll-cue" href="#o-nama" aria-label={t.hero.scrollCue}>
+    <span class="mouse" aria-hidden="true">
+      <span></span>
+    </span>
+    <Icon name="swipe-up" size={28} class="swipe" />
+    <span class="cue-scroll" aria-hidden="true">
+      {t.hero.scroll}
+    </span>
+    <span class="cue-swipe" aria-hidden="true">
+      {t.hero.swipe}
+    </span>
+  </a>
 </section>
 
 <style>
-  @keyframes drift {
-    to {
-      transform: translateY(60px);
+  @keyframes photo-in {
+    from {
+      opacity: 0;
+      transform: scale(1.12) translateX(48px);
     }
   }
 
+  @keyframes photo-drift {
+    to {
+      translate: 0 160px;
+    }
+  }
+
+  @keyframes content-out {
+    to {
+      opacity: 0;
+      translate: 0 -64px;
+    }
+  }
+
+  @keyframes wheel {
+    70% {
+      transform: translateY(11px);
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes swipe {
+    0%,
+    100% {
+      transform: translateY(5px);
+      opacity: 0.55;
+    }
+
+    50% {
+      transform: translateY(-5px);
+      opacity: 1;
+    }
+  }
+
+  /* Fills the viewport; slides under the sticky header. */
   .hero {
-    min-height: 904px;
-    /* Slide under the sticky header. */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100svh;
+    min-height: 640px;
+    max-height: 1200px;
     margin-top: -84px;
     padding-top: 84px;
+    background: var(--bg);
   }
 
   .hero::before {
@@ -72,118 +121,194 @@ const gold = instruments.find((i) => i.symbol === GOLD)!;
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(55% 65% at 0% 100%, rgb(66 202 215 / 0.11), transparent 70%),
-      radial-gradient(35% 45% at 100% 0%, rgb(66 202 215 / 0.05), transparent 70%);
+      radial-gradient(60% 75% at 0% 100%, var(--haze), transparent 70%),
+      radial-gradient(45% 55% at 100% 0%, rgb(22 164 173 / 0.16), transparent 70%);
+  }
+
+  /* The bottom melts into the page backdrop. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 3;
+    height: 260px;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgb(5 9 15 / 0), var(--page));
+  }
+
+  .photo img {
+    animation: photo-in 2.6s var(--ease-out) both;
+  }
+
+  /* Darkens the left for the text and the top and bottom edges. */
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgb(3 6 12 / 0.95) 0%,
+        rgb(3 6 12 / 0.78) 30%,
+        rgb(3 6 12 / 0.25) 58%,
+        rgb(3 6 12 / 0) 80%
+      ),
+      linear-gradient(
+        180deg,
+        rgb(3 6 12 / 0.6) 0%,
+        rgb(3 6 12 / 0) 20%,
+        rgb(3 6 12 / 0) 72%,
+        rgb(3 6 12 / 0.75) 100%
+      );
+    animation: fade 1.2s ease both;
   }
 
   .content {
     position: relative;
     z-index: 2;
-    display: grid;
-    justify-items: center;
-    padding-top: 88px;
-    text-align: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-bottom: 96px;
+  }
+
+  /* The photo drifts down and the text lifts away as the hero scrolls out. */
+  @supports (animation-timeline: scroll()) {
+    .photo,
+    .content {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+    }
+
+    .photo {
+      animation-name: photo-drift;
+      animation-range: 0 900px;
+    }
+
+    .content {
+      animation-name: content-out;
+      animation-range: 0 70vh;
+    }
   }
 
   .display {
-    max-width: 16ch;
-    margin-top: 20px;
+    max-width: 13ch;
+    font-size: 72px;
+    line-height: 76px;
   }
 
   .lead {
-    max-width: 52ch;
-    margin-top: 20px;
+    max-width: 44ch;
+    margin-top: 24px;
   }
 
   .btn-row {
-    justify-content: center;
-    margin-top: 32px;
+    margin-top: 36px;
   }
 
   .markets {
-    margin-top: 28px;
+    margin-top: 32px;
     font-family: var(--font-mono);
     letter-spacing: 0.04em;
   }
 
-  .dome-drift {
+  .scroll-cue {
     position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  @supports (animation-timeline: scroll()) {
-    .dome-drift {
-      animation-name: drift;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: scroll(root);
-      animation-range: 0 700px;
-    }
-  }
-
-  .dome {
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 1;
-    height: 400px;
-    animation: rise 1.4s var(--ease) 0.35s both;
-  }
-
-  .notch {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    border-top-left-radius: 24px;
-    background: var(--page);
-  }
-
-  /* Concave corner joining each step to the page below it. */
-  .notch::before {
-    content: '';
-    position: absolute;
-    left: -24px;
-    bottom: 0;
-    width: 24px;
-    height: 24px;
-    background: radial-gradient(circle at 0 0, transparent 23.5px, var(--page) 24px);
-  }
-
-  .notch-low {
-    z-index: 2;
-    width: 56%;
-    height: 46px;
-  }
-
-  .notch-high {
-    z-index: 3;
-    width: 40%;
-    height: 104px;
-  }
-
-  .notch-high::before {
-    bottom: 46px;
-  }
-
-  .quote {
-    position: absolute;
-    inset: 0;
+    bottom: 26px;
+    left: 50%;
+    z-index: 4;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
     align-items: center;
-    gap: 16px;
-    padding: 6px var(--gutter) 0 40px;
+    gap: 8px;
+    color: var(--text-muted);
+    font: 500 11px/14px var(--font-mono);
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    transition: color 0.25s var(--ease);
+    animation: fade 1s var(--ease) 1.2s both;
+  }
+
+  .scroll-cue:hover {
+    color: var(--text);
+  }
+
+  .mouse {
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 38px;
+    padding-top: 7px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 14px;
+    transition: border-color 0.25s var(--ease);
+  }
+
+  .scroll-cue:hover .mouse {
+    border-color: var(--text-muted);
+  }
+
+  .mouse span {
+    width: 3px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--accent);
+    animation: wheel 1.9s var(--ease) infinite;
+  }
+
+  .swipe {
+    color: var(--accent);
+    animation: swipe 1.9s ease-in-out infinite;
+  }
+
+  .swipe,
+  .cue-swipe {
+    display: none;
+  }
+
+  @media (max-width: 1080px) {
+    .display {
+      font-size: 56px;
+      line-height: 60px;
+    }
   }
 
   @media (max-width: 640px) {
     .hero {
-      min-height: 828px;
+      min-height: 600px;
+      max-height: 900px;
       margin-top: -68px;
       padding-top: 68px;
     }
 
+    .photo::after {
+      background: linear-gradient(
+        180deg,
+        rgb(3 6 12 / 0.95) 0%,
+        rgb(3 6 12 / 0.75) 42%,
+        rgb(3 6 12 / 0.15) 70%,
+        rgb(3 6 12 / 0.7) 100%
+      );
+    }
+
     .content {
-      padding-top: 48px;
+      justify-content: flex-start;
+      padding-top: 40px;
+      padding-bottom: 0;
+    }
+
+    .display {
+      font-size: 40px;
+      line-height: 46px;
+    }
+
+    .btn-row {
+      align-self: stretch;
     }
 
     .btn-row > * {
@@ -191,31 +316,18 @@ const gold = instruments.find((i) => i.symbol === GOLD)!;
       justify-content: center;
     }
 
-    .dome {
-      height: 300px;
+    .scroll-cue {
+      bottom: 112px;
     }
 
-    .notch-low {
-      width: 86%;
-      height: 38px;
-    }
-
-    .notch-high {
-      width: 72%;
-      height: 92px;
-    }
-
-    .notch-high::before {
-      bottom: 38px;
-    }
-
-    .quote {
-      gap: 10px;
-      padding: 4px 16px 0 24px;
-    }
-
-    .symbol {
+    .mouse,
+    .cue-scroll {
       display: none;
+    }
+
+    .swipe,
+    .cue-swipe {
+      display: block;
     }
   }
 </style>

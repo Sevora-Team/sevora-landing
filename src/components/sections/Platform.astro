@@ -1,13 +1,23 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import academyPhoto from '@/assets/photos/tools/academy.webp';
+import alertsPhoto from '@/assets/photos/tools/alerts.webp';
+import analysisPhoto from '@/assets/photos/tools/analysis.webp';
+import botsPhoto from '@/assets/photos/tools/bots.webp';
+import calendarPhoto from '@/assets/photos/tools/calendar.webp';
+import journalPhoto from '@/assets/photos/tools/journal.webp';
+import mentorPhoto from '@/assets/photos/tools/mentor.webp';
+import planPhoto from '@/assets/photos/tools/plan.webp';
+import propFirmPhoto from '@/assets/photos/tools/prop-firm.webp';
+import scenariosPhoto from '@/assets/photos/tools/scenarios.webp';
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { IconName } from '@/components/ui/icons';
 import Statement from '@/components/ui/Statement.astro';
 import { links } from '@/data/links';
 import type { Dictionary } from '@/i18n/sr';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-import type { TextureName } from '@/lib/glyphs';
 
 const t = useTranslations(getLangFromUrl(Astro.url));
 const { platform } = t;
@@ -15,18 +25,18 @@ const { platform } = t;
 const features: {
   id: keyof Dictionary['platform']['features'];
   icon: IconName;
-  texture: TextureName;
+  photo: ImageMetadata;
 }[] = [
-  { id: 'analysis', icon: 'insights', texture: 'globe' },
-  { id: 'plan', icon: 'event-note', texture: 'bars' },
-  { id: 'scenarios', icon: 'call-split', texture: 'stair' },
-  { id: 'journal', icon: 'menu-book', texture: 'diag' },
-  { id: 'mentor', icon: 'psychology', texture: 'rings' },
-  { id: 'alerts', icon: 'notifications', texture: 'wave' },
-  { id: 'calendar', icon: 'calendar-month', texture: 'bars' },
-  { id: 'bots', icon: 'smart-toy', texture: 'globe' },
-  { id: 'propFirm', icon: 'verified-user', texture: 'stair' },
-  { id: 'academy', icon: 'school', texture: 'diag' },
+  { id: 'analysis', icon: 'insights', photo: analysisPhoto },
+  { id: 'plan', icon: 'event-note', photo: planPhoto },
+  { id: 'scenarios', icon: 'call-split', photo: scenariosPhoto },
+  { id: 'journal', icon: 'menu-book', photo: journalPhoto },
+  { id: 'mentor', icon: 'psychology', photo: mentorPhoto },
+  { id: 'alerts', icon: 'notifications', photo: alertsPhoto },
+  { id: 'calendar', icon: 'calendar-month', photo: calendarPhoto },
+  { id: 'bots', icon: 'smart-toy', photo: botsPhoto },
+  { id: 'propFirm', icon: 'verified-user', photo: propFirmPhoto },
+  { id: 'academy', icon: 'school', photo: academyPhoto },
 ];
 ---
 
@@ -48,11 +58,13 @@ const features: {
       </div>
 
       <ul class="rail">
-        {features.map(({ id, icon, texture }) => {
+        {features.map(({ id, icon, photo }) => {
           const feature = platform.features[id];
           return (
-            <li class="card reveal" data-theme="dark">
-              <Glyphs name={texture} align="xMidYMid" class="texture" />
+            <li class="card" data-theme="dark">
+              <div class="photo">
+                <Image src={photo} alt="" />
+              </div>
               <div class="card-top">
                 <span class="icon-circle">
                   <Icon name={icon} />
@@ -162,22 +174,84 @@ const features: {
     border-color: var(--border-strong);
   }
 
+  /* Every third card is teal, the one after it a lifted ink. */
+  .card:nth-child(3n + 1) {
+    border-color: var(--teal-line);
+    background: var(--teal-grad);
+  }
+
+  .card:nth-child(3n + 1):hover {
+    border-color: rgb(66 202 215 / 0.5);
+  }
+
+  .card:nth-child(3n + 3) {
+    background: linear-gradient(180deg, var(--surface), var(--bg));
+  }
+
   .card > * {
     position: relative;
     z-index: 1;
   }
 
-  .card > .texture {
+  /* The photo fills the top and fades into the card. */
+  .card > .photo {
     position: absolute;
-    inset: 56px 0 auto;
+    inset: 0 0 auto;
     z-index: 0;
-    height: 190px;
-    pointer-events: none;
-    transition: transform 0.8s var(--ease);
+    height: 64%;
+    mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
   }
 
-  .card:hover > .texture {
-    transform: scale(1.04) translateY(-4px);
+  .photo img {
+    opacity: 0.85;
+    transition:
+      transform 1s var(--ease),
+      opacity 0.4s var(--ease);
+  }
+
+  .card:hover .photo img {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* The rail scrolls sideways, so the cards follow the carousel's own pass through the viewport. */
+  @supports (animation-timeline: view()) {
+    .carousel {
+      view-timeline: --carousel block;
+    }
+
+    .card,
+    .photo img {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --carousel;
+    }
+
+    .card {
+      animation-name: up-in;
+      animation-range: entry 10% cover 40%;
+    }
+
+    .card:nth-child(2) {
+      animation-range: entry 14% cover 44%;
+    }
+
+    .card:nth-child(3) {
+      animation-range: entry 18% cover 48%;
+    }
+
+    .card:nth-child(4) {
+      animation-range: entry 22% cover 52%;
+    }
+
+    .card:nth-child(n + 5) {
+      animation-range: entry 26% cover 56%;
+    }
+
+    .photo img {
+      animation-name: photo-drift;
+      animation-range: cover 0% cover 100%;
+    }
   }
 
   .card-top {

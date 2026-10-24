@@ -21,8 +21,8 @@ const cards: {
 <section class="channels">
   <div class="wrap">
     <ul class="cards">
-      {cards.map(({ channel, icon, href, dark }) => (
-        <li>
+      {cards.map(({ channel, icon, href, dark }, i) => (
+        <li class="rise" style={`--delay: ${0.6 + i * 0.12}s`}>
           <a class="card" href={href} data-theme={dark ? 'dark' : undefined}>
             <span class="top">
               <span class="icon-circle">
@@ -58,22 +58,23 @@ const cards: {
     gap: 14px;
     height: 100%;
     padding: 28px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--teal-line-soft);
     border-radius: var(--radius-card);
-    background: var(--surface);
+    background: var(--teal-glass);
     text-decoration: none;
     transition:
       border-color 0.25s var(--ease),
-      translate 0.35s var(--ease);
+      transform 0.35s var(--ease);
   }
 
   .card:hover {
     border-color: var(--border-strong);
-    translate: 0 -3px;
+    transform: translateY(-3px);
   }
 
   .card[data-theme='dark'] {
-    background: var(--bg);
+    border-color: var(--teal-line);
+    background: var(--teal-grad);
   }
 
   .top {

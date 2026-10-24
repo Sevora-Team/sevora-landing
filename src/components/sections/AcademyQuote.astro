@@ -1,7 +1,7 @@
 ---
-// The Academy page's closing band: a quote over a staircase of glyphs, and the way in.
+// The Academy page's closing band: a quote in a framed panel, and the way in.
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
+import FramedPanel from '@/components/ui/FramedPanel.astro';
 import { links } from '@/data/links';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -11,46 +11,43 @@ const t = useTranslations(lang);
 const page = t.academyPage;
 ---
 
-<section class="quote-band section-dark" data-theme="dark">
-  <Glyphs name="stair" align="xMaxYMax" class="stair" />
-  <div class="wrap content">
-    <blockquote class="reveal">
-      <p class="quote">
-        {page.quote.map(({ text, tone }) => (
-          <span class:list={[tone && `tone-${tone}`]}>{text}</span>
-        ))}
-      </p>
-      <footer class="mono-label by">{page.quoteBy}</footer>
-    </blockquote>
-    <div class="btn-row reveal">
-      <Button href={links.signup}>{page.learnFree}</Button>
-      <Button href={getPageUrl(lang, 'plans')} variant="ghost" icon="north-east">
-        {t.actions.seePlans}
-      </Button>
-    </div>
+<section class="quote-band section-dark band-haze" data-theme="dark">
+  <div class="wrap">
+    <FramedPanel class="content">
+      <blockquote class="reveal">
+        <p class="quote">
+          {page.quote.map(({ text, tone }) => (
+            <span class:list={[tone && `tone-${tone}`]}>{text}</span>
+          ))}
+        </p>
+        <footer class="mono-label by">{page.quoteBy}</footer>
+      </blockquote>
+      <div class="btn-row reveal">
+        <Button href={links.signup}>{page.learnFree}</Button>
+        <Button href={getPageUrl(lang, 'plans')} variant="ghost" icon="north-east">
+          {t.actions.seePlans}
+        </Button>
+      </div>
+    </FramedPanel>
   </div>
 </section>
 
 <style>
   .quote-band {
-    padding-block: 140px;
+    padding-block: 72px 120px;
   }
 
-  .stair {
-    position: absolute;
-    inset: 0 0 0 auto;
-    width: 44%;
-    height: 100%;
-    opacity: 0.5;
-    pointer-events: none;
+  .quote-band::before {
+    background: radial-gradient(50% 80% at 0% 100%, var(--haze), transparent 70%);
   }
 
   .content {
-    position: relative;
-    z-index: 1;
+    padding: 96px 64px;
   }
 
   blockquote {
+    display: grid;
+    justify-items: center;
     margin: 0;
   }
 
@@ -77,12 +74,17 @@ const page = t.academyPage;
   }
 
   .btn-row {
+    justify-content: center;
     margin-top: 40px;
   }
 
   @media (max-width: 640px) {
     .quote-band {
-      padding-block: 80px;
+      padding-block: 40px 72px;
+    }
+
+    .content {
+      padding: 56px 22px;
     }
 
     .quote {

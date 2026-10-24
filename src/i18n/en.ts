@@ -12,11 +12,9 @@ export const en: Dictionary = {
     label: 'Main navigation',
     menu: 'Menu',
     items: [
-      { label: 'Markets', section: 'trzista' },
-      { label: 'Platform', section: 'platforma' },
-      { label: 'Academy', section: 'akademija', page: 'academy' },
-      { label: 'Tools & partners', section: 'ekosistem' },
-      { label: 'Plans', section: 'paketi', page: 'plans' },
+      { label: 'About', page: 'about' },
+      { label: 'Academy', page: 'academy' },
+      { label: 'Plans', page: 'plans' },
       { label: 'Contact', page: 'contact' },
     ],
   },
@@ -33,6 +31,9 @@ export const en: Dictionary = {
     primary: 'Open an account',
     secondary: 'Explore the platform',
     markets: 'Gold and metals · Forex · Crypto · Indices · Commodities',
+    scrollCue: 'Scroll to the next section',
+    scroll: 'Scroll',
+    swipe: 'Swipe',
   },
   about: {
     title: 'One hub for analysis, planning and learning',
@@ -142,25 +143,6 @@ export const en: Dictionary = {
       },
     },
   },
-  teaser: {
-    title: 'Part of the plan is always free',
-    lead: 'The gold overview and the overall bias are open. All levels, scenarios and in-session updates are in Starter and Premium.',
-    cta: 'Unlock the full plan',
-    snapshot: 'A look at today’s plan',
-    unlock: 'Unlock',
-    locked: 'Locked',
-    levels: {
-      title: 'Today’s levels',
-      text: 'Where price is most likely to react.',
-      footer: '3 more levels in Starter',
-    },
-    scenarios: {
-      title: 'Scenarios',
-      text: 'Entry, target and invalidation for both directions.',
-      footer: 'Scenarios in Starter',
-      rows: ['Scenario A', 'Scenario B', 'Invalidation'],
-    },
-  },
   steps: {
     title: 'Three steps to more deliberate trading',
     items: {
@@ -179,21 +161,10 @@ export const en: Dictionary = {
     },
   },
   academy: {
-    title: 'Master the mindset. Master the market.',
-    lead: 'The Academy takes you from absolute zero to a professional level. Discipline today, freedom tomorrow.',
-    cta: 'Start learning',
     stats: [
       { value: '6', label: 'levels' },
       { value: '23', label: 'modules' },
       { value: '138', label: 'lessons' },
-    ],
-    levels: [
-      { level: 'Level 0', title: 'Absolute zero', meta: '4 modules · 28 lessons' },
-      { level: 'Level 1', title: 'Basics', meta: '3 modules · 18 lessons' },
-      { level: 'Level 2', title: 'Advanced beginner', meta: '4 modules · 23 lessons' },
-      { level: 'Level 3', title: 'Intermediate', meta: '3 modules · 21 lessons' },
-      { level: 'Level 4', title: 'Advanced', meta: '4 modules · 23 lessons' },
-      { level: 'Level 5', title: 'Professional', meta: '5 modules · 25 lessons' },
     ],
   },
   ecosystem: {
@@ -220,7 +191,6 @@ export const en: Dictionary = {
     },
   },
   pricing: {
-    title: 'Start for free, upgrade when you need it',
     billingLabel: 'Billing period',
     monthly: 'Monthly',
     yearly: 'Yearly',
@@ -271,8 +241,6 @@ export const en: Dictionary = {
       },
     },
     guarantee: '30-day money-back guarantee, no questions asked.',
-    compare: 'Compare plans',
-    teaserLead: 'Three plans, from free to professional. Monthly or yearly, with 10% off.',
   },
   faq: {
     title: 'Frequently asked questions',
@@ -311,7 +279,7 @@ export const en: Dictionary = {
   },
   contact: {
     title: 'Send a message',
-    lead: 'Fill in the form and we’ll reply by email.',
+    lead: 'Fill in the form and we’ll reply by email. Pick an enquiry type for a faster answer.',
     firstName: 'First name',
     firstNamePlaceholder: 'Jane',
     lastName: 'Last name',
@@ -383,6 +351,7 @@ export const en: Dictionary = {
       {
         title: 'Company',
         links: [
+          { label: 'About us', page: 'about' },
           { label: 'Plans', page: 'plans' },
           { label: 'Affiliate program', href: links.affiliate },
           { label: 'Contact', page: 'contact' },
@@ -399,6 +368,154 @@ export const en: Dictionary = {
     label: 'Breadcrumb',
     home: 'Home',
   },
+  aboutPage: {
+    meta: {
+      title: 'About us · SEVORA',
+      description:
+        'Who is behind SEVORA and the principles we work by: clarity before action, risk before profit, learning in your language and honesty. Our journey from a community of traders to a platform with an Academy.',
+    },
+    name: 'About us',
+    title: 'Trading with a plan, in your language',
+    lead: 'SEVORA started from a simple idea: traders in our region need one place for analysis, planning and learning — clear, honest and free of noise.',
+    statement: [
+      { text: 'We don’t sell ' },
+      { text: 'quick profits', tone: 'muted' },
+      { text: '. We build ' },
+      { text: 'tools and knowledge', tone: 'accent' },
+      { text: ' that help you make ' },
+      { text: 'considered decisions', tone: 'accent' },
+      { text: ' — every day.' },
+    ],
+    stats: [
+      { value: '5', label: 'market groups' },
+      { value: '10', label: 'platform tools' },
+      { value: '138', label: 'Academy lessons' },
+      { value: '2', label: 'languages' },
+    ],
+    why: {
+      kicker: 'Why we exist',
+      title: 'Too many signals, too little explanation',
+      paragraphs: [
+        'Most trading content is in English, scattered across ten apps and boils down to “buy here, sell there” — with no explanation of why.',
+        'So we brought analysis, the daily plan, a journal, an AI mentor and the Academy together in one platform, in Serbian and English.',
+        'We start with risk, not profit. Look at the chart: the same trades, only a different risk per trade — and a completely different drawdown.',
+      ],
+      chart: {
+        title: 'Same trades, different risk',
+        subtitle: 'Equity over 40 trades, starting at 100',
+        riskLabel: 'Risk per trade',
+        label: 'Illustrative equity chart for three levels of risk per trade',
+        start: 'Trade 1',
+        end: 'Trade 40',
+        risk: 'Risk per trade',
+        change: 'End of period',
+        drawdown: 'Max drawdown',
+        note: 'Illustration, not a real result: 40 trades, 14 winners, 1:2 risk-to-reward.',
+      },
+    },
+    principles: {
+      title: 'The principles we work by',
+      lead: 'Four rules that apply to every tool, every lesson and every daily plan.',
+      items: [
+        {
+          title: 'Clarity before action',
+          text: 'Every plan says what is happening, why, and what would invalidate it. If you don’t understand a setup, you shouldn’t trade it.',
+          points: [
+            'Bias always comes with a reason',
+            'Clear invalidation for every scenario',
+            'No “secret” signals',
+          ],
+        },
+        {
+          title: 'Risk before profit',
+          text: 'The traders who last are the ones who control their losses. That’s why risk rules are built into the tools, not left for later.',
+          points: [
+            'Daily limits and drawdown tracking',
+            'Risk calculator free for everyone',
+            'Bots only run by your rules',
+          ],
+        },
+        {
+          title: 'Learning in your language',
+          text: 'Terms, lessons and analysis in Serbian, with English when you need it — so you learn faster and understand more deeply.',
+          points: [
+            'Academy from zero to professional level',
+            'Glossary of trading terms',
+            'The whole site and platform in SR and EN',
+          ],
+        },
+        {
+          title: 'Honesty',
+          text: 'We don’t promise profits or show cherry-picked results. Trading carries risk, and we say so openly.',
+          points: [
+            'No guaranteed returns',
+            'Clear terms and a money-back guarantee',
+            'Education, not investment advice',
+          ],
+        },
+      ],
+    },
+    journey: {
+      title: 'Our journey',
+      lead: 'From a community of traders to a platform with tools and an Academy.',
+      items: [
+        {
+          year: '[YEAR]',
+          title: 'Started in the community',
+          text: 'The first daily gold plans and market discussions with traders on Discord. [DETAILS]',
+        },
+        {
+          year: '[YEAR]',
+          title: 'The Academy',
+          text: 'Six levels and 138 lessons — from absolute zero to professional trading.',
+        },
+        {
+          year: '2026',
+          title: 'The SEVORA platform',
+          text: 'AI analysis, the daily plan, journal, mentor, alerts and prop firm tools in one place.',
+        },
+        {
+          year: 'Next',
+          title: 'What we’re building next',
+          text: '[PLANS — e.g. mobile app, new markets, new lessons]',
+        },
+      ],
+    },
+    team: {
+      title: 'The people behind SEVORA',
+      lead: 'A small team of traders, educators and developers.',
+      members: [
+        {
+          initials: 'FL',
+          name: '[FULL NAME]',
+          role: '[ROLE] · Founder',
+          text: '[A short note on experience and market focus.]',
+        },
+        {
+          initials: 'FL',
+          name: '[FULL NAME]',
+          role: '[ROLE] · Academy',
+          text: '[A short note on experience teaching traders.]',
+        },
+        {
+          initials: 'FL',
+          name: '[FULL NAME]',
+          role: '[ROLE] · Platform',
+          text: '[A short note on building the tools and AI analysis.]',
+        },
+      ],
+      join: {
+        title: 'Join the team',
+        text: 'We’re looking for people who share our principles',
+        cta: 'Get in touch',
+      },
+    },
+    cta: {
+      title: 'Become part of the SEVORA community',
+      lead: 'Create a free account, look at today’s plan and start the Academy from level one.',
+      contact: 'Contact us',
+    },
+  },
   academyPage: {
     meta: {
       title: 'Trading academy: from zero to a professional level · SEVORA',
@@ -408,7 +525,6 @@ export const en: Dictionary = {
     name: 'Academy',
     title: 'Master the mindset. Master the market.',
     lead: 'The path from absolute zero to professional trader, in six levels. Each level builds on the last — no skipping the basics.',
-    start: 'Start at level 0',
     path: 'Academy levels',
     statement: [
       { text: 'Six levels, ' },
@@ -584,31 +700,39 @@ export const en: Dictionary = {
         value: '[PARTNERSHIP EMAIL]',
       },
     },
-    quick: {
-      title: 'The answer may already be here',
-      links: [
-        { label: 'Compare plans and prices', page: 'plans' },
-        { label: 'Billing and refund questions', page: 'plans', hash: 'pitanja' },
-        { label: 'Academy curriculum by level', page: 'academy' },
-        { label: 'Affiliate program', page: 'home', hash: 'ekosistem' },
+    next: [
+      {
+        title: 'It reaches the right person',
+        text: 'The enquiry type tells us who on the team should reply.',
+      },
+      { title: 'We reply by email', text: 'On weekdays, usually within [TIME].' },
+      { title: 'We continue your way', text: 'Email, a call or Discord — your choice.' },
+    ],
+    fast: {
+      title: 'Urgent? Message us on Discord',
+      note: 'For urgent technical questions, Discord is the fastest route.',
+    },
+    info: {
+      title: 'Support and company details',
+      items: [
+        { label: 'Support hours', value: 'Mon – Fri', text: '[HOURS] CET' },
+        {
+          label: 'Weekends',
+          value: 'Discord',
+          text: 'The community and team are around even when support is closed.',
+        },
+        { label: 'Response time', value: 'within [TIME]', text: 'By email, on weekdays.' },
+        {
+          label: 'Company details',
+          value: '[LEGAL ENTITY]',
+          text: 'Tax ID [TAX ID] · Reg. no. [REG. NO.] · [ADDRESS]',
+        },
       ],
     },
-    hours: {
-      title: 'Support',
-      rows: [
-        { label: 'Monday – Friday', value: '[HOURS] CET' },
-        { label: 'Weekend', value: 'Discord community' },
-        { label: 'Response time', value: 'within [TIME]' },
-      ],
-      note: 'For urgent technical issues, Discord is the fastest route.',
-    },
-    company: {
-      title: 'Company details',
-      rows: [
-        { label: 'Name', value: '[LEGAL ENTITY]' },
-        { label: 'Tax ID / Reg. no.', value: '[TAX ID] / [REG. NO.]' },
-        { label: 'Address', value: '[ADDRESS]' },
-      ],
+    cta: {
+      title: 'Join the SEVORA community',
+      lead: 'The fastest answers, market discussion and support from other traders — on Discord.',
+      discord: 'Join on Discord',
     },
   },
   notFound: {

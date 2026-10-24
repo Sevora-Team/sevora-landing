@@ -1,5 +1,5 @@
 import { links } from '@/data/links';
-import type { NavItem, SiteLink } from './routes';
+import type { Page, SiteLink } from './routes';
 
 const plural = new Intl.PluralRules('sr-Latn');
 
@@ -20,13 +20,11 @@ export const sr = {
     label: 'Glavna navigacija',
     menu: 'Meni',
     items: [
-      { label: 'Tržišta', section: 'trzista' },
-      { label: 'Platforma', section: 'platforma' },
-      { label: 'Akademija', section: 'akademija', page: 'academy' },
-      { label: 'Alati i partneri', section: 'ekosistem' },
-      { label: 'Paketi', section: 'paketi', page: 'plans' },
+      { label: 'O nama', page: 'about' },
+      { label: 'Akademija', page: 'academy' },
+      { label: 'Paketi', page: 'plans' },
       { label: 'Kontakt', page: 'contact' },
-    ] satisfies NavItem[],
+    ] satisfies { label: string; page: Page }[],
   },
   actions: {
     login: 'Prijavi se',
@@ -41,6 +39,9 @@ export const sr = {
     primary: 'Otvori nalog',
     secondary: 'Pogledaj platformu',
     markets: 'Zlato i metali · Forex · Kripto · Indeksi · Robe',
+    scrollCue: 'Skroluj na sledeću sekciju',
+    scroll: 'Skroluj',
+    swipe: 'Prevuci',
   },
   about: {
     title: 'Jedan centar za analizu, plan i učenje',
@@ -150,25 +151,6 @@ export const sr = {
       },
     },
   },
-  teaser: {
-    title: 'Deo plana je uvek besplatan',
-    lead: 'Pregled zlata i opšti bias su otvoreni. Svi nivoi, scenariji i ažuriranja tokom sesije su u Starter i Premium paketu.',
-    cta: 'Otključaj ceo plan',
-    snapshot: 'Uvid u današnji plan',
-    unlock: 'Otključaj',
-    locked: 'Zaključano',
-    levels: {
-      title: 'Nivoi za danas',
-      text: 'Gde cena najverovatnije reaguje.',
-      footer: 'Još 3 nivoa u Starter paketu',
-    },
-    scenarios: {
-      title: 'Scenariji',
-      text: 'Ulaz, cilj i invalidacija za oba smera.',
-      footer: 'Scenariji u Starter paketu',
-      rows: ['Scenario A', 'Scenario B', 'Invalidacija'],
-    },
-  },
   steps: {
     title: 'Tri koraka do promišljenijeg trejdinga',
     items: {
@@ -187,21 +169,10 @@ export const sr = {
     },
   },
   academy: {
-    title: 'Savladaj način razmišljanja. Savladaj tržište.',
-    lead: 'Akademija vodi od apsolutne nule do profesionalnog nivoa. Disciplina danas, sloboda sutra.',
-    cta: 'Počni da učiš',
     stats: [
       { value: '6', label: 'nivoa' },
       { value: '23', label: 'modula' },
       { value: '138', label: 'lekcija' },
-    ],
-    levels: [
-      { level: 'Nivo 0', title: 'Apsolutna nula', meta: '4 modula · 28 lekcija' },
-      { level: 'Nivo 1', title: 'Osnove', meta: '3 modula · 18 lekcija' },
-      { level: 'Nivo 2', title: 'Napredni početnik', meta: '4 modula · 23 lekcije' },
-      { level: 'Nivo 3', title: 'Srednji nivo', meta: '3 modula · 21 lekcija' },
-      { level: 'Nivo 4', title: 'Napredni nivo', meta: '4 modula · 23 lekcije' },
-      { level: 'Nivo 5', title: 'Profesionalni nivo', meta: '5 modula · 25 lekcija' },
     ],
   },
   ecosystem: {
@@ -228,7 +199,6 @@ export const sr = {
     },
   },
   pricing: {
-    title: 'Počni besplatno, nadogradi kad ti zatreba',
     billingLabel: 'Način plaćanja',
     monthly: 'Mesečno',
     yearly: 'Godišnje',
@@ -279,9 +249,6 @@ export const sr = {
       },
     },
     guarantee: '30 dana garancija povrata novca, bez pitanja.',
-    compare: 'Uporedi pakete',
-    teaserLead:
-      'Tri paketa, od besplatnog do profesionalnog. Mesečno ili godišnje, uz 10% popusta.',
   },
   faq: {
     title: 'Česta pitanja',
@@ -320,7 +287,7 @@ export const sr = {
   },
   contact: {
     title: 'Pošalji poruku',
-    lead: 'Popuni formu i javićemo ti se na email.',
+    lead: 'Popuni formu i javićemo ti se na email. Za brži odgovor izaberi vrstu upita.',
     firstName: 'Ime',
     firstNamePlaceholder: 'Petar',
     lastName: 'Prezime',
@@ -392,6 +359,7 @@ export const sr = {
       {
         title: 'Kompanija',
         links: [
+          { label: 'O nama', page: 'about' },
           { label: 'Paketi', page: 'plans' },
           { label: 'Partnerski program', href: links.affiliate },
           { label: 'Kontakt', page: 'contact' },
@@ -408,6 +376,154 @@ export const sr = {
     label: 'Putanja',
     home: 'Početna',
   },
+  aboutPage: {
+    meta: {
+      title: 'O nama · SEVORA',
+      description:
+        'Ko stoji iza SEVORA-e i po kojim principima radimo: jasnoća pre akcije, rizik pre profita, učenje na svom jeziku i iskrenost. Naš put od zajednice trejdera do platforme sa Akademijom.',
+    },
+    name: 'O nama',
+    title: 'Trejding sa planom, na tvom jeziku',
+    lead: 'SEVORA je nastala iz jednostavne ideje: trejderima sa ovih prostora treba jedno mesto za analizu, plan i učenje — jasno, iskreno i bez buke.',
+    statement: [
+      { text: 'Ne prodajemo ' },
+      { text: 'brzu zaradu', tone: 'muted' },
+      { text: '. Gradimo ' },
+      { text: 'alate i znanje', tone: 'accent' },
+      { text: ' koji ti pomažu da donosiš ' },
+      { text: 'promišljene odluke', tone: 'accent' },
+      { text: ' — svaki dan.' },
+    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
+    stats: [
+      { value: '5', label: 'grupa tržišta' },
+      { value: '10', label: 'alata u platformi' },
+      { value: '138', label: 'lekcija u Akademiji' },
+      { value: '2', label: 'jezika' },
+    ],
+    why: {
+      kicker: 'Zašto postojimo',
+      title: 'Previše signala, premalo objašnjenja',
+      paragraphs: [
+        'Većina trejding sadržaja je na engleskom, razbacana po deset aplikacija i svodi se na „kupi ovde, prodaj tamo“ — bez objašnjenja zašto.',
+        'Zato smo spojili analizu, dnevni plan, žurnal, AI mentora i Akademiju u jednu platformu, na srpskom i engleskom.',
+        'Polazimo od rizika, a ne od profita. Pogledaj grafikon: isti niz trejdova, samo drugačiji rizik po trejdu — i potpuno drugačiji pad kapitala.',
+      ],
+      chart: {
+        title: 'Isti trejdovi, drugačiji rizik',
+        subtitle: 'Kapital kroz 40 trejdova, start 100',
+        riskLabel: 'Rizik po trejdu',
+        label: 'Ilustrativni grafikon kapitala za tri nivoa rizika po trejdu',
+        start: 'Trejd 1',
+        end: 'Trejd 40',
+        risk: 'Rizik po trejdu',
+        change: 'Kraj perioda',
+        drawdown: 'Najveći pad',
+        note: 'Ilustracija, ne stvarni rezultat: 40 trejdova, 14 uspešnih, odnos rizika i dobiti 1:2.',
+      },
+    },
+    principles: {
+      title: 'Principi po kojima radimo',
+      lead: 'Četiri pravila koja važe za svaki alat, svaku lekciju i svaki dnevni plan.',
+      items: [
+        {
+          title: 'Jasnoća pre akcije',
+          text: 'Svaki plan kaže šta se dešava, zašto, i šta bi ga poništilo. Ako ne razumeš setap, ne treba da ga trguješ.',
+          points: [
+            'Bias uvek sa objašnjenjem',
+            'Jasna invalidacija za svaki scenario',
+            'Bez „tajnih“ signala',
+          ],
+        },
+        {
+          title: 'Rizik pre profita',
+          text: 'Dugoročno opstaju trejderi koji kontrolišu gubitke. Zato su pravila rizika ugrađena u alate, ne ostavljena za kasnije.',
+          points: [
+            'Dnevni limiti i praćenje drawdowna',
+            'Kalkulator rizika besplatan za sve',
+            'Botovi rade samo po tvojim pravilima',
+          ],
+        },
+        {
+          title: 'Učenje na svom jeziku',
+          text: 'Pojmovi, lekcije i analize na srpskom, uz engleski kada ti zatreba — da učiš brže i razumeš dublje.',
+          points: [
+            'Akademija od nule do profesionalnog nivoa',
+            'Rečnik trejding pojmova',
+            'Ceo sajt i platforma na SR i EN',
+          ],
+        },
+        {
+          title: 'Iskrenost',
+          text: 'Ne obećavamo zaradu i ne prikazujemo izabrane rezultate. Trejding nosi rizik i to govorimo otvoreno.',
+          points: [
+            'Bez garantovanih prinosa',
+            'Jasni uslovi i garancija povrata',
+            'Edukacija, ne investicioni savet',
+          ],
+        },
+      ],
+    },
+    journey: {
+      title: 'Naš put',
+      lead: 'Od zajednice trejdera do platforme sa alatima i Akademijom.',
+      items: [
+        {
+          year: '[GODINA]',
+          title: 'Početak u zajednici',
+          text: 'Prvi dnevni planovi za zlato i razgovori o tržištu sa trejderima na Discordu. [DETALJI]',
+        },
+        {
+          year: '[GODINA]',
+          title: 'Akademija',
+          text: 'Šest nivoa i 138 lekcija na srpskom — od apsolutne nule do profesionalnog trejdinga.',
+        },
+        {
+          year: '2026',
+          title: 'SEVORA platforma',
+          text: 'AI analiza, dnevni plan, žurnal, mentor, alarmi i prop firm alati na jednom mestu.',
+        },
+        {
+          year: 'Sledeće',
+          title: 'Šta gradimo dalje',
+          text: '[PLANOVI — npr. mobilna aplikacija, nova tržišta, nove lekcije]',
+        },
+      ],
+    },
+    team: {
+      title: 'Ljudi iza SEVORA-e',
+      lead: 'Mali tim trejdera, edukatora i developera.',
+      members: [
+        {
+          initials: 'IP',
+          name: '[IME PREZIME]',
+          role: '[ULOGA] · Osnivač',
+          text: '[Kratko o iskustvu i fokusu na tržištima.]',
+        },
+        {
+          initials: 'IP',
+          name: '[IME PREZIME]',
+          role: '[ULOGA] · Akademija',
+          text: '[Kratko o iskustvu u edukaciji trejdera.]',
+        },
+        {
+          initials: 'IP',
+          name: '[IME PREZIME]',
+          role: '[ULOGA] · Platforma',
+          text: '[Kratko o razvoju alata i AI analize.]',
+        },
+      ],
+      join: {
+        title: 'Pridruži se timu',
+        text: 'Tražimo ljude koji dele naše principe',
+        cta: 'Javi nam se',
+      },
+    },
+    cta: {
+      title: 'Postani deo SEVORA zajednice',
+      lead: 'Napravi besplatan nalog, pogledaj današnji plan i počni Akademiju od prvog nivoa.',
+      contact: 'Kontaktiraj nas',
+    },
+  },
   academyPage: {
     meta: {
       title: 'Akademija trejdinga: od nule do profesionalnog nivoa · SEVORA',
@@ -417,7 +533,6 @@ export const sr = {
     name: 'Akademija',
     title: 'Savladaj način razmišljanja. Savladaj tržište.',
     lead: 'Put od apsolutne nule do profesionalnog trejdera, u šest nivoa. Svaki nivo gradi na prethodnom — bez preskakanja osnova.',
-    start: 'Počni od nivoa 0',
     path: 'Nivoi Akademije',
     statement: [
       { text: 'Šest nivoa, ' },
@@ -593,31 +708,39 @@ export const sr = {
         value: '[EMAIL ZA SARADNJU]',
       },
     },
-    quick: {
-      title: 'Možda je odgovor već ovde',
-      links: [
-        { label: 'Uporedi pakete i cene', page: 'plans' },
-        { label: 'Pitanja o plaćanju i povratu novca', page: 'plans', hash: 'pitanja' },
-        { label: 'Program Akademije po nivoima', page: 'academy' },
-        { label: 'Partnerski program', page: 'home', hash: 'ekosistem' },
-      ] satisfies SiteLink[],
+    next: [
+      {
+        title: 'Poruka stiže pravoj osobi',
+        text: 'Vrsta upita nam govori ko iz tima treba da ti odgovori.',
+      },
+      { title: 'Odgovaramo na email', text: 'Radnim danima, najčešće u roku od [VREME].' },
+      { title: 'Nastavljamo kako tebi odgovara', text: 'Email, poziv ili Discord — biraš ti.' },
+    ],
+    fast: {
+      title: 'Hitno? Piši nam na Discordu',
+      note: 'Za hitna tehnička pitanja najbrže je preko Discorda.',
     },
-    hours: {
-      title: 'Podrška',
-      rows: [
-        { label: 'Ponedeljak – petak', value: '[VREME] CET' },
-        { label: 'Vikend', value: 'Discord zajednica' },
-        { label: 'Vreme odgovora', value: 'do [VREME]' },
+    info: {
+      title: 'Podrška i podaci o firmi',
+      items: [
+        { label: 'Radno vreme', value: 'Pon – pet', text: '[VREME] CET' },
+        {
+          label: 'Vikendom',
+          value: 'Discord',
+          text: 'Zajednica i tim su tu i kad podrška ne radi.',
+        },
+        { label: 'Vreme odgovora', value: 'do [VREME]', text: 'Na email, radnim danima.' },
+        {
+          label: 'Podaci o firmi',
+          value: '[PRAVNO LICE]',
+          text: 'PIB [PIB] · MB [MB] · [ADRESA]',
+        },
       ],
-      note: 'Za hitne tehničke probleme najbrže je preko Discorda.',
     },
-    company: {
-      title: 'Podaci o firmi',
-      rows: [
-        { label: 'Naziv', value: '[PRAVNO LICE]' },
-        { label: 'PIB / MB', value: '[PIB] / [MB]' },
-        { label: 'Adresa', value: '[ADRESA]' },
-      ],
+    cta: {
+      title: 'Pridruži se SEVORA zajednici',
+      lead: 'Najbrži odgovori, razgovori o tržištu i podrška drugih trejdera — na Discordu.',
+      discord: 'Pridruži se na Discordu',
     },
   },
   notFound: {

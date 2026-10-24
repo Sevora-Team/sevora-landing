@@ -9,7 +9,7 @@ const lang = getLangFromUrl(Astro.url);
 const { footer } = useTranslations(lang);
 ---
 
-<footer class="footer section-dark" data-theme="dark">
+<footer class="footer section-dark band-haze" data-theme="dark">
   <div class="wrap">
     <div class="grid">
       <div>
@@ -46,7 +46,11 @@ const { footer } = useTranslations(lang);
 <style>
   .footer {
     padding: 72px 0 28px;
-    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, rgb(2 4 8 / 0) 0%, rgb(2 4 8 / 0.7) 240px);
+  }
+
+  .footer::before {
+    background: radial-gradient(40% 60% at 0% 0%, rgb(22 164 173 / 0.1), transparent 70%);
   }
 
   .grid {

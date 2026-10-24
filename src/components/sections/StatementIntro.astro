@@ -1,15 +1,20 @@
 ---
+// A page's opening statement with its key numbers beside it.
 import Statement from '@/components/ui/Statement.astro';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const t = useTranslations(getLangFromUrl(Astro.url));
+interface Props {
+  parts: { text: string; tone?: 'accent' | 'muted' }[];
+  stats: { value: string; label: string }[];
+}
+
+const { parts, stats } = Astro.props;
 ---
 
 <section class="section">
   <div class="wrap layout">
-    <Statement parts={t.academyPage.statement} />
+    <Statement parts={parts} />
     <dl class="stats">
-      {t.academy.stats.map(({ value, label }) => (
+      {stats.map(({ value, label }) => (
         <div class="reveal">
           <dt class="caption">{label}</dt>
           <dd>{value}</dd>
@@ -46,7 +51,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     margin: 0;
     font: 400 56px/60px var(--font-sans);
     letter-spacing: -0.02em;
-    color: var(--text);
+    color: var(--accent-text);
   }
 
   @media (max-width: 1080px) {

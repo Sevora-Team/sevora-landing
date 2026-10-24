@@ -1,0 +1,140 @@
+---
+// Support hours, response time and company details, one card each.
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { info } = useTranslations(getLangFromUrl(Astro.url)).contactPage;
+const icons: IconName[] = ['schedule', 'forum', 'mail', 'verified-user'];
+---
+
+<section class="section info">
+  <div class="wrap">
+    <h2 class="h2 reveal-title">{info.title}</h2>
+    <ul class="cards">
+      {info.items.map(({ label, value, text }, i) => (
+        <li class="card reveal-pop">
+          <span class="icon-circle reveal-icon">
+            <Icon name={icons[i]} />
+          </span>
+          <p class="caption label">{label}</p>
+          <p class="value">{value}</p>
+          <p class="body-sm">{text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .info {
+    padding-top: 0;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    min-height: 230px;
+    padding: 28px;
+    overflow: hidden;
+    border: 1px solid var(--teal-line-soft);
+    border-radius: var(--radius-card);
+    background: linear-gradient(180deg, rgb(66 202 215 / 0.06), rgb(12 21 32 / 0.9));
+    transition:
+      border-color 0.3s var(--ease),
+      transform 0.4s var(--ease);
+  }
+
+  .card:hover {
+    border-color: rgb(66 202 215 / 0.4);
+    transform: translateY(-4px);
+  }
+
+  /* An accent bar draws in along the bottom edge on hover. */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: auto 28px 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease);
+  }
+
+  .card:hover::after {
+    transform: scaleX(1);
+  }
+
+  .card:nth-child(2) {
+    animation-range: entry 5% cover 35%;
+  }
+
+  .card:nth-child(3) {
+    animation-range: entry 10% cover 40%;
+  }
+
+  .card:nth-child(4) {
+    animation-range: entry 15% cover 45%;
+  }
+
+  /* Company details close the row in teal. */
+  .card:last-child {
+    border-color: rgb(66 202 215 / 0.26);
+    background: var(--teal-grad);
+  }
+
+  .icon-circle {
+    margin-bottom: 10px;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .value {
+    margin: 0;
+    font: 400 25px/32px var(--font-sans);
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .card:last-child .value {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .body-sm {
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 1080px) {
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card {
+      min-height: 0;
+    }
+  }
+</style>

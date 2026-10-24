@@ -1,28 +1,42 @@
 ---
-// Dark, centred opening band of a page below home: breadcrumbs, the page's h1 and lead.
-// The default slot follows the lead (actions, a toggle). The `below` slot is full width under
-// the text and takes the place of the glyph dome (the Academy's level path).
+// Dark, centred opening band of a page below home: a photo behind breadcrumbs, the page's h1
+// and lead. The default slot follows the lead (a toggle). The `below` slot is full width under
+// the text, and the hero then fills the viewport (the Academy's level path).
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-import Glyphs from './Glyphs.astro';
 
 interface Props {
   /** Short page name, the last breadcrumb. */
   name: string;
   title: string;
   lead: string;
+  photo: ImageMetadata;
   /** Leaves room at the bottom for the cards right after the hero to rise into it. */
   overlap?: boolean;
 }
 
-const { name, title, lead, overlap = false } = Astro.props;
+const { name, title, lead, photo, overlap = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const { breadcrumb } = useTranslations(lang);
 const below = Astro.slots.has('below');
+// Text with controls in it stays put; otherwise it lifts away as the page scrolls.
+const controls = Astro.slots.has('default');
 ---
 
 <section class:list={['page-hero section-dark', { overlap, 'has-below': below }]} data-theme="dark">
-  <div class="wrap content">
+  <div class="photo">
+    <Image
+      src={photo}
+      alt=""
+      widths={[800, 1600]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <div class:list={['wrap content', { leaves: !controls }]}>
     <nav class="crumbs rise" aria-label={breadcrumb.label}>
       <ol>
         <li>
@@ -31,32 +45,45 @@ const below = Astro.slots.has('below');
         <li aria-current="page">{name}</li>
       </ol>
     </nav>
-    <h1 class="display rise" style="--delay: 0.08s">
+    <h1 class="display rise" style="--delay: 0.2s">
       {title}
     </h1>
-    <p class="lead rise" style="--delay: 0.16s">
+    <p class="lead rise" style="--delay: 0.36s">
       {lead}
     </p>
-    {Astro.slots.has('default') && (
-      <div class="extra rise" style="--delay: 0.24s">
+    {controls && (
+      <div class="extra rise" style="--delay: 0.52s">
         <slot />
       </div>
     )}
   </div>
-  {below ? (
+  {below && (
     <div class="wrap below">
       <slot name="below" />
     </div>
-  ) : (
-    <Glyphs name="dome" class="dome" />
   )}
 </section>
 
 <style>
+  @keyframes photo-in {
+    from {
+      opacity: 0;
+      transform: scale(1.14);
+    }
+  }
+
+  @keyframes content-out {
+    to {
+      opacity: 0;
+      translate: 0 -64px;
+    }
+  }
+
   .page-hero {
     /* Slide under the sticky header. */
     margin-top: -84px;
     padding-top: 84px;
+    background: var(--bg);
   }
 
   .page-hero::before {
@@ -65,8 +92,44 @@ const below = Astro.slots.has('below');
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(55% 70% at 0% 100%, rgb(66 202 215 / 0.1), transparent 70%),
-      radial-gradient(35% 45% at 100% 0%, rgb(66 202 215 / 0.05), transparent 70%);
+      radial-gradient(60% 75% at 0% 100%, var(--haze), transparent 70%),
+      radial-gradient(45% 55% at 100% 0%, rgb(22 164 173 / 0.16), transparent 70%);
+  }
+
+  /* The bottom melts into the page backdrop. */
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 3;
+    height: 260px;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgb(5 9 15 / 0), var(--page));
+  }
+
+  .has-below::after {
+    z-index: 1;
+    height: 60px;
+  }
+
+  .photo img {
+    opacity: 0.45;
+    animation: photo-in 2.4s var(--ease-out) both;
+  }
+
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgb(3 6 12 / 0.7) 0%,
+        rgb(3 6 12 / 0.35) 38%,
+        rgb(3 6 12 / 0.55) 70%,
+        var(--bg) 100%
+      ),
+      radial-gradient(55% 55% at 50% 42%, rgb(3 6 12 / 0.5), transparent 75%);
   }
 
   .content {
@@ -77,6 +140,16 @@ const below = Astro.slots.has('below');
     gap: 20px;
     padding-block: 80px 104px;
     text-align: center;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .leaves {
+      animation-name: content-out;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+      animation-range: 0 70vh;
+    }
   }
 
   .overlap .content {
@@ -136,14 +209,34 @@ const below = Astro.slots.has('below');
     z-index: 2;
   }
 
-  .dome {
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 1;
-    height: 240px;
-    opacity: 0.55;
-    pointer-events: none;
-    animation: rise 1.4s var(--ease) 0.3s both;
+  /* With content below, the hero fills the viewport and the text tightens with its height. */
+  @media (min-width: 641px) {
+    .has-below {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100svh;
+      min-height: 720px;
+      max-height: 1200px;
+    }
+
+    .has-below .content {
+      flex: none;
+      gap: clamp(12px, 2vh, 20px);
+      padding-top: clamp(24px, 6vh, 80px);
+    }
+
+    .has-below .display {
+      font-size: clamp(44px, 6.4vh, 64px);
+      line-height: 1.08;
+    }
+
+    .has-below .below {
+      display: flex;
+      flex: 1 1 auto;
+      align-items: flex-end;
+      min-height: 0;
+    }
   }
 
   @media (max-width: 640px) {

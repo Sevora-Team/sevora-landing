@@ -19,9 +19,10 @@ const plans = [
 <section class="pricing" id="paketi">
   <div class="wrap">
     <div class="plans">
-      {plans.map(({ name, description, items, cta, price, featured }) => (
+      {plans.map(({ name, description, items, cta, price, featured }, i) => (
         <article
-          class:list={['plan', 'reveal', { featured }]}
+          class:list={['plan', 'rise', { featured }]}
+          style={`--delay: ${0.6 + i * 0.12}s`}
           data-theme={featured ? 'dark' : undefined}
         >
           <div>
@@ -98,9 +99,9 @@ const plans = [
     flex-direction: column;
     gap: 20px;
     padding: 40px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--teal-line-soft);
     border-radius: var(--radius-card);
-    background: var(--surface);
+    background: var(--teal-glass);
     transition:
       border-color 0.25s var(--ease),
       transform 0.35s var(--ease);
@@ -112,12 +113,12 @@ const plans = [
   }
 
   .featured {
-    border-color: var(--accent-border);
-    background: var(--bg);
+    border-color: var(--teal-line);
+    background: var(--teal-grad);
   }
 
   .featured:hover {
-    border-color: var(--accent);
+    border-color: rgb(66 202 215 / 0.5);
   }
 
   .description {
@@ -158,6 +159,11 @@ const plans = [
     padding: 20px;
     border-radius: var(--radius);
     background: var(--surface-hover);
+  }
+
+  .featured .features {
+    border: 1px solid var(--teal-line);
+    background: rgb(255 255 255 / 0.04);
   }
 
   .features ul {

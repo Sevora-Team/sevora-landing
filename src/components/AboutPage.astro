@@ -1,0 +1,31 @@
+---
+// The About page, shared by every locale like HomePage.
+import photo from '@/assets/photos/heroes/about.webp';
+import PageHero from '@/components/ui/PageHero.astro';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import PageLayout from '@/layouts/PageLayout.astro';
+import AboutJourney from './sections/AboutJourney.astro';
+import AboutPrinciples from './sections/AboutPrinciples.astro';
+import AboutTeam from './sections/AboutTeam.astro';
+import AboutWhy from './sections/AboutWhy.astro';
+import ClosingCta from './sections/ClosingCta.astro';
+import StatementIntro from './sections/StatementIntro.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const page = useTranslations(lang).aboutPage;
+---
+
+<PageLayout name={page.name} title={page.meta.title} description={page.meta.description}>
+  <PageHero name={page.name} title={page.title} lead={page.lead} photo={photo} />
+  <StatementIntro parts={page.statement} stats={page.stats} />
+  <AboutWhy />
+  <AboutPrinciples />
+  <AboutJourney />
+  <AboutTeam />
+  <ClosingCta
+    title={page.cta.title}
+    lead={page.cta.lead}
+    secondary={{ label: page.cta.contact, href: getPageUrl(lang, 'contact') }}
+  />
+</PageLayout>

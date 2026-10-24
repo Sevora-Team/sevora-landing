@@ -1,0 +1,231 @@
+---
+// The four principles: pick one on the left, read it on the right. A radio group, no script;
+// one rule per principle shows its panel.
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { principles } = useTranslations(getLangFromUrl(Astro.url)).aboutPage;
+const icons: IconName[] = ['visibility', 'shield', 'translate', 'verified-user'];
+---
+
+<section class="section" id="principi">
+  <div class="wrap">
+    <div class="intro head reveal">
+      <h2 class="h2 reveal-title">{principles.title}</h2>
+      <p class="lead">{principles.lead}</p>
+    </div>
+
+    <div class="principles">
+      <fieldset class="list">
+        <legend class="sr-only">{principles.title}</legend>
+        {principles.items.map(({ title }, i) => (
+          <>
+            <input
+              class="sr-only"
+              type="radio"
+              name="principle"
+              id={`principle-${i}`}
+              checked={i === 0}
+            />
+            <label class="reveal-left" for={`principle-${i}`}>
+              <span class="number">{String(i + 1).padStart(2, '0')}</span>
+              <span>{title}</span>
+              <Icon name="arrow-forward" class="arrow" />
+            </label>
+          </>
+        ))}
+      </fieldset>
+
+      <div class="stage reveal">
+        {principles.items.map(({ title, text, points }, i) => (
+          <article class={`panel panel-${i}`}>
+            <span class="icon-box">
+              <Icon name={icons[i]} size={28} />
+            </span>
+            <h3 class="h3">{title}</h3>
+            <p class="lead">{text}</p>
+            <ul>
+              {points.map((point) => (
+                <li>
+                  <Icon name="check" size={16} />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      translate: 0 18px;
+    }
+  }
+
+  .head {
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .list {
+    /* Anchors the visually hidden radios, so focusing one doesn't scroll the page. */
+    position: relative;
+    display: grid;
+    grid-auto-rows: 1fr;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .list label {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: rgb(12 21 32 / 0.5);
+    color: var(--text-body);
+    font: 400 19px/26px var(--font-sans);
+    cursor: pointer;
+    transition:
+      background-color 0.3s var(--ease),
+      border-color 0.3s var(--ease),
+      color 0.3s var(--ease);
+  }
+
+  .list label:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .list input:checked + label {
+    border-color: rgb(66 202 215 / 0.4);
+    background: linear-gradient(90deg, rgb(22 164 173 / 0.18), rgb(22 164 173 / 0.04));
+    color: var(--text);
+  }
+
+  .list input:focus-visible + label {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .number {
+    font: 500 12px/16px var(--font-mono);
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .arrow {
+    color: var(--accent);
+    opacity: 0;
+    translate: -8px 0;
+    transition:
+      opacity 0.3s var(--ease),
+      translate 0.3s var(--ease);
+  }
+
+  .list input:checked + label .arrow {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .stage {
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+    border: 1px solid rgb(66 202 215 / 0.18);
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(70% 80% at 100% 0%, rgb(22 164 173 / 0.18), transparent 65%),
+      linear-gradient(180deg, #081d23, #06131a);
+  }
+
+  .panel {
+    display: none;
+    align-content: start;
+    gap: 18px;
+    padding: 44px;
+  }
+
+  .principles:has(#principle-0:checked) .panel-0,
+  .principles:has(#principle-1:checked) .panel-1,
+  .principles:has(#principle-2:checked) .panel-2,
+  .principles:has(#principle-3:checked) .panel-3 {
+    display: grid;
+    animation: panel-in 0.6s var(--ease-out) both;
+  }
+
+  .icon-box {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 1px solid rgb(66 202 215 / 0.3);
+    border-radius: 16px;
+    background: rgb(66 202 215 / 0.12);
+    color: var(--accent);
+    /* Replays whenever its panel is shown. */
+    animation: icon-in 0.7s var(--ease-out) both;
+  }
+
+  ul {
+    display: grid;
+    gap: 12px;
+    margin: 8px 0 0;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font: 400 15px/22px var(--font-sans);
+  }
+
+  li svg {
+    flex: none;
+    color: var(--accent);
+  }
+
+  @media (max-width: 1080px) {
+    .principles {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .list label {
+      grid-template-columns: 36px minmax(0, 1fr) auto;
+      padding: 16px;
+      font-size: 16px;
+    }
+
+    .stage {
+      min-height: 0;
+    }
+
+    .panel {
+      padding: 26px 22px;
+    }
+  }
+</style>

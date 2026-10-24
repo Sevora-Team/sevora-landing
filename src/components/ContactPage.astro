@@ -1,16 +1,30 @@
 ---
 // The contact page, shared by every locale like HomePage.
+import photo from '@/assets/photos/heroes/contact.webp';
 import PageHero from '@/components/ui/PageHero.astro';
+import { links } from '@/data/links';
+import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import PageLayout from '@/layouts/PageLayout.astro';
+import ClosingCta from './sections/ClosingCta.astro';
 import Contact from './sections/Contact.astro';
 import ContactChannels from './sections/ContactChannels.astro';
+import ContactInfo from './sections/ContactInfo.astro';
 
-const page = useTranslations(getLangFromUrl(Astro.url)).contactPage;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const page = t.contactPage;
 ---
 
 <PageLayout name={page.name} title={page.meta.title} description={page.meta.description}>
-  <PageHero name={page.name} title={page.title} lead={page.lead} overlap />
+  <PageHero name={page.name} title={page.title} lead={page.lead} photo={photo} overlap />
   <ContactChannels />
   <Contact />
+  <ContactInfo />
+  <ClosingCta
+    title={page.cta.title}
+    lead={page.cta.lead}
+    primary={{ label: page.cta.discord, href: links.discord }}
+    secondary={{ label: t.actions.seePlans, href: getPageUrl(lang, 'plans') }}
+  />
 </PageLayout>

@@ -7,13 +7,13 @@ const { faq } = useTranslations(getLangFromUrl(Astro.url));
 
 <section class="section faq" id="pitanja">
   <div class="wrap">
-    <h2 class="h2 reveal">{faq.title}</h2>
+    <h2 class="h2 reveal-title">{faq.title}</h2>
     <FaqList items={faq.items} name="faq" size="lg" />
   </div>
 </section>
 
 <style>
-  /* Follows the pricing teaser, which already ends with section padding. */
+  /* Follows the ecosystem cards, which already end with section padding. */
   .faq {
     padding-top: 0;
   }

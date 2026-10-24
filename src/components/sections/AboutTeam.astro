@@ -1,0 +1,157 @@
+---
+// The team, and a card inviting people who share the principles to get in touch.
+import Icon from '@/components/ui/Icon.astro';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { team } = useTranslations(lang).aboutPage;
+---
+
+<section class="section team" id="tim">
+  <div class="wrap">
+    <div class="intro head reveal">
+      <h2 class="h2 reveal-title">{team.title}</h2>
+      <p class="lead">{team.lead}</p>
+    </div>
+
+    <ul class="members">
+      {team.members.map(({ initials, name, role, text }) => (
+        <li class="member reveal-pop">
+          <span class="avatar" aria-hidden="true">
+            {initials}
+          </span>
+          <div>
+            <p class="name">{name}</p>
+            <p class="caption role">{role}</p>
+          </div>
+          <p class="body-sm">{text}</p>
+        </li>
+      ))}
+      <li class="reveal-pop">
+        <a class="member join" href={getPageUrl(lang, 'contact')}>
+          <span class="avatar">
+            <Icon name="groups" />
+          </span>
+          <div>
+            <p class="name">{team.join.title}</p>
+            <p class="caption role">{team.join.text}</p>
+          </div>
+          <span class="join-cta">
+            {team.join.cta}
+            <Icon name="north-east" />
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .head {
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .members {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .members > li:nth-child(2) {
+    animation-range: entry 5% cover 35%;
+  }
+
+  .members > li:nth-child(3) {
+    animation-range: entry 10% cover 40%;
+  }
+
+  .members > li:nth-child(4) {
+    animation-range: entry 15% cover 45%;
+  }
+
+  .member {
+    display: grid;
+    align-content: start;
+    gap: 18px;
+    height: 100%;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: rgb(12 21 32 / 0.6);
+    text-decoration: none;
+    transition:
+      border-color 0.3s var(--ease),
+      transform 0.35s var(--ease);
+  }
+
+  .member:hover {
+    border-color: rgb(66 202 215 / 0.35);
+    transform: translateY(-4px);
+  }
+
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border: 1px solid rgb(66 202 215 / 0.35);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 25%,
+      rgb(66 202 215 / 0.35),
+      rgb(14 138 146 / 0.12) 70%
+    );
+    color: var(--accent);
+    font: 500 18px/1 var(--font-mono);
+  }
+
+  .name {
+    margin: 0 0 4px;
+    color: var(--text);
+    font: 500 17px/24px var(--font-sans);
+  }
+
+  .role {
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  .join {
+    border-style: dashed;
+    border-color: rgb(66 202 215 / 0.3);
+    background: linear-gradient(160deg, rgb(22 164 173 / 0.14), rgb(22 164 173 / 0.02));
+  }
+
+  .join-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    font: 500 14px/20px var(--font-sans);
+  }
+
+  .join-cta svg {
+    transition: transform 0.25s var(--ease);
+  }
+
+  .join:hover .join-cta svg {
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 1080px) {
+    .members {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .members {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

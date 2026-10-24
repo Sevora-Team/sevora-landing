@@ -1,33 +1,23 @@
 ---
 import Button from '@/components/ui/Button.astro';
-import Glyphs from '@/components/ui/Glyphs.astro';
 import { links } from '@/data/links';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-import type { TextureName } from '@/lib/glyphs';
 
 const t = useTranslations(getLangFromUrl(Astro.url));
-const { items } = t.steps;
-
-const steps: { step: (typeof items)[keyof typeof items]; texture: TextureName }[] = [
-  { step: items.connect, texture: 'wave' },
-  { step: items.analyze, texture: 'bars' },
-  { step: items.act, texture: 'globe' },
-];
+const { connect, analyze, act } = t.steps.items;
+const steps = [connect, analyze, act];
 ---
 
-<section class="section-dark" id="kako-radi" data-theme="dark">
+<section class="section-dark band-haze" id="kako-radi" data-theme="dark">
   <div class="head">
-    <h2 class="h2 reveal">{t.steps.title}</h2>
+    <h2 class="h2 reveal-title">{t.steps.title}</h2>
     <Button class="reveal" href={links.signup} icon="north-east">
       {t.actions.start}
     </Button>
   </div>
   <ol class="steps">
-    {steps.map(({ step, texture }, i) => (
-      <li class="step reveal">
-        <div class="visual">
-          <Glyphs name={texture} class="texture" />
-        </div>
+    {steps.map((step, i) => (
+      <li class="step reveal-left">
         <p class="number">{String(i + 1).padStart(2, '0')}</p>
         <h3 class="h3">{step.title}</h3>
         <p>{step.text}</p>
@@ -37,6 +27,10 @@ const steps: { step: (typeof items)[keyof typeof items]; texture: TextureName }[
 </section>
 
 <style>
+  #kako-radi::before {
+    background: radial-gradient(45% 70% at 100% 0%, rgb(22 164 173 / 0.18), transparent 70%);
+  }
+
   .head {
     display: flex;
     flex-wrap: wrap;
@@ -55,8 +49,24 @@ const steps: { step: (typeof items)[keyof typeof items]; texture: TextureName }[
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--border);
     list-style: none;
+  }
+
+  /* A hairline that fades out at both ends, above the row of steps. */
+  .steps::before {
+    content: '';
+    grid-column: 1 / -1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(66 202 215 / 0.18), transparent);
+  }
+
+  /* The steps cascade in from the left. */
+  .step:nth-child(2) {
+    animation-range: entry 8% cover 38%;
+  }
+
+  .step:nth-child(3) {
+    animation-range: entry 16% cover 46%;
   }
 
   .step {
@@ -74,19 +84,6 @@ const steps: { step: (typeof items)[keyof typeof items]; texture: TextureName }[
 
   .step:hover {
     background: var(--surface);
-  }
-
-  .visual {
-    height: 150px;
-    margin-bottom: 12px;
-  }
-
-  .texture {
-    transition: transform 0.8s var(--ease);
-  }
-
-  .step:hover .texture {
-    transform: translateY(-6px);
   }
 
   .number {

@@ -1,0 +1,58 @@
+---
+// A framed teal panel with a dot field and a top highlight, so a closing band stands out.
+// Content is centred; the parent sets the padding.
+interface Props {
+  class?: string;
+}
+
+// `rest` carries the parent's scoped-style attribute, so parents can size the panel.
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class:list={['framed', className]} {...rest}>
+  <slot />
+</div>
+
+<style>
+  .framed {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgb(66 202 215 / 0.2);
+    border-radius: var(--radius-panel);
+    background:
+      radial-gradient(70% 90% at 50% 0%, rgb(66 202 215 / 0.14), transparent 65%),
+      radial-gradient(45% 70% at 100% 100%, rgb(14 138 146 / 0.18), transparent 70%),
+      linear-gradient(180deg, #081d23 0%, #06131a 55%, #050d13 100%);
+    text-align: center;
+  }
+
+  /* Fine dot field, strongest under the top edge. */
+  .framed::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(rgb(122 223 231 / 0.13) 1px, transparent 1.4px);
+    background-size: 16px 16px;
+    mask-image: radial-gradient(60% 75% at 50% 0%, #000, transparent 75%);
+  }
+
+  .framed::after {
+    content: '';
+    position: absolute;
+    inset: 0 12% auto;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgb(122 223 231 / 0.45), transparent);
+  }
+
+  @media (max-width: 640px) {
+    .framed {
+      border-radius: 22px;
+    }
+  }
+</style>

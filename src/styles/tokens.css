@@ -5,32 +5,33 @@
  * Font families (--font-sans, --font-mono) are provided by the Astro Fonts API.
  */
 
+/* The site is dark throughout: the base theme is a lifted ink tone, `dark` a deeper one. */
 :root,
 [data-theme='light'] {
-  --bg: #f3f6f9;
-  --surface: #ffffff;
-  --surface-raised: #ffffff;
-  --surface-hover: #e7ecf1;
-  --border: #d3dbe3;
-  --border-strong: #7c8996;
-  --text: #070d16;
-  --text-body: #33424f;
-  --text-muted: #5a6876;
-  --text-disabled: #7c8996;
-  --accent: #16a4ad;
-  --accent-hover: #42cad7;
-  --accent-pressed: #0e8a92;
+  --bg: #070d16;
+  --surface: #0c1520;
+  --surface-raised: #13202d;
+  --surface-hover: #13202d;
+  --border: #1e2e3d;
+  --border-strong: #5b6e82;
+  --text: #f0f0f0;
+  --text-body: #a9b4bf;
+  --text-muted: #7c8996;
+  --text-disabled: #5b6e82;
+  --accent: #42cad7;
+  --accent-hover: #7adfe7;
+  --accent-pressed: #16a4ad;
   --accent-border: #0e8a92;
-  --accent-text: #09707a;
-  --accent-subtle: #e1f3f4;
+  --accent-text: #42cad7;
+  --accent-subtle: #0e242d;
   --on-accent: #03060c;
-  --focus-ring: #09707a;
-  --up: #137a4c;
-  --down: #c2323f;
-  --price: #8c5a00;
-  --danger: #c2323f;
-  --on-danger: #ffffff;
-  --glyph: #33424f;
+  --focus-ring: #42cad7;
+  --up: #3dd68c;
+  --down: #f0616d;
+  --price: #f5b544;
+  --danger: #f0616d;
+  --on-danger: #03060c;
+  --glyph: #a9b4bf;
 }
 
 [data-theme='dark'] {
@@ -78,9 +79,29 @@
   --radius-panel: 28px;
   --radius-pill: 999px;
 
-  /* The light page ground, kept constant inside dark sections (e.g. the hero notch). */
-  --page: #f3f6f9;
+  /* The page ground under every section; heroes and dark bands melt into it. */
+  --page: #05090f;
+  /* The deepest ink, for dark bands and the scrolled header. */
+  --ink: #03060c;
+
+  /* Teal family: featured cards, glass panels, hairlines and the haze on dark bands. */
+  --teal-grad:
+    radial-gradient(
+      120% 85% at 100% 0%,
+      rgb(66 202 215 / 0.42) 0%,
+      rgb(14 138 146 / 0.22) 32%,
+      transparent 64%
+    ),
+    linear-gradient(165deg, #0b3a41 0%, #0a252c 46%, #070d16 100%);
+  --teal-glass: linear-gradient(180deg, rgb(66 202 215 / 0.05), rgb(12 21 32 / 0.9));
+  --teal-glass-lifted: linear-gradient(180deg, rgb(66 202 215 / 0.08), rgb(19 32 45 / 0.9));
+  --teal-line: rgb(66 202 215 / 0.24);
+  --teal-line-soft: rgb(66 202 215 / 0.14);
+  --haze: rgb(22 164 173 / 0.26);
+
   --gutter: clamp(16px, 4.4vw, 72px);
   --header-height: 68px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Long, settling ease for entrances. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
