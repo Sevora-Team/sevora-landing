@@ -235,10 +235,14 @@ textarea {
   animation: rise 0.9s var(--ease) var(--delay, 0s) both;
 }
 
-/* Elements ease up as they scroll into view (CSS only, where supported). */
+/* Elements ease up as they scroll into view (CSS only, where supported).
+   Scroll-driven animations use longhands: the minifier folds a shorthand plus
+   animation-timeline into one invalid `animation` value, which browsers drop. */
 @supports (animation-timeline: view()) {
   .reveal {
-    animation: up-in linear both;
+    animation-name: up-in;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
     animation-timeline: view();
     animation-range: entry 0% entry 55%;
   }

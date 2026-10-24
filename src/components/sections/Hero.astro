@@ -114,7 +114,9 @@ const gold = instruments.find((i) => i.symbol === GOLD)!;
 
   @supports (animation-timeline: scroll()) {
     .dome-drift {
-      animation: drift linear both;
+      animation-name: drift;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: scroll(root);
       animation-range: 0 700px;
     }

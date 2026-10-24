@@ -84,8 +84,20 @@ const [first] = t.nav.items;
   const sections = navLinks.map((link) => document.querySelector(link.hash));
   let frame = 0;
 
-  function syncActive() {
+  // Firefox lacks CSS scroll timelines, so the header's scrolled state is toggled here instead.
+  const solidFallback = !CSS.supports('animation-timeline: scroll()');
+
+  function syncSolid() {
+    if (header && solidFallback) header.dataset.scrolled = String(window.scrollY > 24);
+  }
+
+  function onScroll() {
     frame = 0;
+    syncActive();
+    syncSolid();
+  }
+
+  function syncActive() {
     const headerHeight = header?.offsetHeight ?? 0;
     const line = headerHeight + (window.innerHeight - headerHeight) * 0.45;
     const atBottom =
@@ -106,11 +118,11 @@ const [first] = t.nav.items;
   window.addEventListener(
     'scroll',
     () => {
-      frame ||= requestAnimationFrame(syncActive);
+      frame ||= requestAnimationFrame(onScroll);
     },
     { passive: true },
   );
-  syncActive();
+  onScroll();
 </script>
 
 <style>
@@ -152,15 +164,43 @@ const [first] = t.nav.items;
   /* Transparent over the hero, solid and shorter once the page scrolls. */
   @supports (animation-timeline: scroll()) {
     .header {
-      animation: header-solid linear both;
+      animation-name: header-solid;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: scroll(root);
       animation-range: 0 160px;
     }
 
     .bar {
-      animation: header-tight linear both;
+      animation-name: header-tight;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: scroll(root);
       animation-range: 0 160px;
+    }
+  }
+
+  /* Same states via the script's data-scrolled; without JS the header stays solid. */
+  @supports not (animation-timeline: scroll()) {
+    .header,
+    .bar {
+      transition:
+        background-color 0.3s var(--ease),
+        border-color 0.3s var(--ease),
+        height 0.3s var(--ease);
+    }
+
+    .header[data-scrolled='false'] {
+      background-color: transparent;
+    }
+
+    .header[data-scrolled='true'] {
+      border-bottom-color: var(--border);
+      background-color: rgb(3 6 12 / 0.86);
+    }
+
+    .header[data-scrolled='true'] .bar {
+      height: 68px;
     }
   }
 
