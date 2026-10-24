@@ -26,7 +26,7 @@ export const sr = {
       { label: 'Akademija', section: 'akademija', page: 'academy' },
       { label: 'Alati i partneri', section: 'ekosistem' },
       { label: 'Paketi', section: 'paketi', page: 'plans' },
-      { label: 'Kontakt', section: 'kontakt' },
+      { label: 'Podrška', section: 'kontakt', page: 'support' },
     ] satisfies NavItem[],
   },
   actions: {
@@ -333,11 +333,23 @@ export const sr = {
     email: 'Email',
     emailPlaceholder: 'ime@primer.rs',
     topic: 'Tema',
-    topics: ['Paketi i plaćanje', 'Tehnička podrška', 'Partnerski program', 'Saradnja', 'Drugo'],
+    topics: [
+      'Nalog',
+      'Paketi i plaćanje',
+      'Funkcije dashboarda',
+      'Porudžbina iz prodavnice',
+      'Partnerski program',
+      'Saradnja',
+      'Drugo',
+    ],
     message: 'Poruka',
     messagePlaceholder: 'Napiši nam kako možemo da pomognemo…',
-    consent:
-      'Slanjem poruke prihvataš [politiku privatnosti]. Podatke koristimo samo da bismo ti odgovorili.',
+    consent: {
+      before: 'Prihvatam ',
+      link: 'politiku privatnosti',
+      after: '. Podatke koristimo samo da bismo ti odgovorili.',
+    },
+    trap: 'Ostavi ovo polje prazno',
     send: 'Pošalji poruku',
     sending: 'Šaljem…',
     doneTitle: 'Poruka je poslata',
@@ -384,7 +396,7 @@ export const sr = {
         links: [
           { label: 'O nama', page: 'home', hash: 'o-nama' },
           { label: 'Partnerski program', href: links.affiliate },
-          { label: 'Kontakt', page: 'home', hash: 'kontakt' },
+          { label: 'Kontakt', page: 'support' },
           { label: 'Uslovi korišćenja', href: links.terms },
           { label: 'Privatnost', href: links.privacy },
         ],
@@ -497,6 +509,17 @@ export const sr = {
         },
       ] satisfies { title: string; rows: { feature: string; cells: (string | boolean)[] }[] }[],
     },
+  },
+  supportPage: {
+    meta: {
+      title: 'Podrška i kontakt · SEVORA',
+      description:
+        'Odgovori na česta pitanja o SEVORA paketima, MT5 povezivanju, botovima i otkazivanju, i forma za pitanja o nalogu, plaćanju, dashboardu, prodavnici i partnerskom programu.',
+    },
+    name: 'Podrška',
+    title: 'Kako možemo da pomognemo?',
+    lead: 'Pogledaj odgovore na najčešća pitanja. Ako ne nađeš svoj, pošalji nam poruku o nalogu, plaćanju, dashboardu, prodavnici ili partnerskom programu.',
+    write: 'Pošalji poruku',
   },
   notFound: {
     title: 'Stranica nije pronađena',

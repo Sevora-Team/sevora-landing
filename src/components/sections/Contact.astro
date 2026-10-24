@@ -4,9 +4,11 @@ import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { IconName } from '@/components/ui/icons';
 import TextField from '@/components/ui/TextField.astro';
+import { links } from '@/data/links';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const { contact } = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const { contact } = useTranslations(lang);
 
 const channels: {
   channel: (typeof contact.channels)[keyof typeof contact.channels];
@@ -40,6 +42,14 @@ const channels: {
 
     <div class="form-area reveal">
       <form class="form" method="post" action={PUBLIC_CONTACT_ENDPOINT}>
+        <input type="hidden" name="lang" value={lang} />
+        <!-- Spam trap: hidden from people, filled in by bots. -->
+        <div class="trap" aria-hidden="true">
+          <label>
+            {contact.trap}
+            <input name="website" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
         <div class="row">
           <TextField
             label={contact.name}
@@ -78,7 +88,14 @@ const channels: {
         />
 
         <div class="foot">
-          <p class="caption consent">{contact.consent}</p>
+          <label class="consent caption">
+            <input type="checkbox" name="consent" value="yes" required />
+            <span>
+              {contact.consent.before}
+              <a href={links.privacy}>{contact.consent.link}</a>
+              {contact.consent.after}
+            </span>
+          </label>
           <Button type="submit" icon="north-east" data-sending={contact.sending}>
             {contact.send}
           </Button>
@@ -118,13 +135,18 @@ const channels: {
     error.hidden = true;
 
     try {
+      // A filled spam trap gets the success state without anything being sent.
+      const trapped = Boolean(new FormData(form).get('website'));
       // `action` falls back to this page when no endpoint is configured; only send to a real one.
-      if (!form.getAttribute('action')) throw new Error('No contact endpoint configured');
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
+      if (!trapped && !form.getAttribute('action'))
+        throw new Error('No contact endpoint configured');
+      const response = trapped
+        ? new Response()
+        : await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
       if (!response.ok) throw new Error(`Contact endpoint responded ${response.status}`);
       form.hidden = true;
       done.hidden = false;
@@ -142,7 +164,7 @@ const channels: {
     if (!form || !done) return;
     done.hidden = true;
     form.hidden = false;
-    form.querySelector('input')?.focus();
+    form.querySelector<HTMLElement>('#field-name')?.focus();
   });
 </script>
 
@@ -268,7 +290,28 @@ const channels: {
   }
 
   .consent {
-    max-width: 40ch;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 44ch;
+    cursor: pointer;
+  }
+
+  .consent input {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--accent);
+  }
+
+  .consent a {
+    color: var(--text);
+  }
+
+  .trap {
+    position: absolute;
+    left: -9999px;
   }
 
   .error {

@@ -18,7 +18,7 @@ export const en: Dictionary = {
       { label: 'Academy', section: 'akademija', page: 'academy' },
       { label: 'Tools & partners', section: 'ekosistem' },
       { label: 'Plans', section: 'paketi', page: 'plans' },
-      { label: 'Contact', section: 'kontakt' },
+      { label: 'Support', section: 'kontakt', page: 'support' },
     ],
   },
   actions: {
@@ -328,11 +328,23 @@ export const en: Dictionary = {
     email: 'Email',
     emailPlaceholder: 'name@example.com',
     topic: 'Topic',
-    topics: ['Plans and billing', 'Technical support', 'Affiliate program', 'Partnership', 'Other'],
+    topics: [
+      'Account',
+      'Plans and billing',
+      'Dashboard features',
+      'Shop order',
+      'Affiliate program',
+      'Partnership',
+      'Other',
+    ],
     message: 'Message',
     messagePlaceholder: 'Tell us how we can help…',
-    consent:
-      'By sending this message you accept our [privacy policy]. We only use your details to reply to you.',
+    consent: {
+      before: 'I accept the ',
+      link: 'privacy policy',
+      after: '. We only use your details to reply to you.',
+    },
+    trap: 'Leave this field empty',
     send: 'Send message',
     sending: 'Sending…',
     doneTitle: 'Message sent',
@@ -379,7 +391,7 @@ export const en: Dictionary = {
         links: [
           { label: 'About', page: 'home', hash: 'o-nama' },
           { label: 'Affiliate program', href: links.affiliate },
-          { label: 'Contact', page: 'home', hash: 'kontakt' },
+          { label: 'Contact', page: 'support' },
           { label: 'Terms of use', href: links.terms },
           { label: 'Privacy', href: links.privacy },
         ],
@@ -495,6 +507,17 @@ export const en: Dictionary = {
         },
       ],
     },
+  },
+  supportPage: {
+    meta: {
+      title: 'Support and contact · SEVORA',
+      description:
+        'Answers to common questions about SEVORA plans, connecting MT5, bots and cancelling, and a form for questions about your account, billing, the dashboard, shop orders and the affiliate program.',
+    },
+    name: 'Support',
+    title: 'How can we help?',
+    lead: 'Check the answers to the most common questions. If yours isn’t there, send us a message about your account, billing, the dashboard, the shop or the affiliate program.',
+    write: 'Send a message',
   },
   notFound: {
     title: 'Page not found',

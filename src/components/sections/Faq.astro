@@ -2,10 +2,16 @@
 import Icon from '@/components/ui/Icon.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
+interface Props {
+  /** Keeps the top padding when the section follows a page hero instead of another light section. */
+  afterHero?: boolean;
+}
+
+const { afterHero = false } = Astro.props;
 const { faq } = useTranslations(getLangFromUrl(Astro.url));
 ---
 
-<section class="section faq" id="pitanja">
+<section class:list={['section faq', { 'after-hero': afterHero }]} id="pitanja">
   <div class="wrap layout">
     <h2 class="h2 reveal">{faq.title}</h2>
     <div class="items">
@@ -25,7 +31,7 @@ const { faq } = useTranslations(getLangFromUrl(Astro.url));
 </section>
 
 <style>
-  .faq {
+  .faq:not(.after-hero) {
     padding-top: 0;
   }
 

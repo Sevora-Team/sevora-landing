@@ -7,6 +7,7 @@ export const routes = {
   home: { sr: '', en: '' },
   academy: { sr: 'akademija', en: 'academy' },
   plans: { sr: 'paketi', en: 'pricing' },
+  support: { sr: 'podrska', en: 'support' },
 } as const satisfies Record<string, Record<Lang, string>>;
 
 export type Page = keyof typeof routes;
