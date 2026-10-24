@@ -25,7 +25,7 @@ export const sr = {
       { label: 'Platforma', section: 'platforma' },
       { label: 'Akademija', section: 'akademija', page: 'academy' },
       { label: 'Alati i partneri', section: 'ekosistem' },
-      { label: 'Paketi', section: 'paketi' },
+      { label: 'Paketi', section: 'paketi', page: 'plans' },
       { label: 'Kontakt', section: 'kontakt' },
     ] satisfies NavItem[],
   },
@@ -283,6 +283,7 @@ export const sr = {
       },
     },
     guarantee: '30 dana garancija povrata novca, bez pitanja.',
+    compare: 'Uporedi sve funkcije',
   },
   faq: {
     title: 'Česta pitanja',
@@ -437,6 +438,64 @@ export const sr = {
           text: 'Poslednji modul donosi SEVORA diplomu i sertifikat o završenoj edukaciji.',
         },
       ],
+    },
+  },
+  plansPage: {
+    meta: {
+      title: 'Paketi i cene: Besplatno, Starter i Premium · SEVORA',
+      description:
+        'Uporedi SEVORA pakete: besplatan nalog, Starter sa AI dnevnim planom, žurnalom i AI mentorom, i Premium sa bot dashboardom i prop firm alatima. Mesečno ili godišnje uz 10% popusta.',
+    },
+    name: 'Paketi',
+    title: 'Paketi i cene',
+    lead: 'Počni sa besplatnim nalogom i pređi na Starter ili Premium kad ti zatrebaju AI plan, žurnal, mentor ili botovi. Ispod je sve što svaki paket uključuje.',
+    comparison: {
+      title: 'Poređenje paketa',
+      lead: 'Svaka funkcija dashboarda i šta dobijaš u kom paketu.',
+      feature: 'Funkcija',
+      included: 'Uključeno',
+      notIncluded: 'Nije uključeno',
+      groups: [
+        {
+          title: 'Analiza i tržišta',
+          rows: [
+            {
+              feature: 'Zlato i tržišta',
+              cells: [
+                'Osnovni pregled zlata',
+                'Svi instrumenti i ključni nivoi',
+                'Svi instrumenti i ključni nivoi',
+              ],
+            },
+            { feature: 'AI dnevni plan i scenariji', cells: [false, true, true] },
+            { feature: 'Napredna AI analiza', cells: [false, false, true] },
+            { feature: 'Ekonomski kalendar', cells: ['Osnovni', 'Ceo kalendar', 'Ceo kalendar'] },
+            { feature: 'Vesti', cells: ['3 dnevno', '[POTVRDITI]', '[POTVRDITI]'] },
+            { feature: 'Cenovni alarmi', cells: [false, '10', 'Neograničeno'] },
+          ],
+        },
+        {
+          title: 'Trejding alati',
+          rows: [
+            { feature: 'Žurnal sa analitikom', cells: [false, true, true] },
+            { feature: 'AI mentor', cells: [false, '50 poruka dnevno', 'Neograničeno'] },
+            { feature: 'Bot dashboard', cells: [false, false, 'Pun pristup'] },
+            { feature: 'Prop firm alati', cells: [false, false, true] },
+          ],
+        },
+        {
+          title: 'Učenje i zajednica',
+          rows: [
+            { feature: 'Akademija', cells: ['Početni nivoi', '[POTVRDITI]', '[POTVRDITI]'] },
+            { feature: 'Mesečna strateška sesija', cells: [false, false, true] },
+            {
+              feature: 'Zajednica i podrška',
+              cells: ['Pristup zajednici', 'Discord', 'Discord VIP i prioritetna podrška'],
+            },
+            { feature: 'Partnerski program', cells: ['[POTVRDITI]', '[POTVRDITI]', '[POTVRDITI]'] },
+          ],
+        },
+      ] satisfies { title: string; rows: { feature: string; cells: (string | boolean)[] }[] }[],
     },
   },
   notFound: {

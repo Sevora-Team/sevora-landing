@@ -6,6 +6,7 @@ import { getLangFromUrl, getPathWithoutLocale } from './utils';
 export const routes = {
   home: { sr: '', en: '' },
   academy: { sr: 'akademija', en: 'academy' },
+  plans: { sr: 'paketi', en: 'pricing' },
 } as const satisfies Record<string, Record<Lang, string>>;
 
 export type Page = keyof typeof routes;

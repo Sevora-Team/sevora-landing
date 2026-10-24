@@ -17,7 +17,7 @@ export const en: Dictionary = {
       { label: 'Platform', section: 'platforma' },
       { label: 'Academy', section: 'akademija', page: 'academy' },
       { label: 'Tools & partners', section: 'ekosistem' },
-      { label: 'Plans', section: 'paketi' },
+      { label: 'Plans', section: 'paketi', page: 'plans' },
       { label: 'Contact', section: 'kontakt' },
     ],
   },
@@ -275,6 +275,7 @@ export const en: Dictionary = {
       },
     },
     guarantee: '30-day money-back guarantee, no questions asked.',
+    compare: 'Compare all features',
   },
   faq: {
     title: 'Frequently asked questions',
@@ -430,6 +431,67 @@ export const en: Dictionary = {
         {
           title: 'A diploma at the end',
           text: 'The last module awards the SEVORA diploma and a certificate of completed education.',
+        },
+      ],
+    },
+  },
+  plansPage: {
+    meta: {
+      title: 'Plans and pricing: Free, Starter and Premium · SEVORA',
+      description:
+        'Compare SEVORA plans: a free account, Starter with the AI daily plan, journal and AI mentor, and Premium with the bot dashboard and prop firm tools. Monthly or yearly with 10% off.',
+    },
+    name: 'Plans',
+    title: 'Plans and pricing',
+    lead: 'Start with a free account and move to Starter or Premium when you need the AI plan, the journal, the mentor or the bots. Below is everything each plan includes.',
+    comparison: {
+      title: 'Compare plans',
+      lead: 'Every dashboard feature and the plan that includes it.',
+      feature: 'Feature',
+      included: 'Included',
+      notIncluded: 'Not included',
+      groups: [
+        {
+          title: 'Analysis and markets',
+          rows: [
+            {
+              feature: 'Gold and markets',
+              cells: [
+                'Basic gold overview',
+                'All instruments and key levels',
+                'All instruments and key levels',
+              ],
+            },
+            { feature: 'AI daily plan and scenarios', cells: [false, true, true] },
+            { feature: 'Advanced AI analysis', cells: [false, false, true] },
+            { feature: 'Economic calendar', cells: ['Basic', 'Full calendar', 'Full calendar'] },
+            { feature: 'News', cells: ['3 a day', '[TO CONFIRM]', '[TO CONFIRM]'] },
+            { feature: 'Price alerts', cells: [false, '10', 'Unlimited'] },
+          ],
+        },
+        {
+          title: 'Trading tools',
+          rows: [
+            { feature: 'Journal with analytics', cells: [false, true, true] },
+            { feature: 'AI mentor', cells: [false, '50 messages a day', 'Unlimited'] },
+            { feature: 'Bot dashboard', cells: [false, false, 'Full access'] },
+            { feature: 'Prop firm tools', cells: [false, false, true] },
+          ],
+        },
+        {
+          title: 'Learning and community',
+          rows: [
+            { feature: 'Academy', cells: ['Starter levels', '[TO CONFIRM]', '[TO CONFIRM]'] },
+            { feature: 'Monthly strategy session', cells: [false, false, true] },
+            {
+              feature: 'Community and support',
+              cells: ['Community access', 'Discord', 'Discord VIP and priority support'],
+            },
+            {
+              feature: 'Affiliate program',
+              cells: ['[TO CONFIRM]', '[TO CONFIRM]', '[TO CONFIRM]'],
+            },
+          ],
         },
       ],
     },

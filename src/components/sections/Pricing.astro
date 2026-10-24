@@ -3,8 +3,16 @@ import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { links } from '@/data/links';
 import { prices, YEARLY_DISCOUNT } from '@/data/pricing';
+import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
+interface Props {
+  /** On the plans page this section follows the page hero: it keeps its top padding and
+   * drops the link to the comparison, which is right below it. */
+  onPlansPage?: boolean;
+}
+
+const { onPlansPage = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const { pricing } = useTranslations(lang);
 const { currency, locale } = prices[lang];
@@ -30,7 +38,7 @@ const plans = [
 ];
 ---
 
-<section class="section pricing" id="paketi">
+<section class:list={['section pricing', { 'after-hero': onPlansPage }]} id="paketi">
   <div class="wrap">
     <div class="intro-center reveal">
       <h2 class="h2" style="max-width: 18ch">
@@ -107,11 +115,19 @@ const plans = [
       <Icon name="verified-user" size={16} />
       {pricing.guarantee}
     </p>
+    {!onPlansPage && (
+      <p class="compare">
+        <a href={getPageUrl(lang, 'plans', 'poredjenje')}>
+          {pricing.compare}
+          <Icon name="arrow-forward" size={16} />
+        </a>
+      </p>
+    )}
   </div>
 </section>
 
 <style>
-  .pricing {
+  .pricing:not(.after-hero) {
     padding-top: 0;
   }
 
@@ -285,6 +301,24 @@ const plans = [
   }
 
   .guarantee svg {
+    color: var(--accent-text);
+  }
+
+  .compare {
+    margin: 12px 0 0;
+    text-align: center;
+  }
+
+  .compare a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    font: 500 14px/20px var(--font-sans);
+    text-underline-offset: 4px;
+  }
+
+  .compare a:hover {
     color: var(--accent-text);
   }
 
