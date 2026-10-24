@@ -1,0 +1,120 @@
+---
+// The home page's short version of the plans: name, one line and the monthly price.
+// The full cards, billing toggle and comparison live on the plans page.
+import Button from '@/components/ui/Button.astro';
+import { links } from '@/data/links';
+import { formatPrice, prices } from '@/data/pricing';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { pricing, actions } = useTranslations(lang);
+const plans = [
+  { ...pricing.plans.free, price: formatPrice(0, lang), per: pricing.forever, featured: false },
+  {
+    ...pricing.plans.starter,
+    price: formatPrice(prices[lang].starter, lang),
+    per: pricing.perMonth,
+    featured: false,
+  },
+  {
+    ...pricing.plans.premium,
+    price: formatPrice(prices[lang].premium, lang),
+    per: pricing.perMonth,
+    featured: true,
+  },
+];
+---
+
+<section class="section pricing-teaser" id="paketi">
+  <div class="wrap">
+    <div class="intro-center reveal">
+      <h2 class="h2" style="max-width: 18ch">
+        {pricing.title}
+      </h2>
+      <p class="lead">{pricing.lead}</p>
+    </div>
+
+    <ul class="plans">
+      {plans.map(({ name, description, price, per, featured }) => (
+        <li
+          class:list={['plan', 'reveal', { featured }]}
+          data-theme={featured ? 'dark' : undefined}
+        >
+          <h3 class="h4">{name}</h3>
+          <p class="body-sm">{description}</p>
+          <p class="price">
+            <strong>{price}</strong>
+            <span class="caption">{per}</span>
+          </p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="btn-row reveal">
+      <Button href={getPageUrl(lang, 'plans')} icon="arrow-forward">
+        {pricing.compare}
+      </Button>
+      <Button href={links.signup} variant="ghost" icon="north-east">
+        {actions.start}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-teaser {
+    padding-top: 0;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plan {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+  }
+
+  .featured {
+    border-color: var(--accent-border);
+    background: var(--bg);
+  }
+
+  .price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    margin: 12px 0 0;
+  }
+
+  .price strong {
+    font: 400 31px/38px var(--font-sans);
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .btn-row {
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 1080px) {
+    .plans {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+  }
+</style>

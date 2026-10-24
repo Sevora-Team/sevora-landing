@@ -9,7 +9,6 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import PageLayout from '@/layouts/PageLayout.astro';
 import AcademyCurriculum from './sections/AcademyCurriculum.astro';
 import AcademyMethod from './sections/AcademyMethod.astro';
-import ClosingCta from './sections/ClosingCta.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -52,7 +51,6 @@ const course = Astro.site && {
   </PageHero>
   <AcademyMethod />
   <AcademyCurriculum />
-  <ClosingCta />
 </PageLayout>
 
 <style>

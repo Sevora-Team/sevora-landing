@@ -90,7 +90,10 @@ const items = t.nav.items.map((item, i) => {
   });
 
   // Scroll spy (home page only): highlight the section under the upper half of the viewport.
-  const navLinks = [...(header?.querySelectorAll<HTMLAnchorElement>('.nav[data-spy] a') ?? [])];
+  // Items that only lead to another page have no section and are left alone.
+  const navLinks = [
+    ...(header?.querySelectorAll<HTMLAnchorElement>('.nav[data-spy] a[data-section]') ?? []),
+  ];
   const sections = navLinks.map((link) => document.getElementById(link.dataset.section ?? ''));
   let frame = 0;
 

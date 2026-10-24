@@ -18,7 +18,7 @@ export const en: Dictionary = {
       { label: 'Academy', section: 'akademija', page: 'academy' },
       { label: 'Tools & partners', section: 'ekosistem' },
       { label: 'Plans', section: 'paketi', page: 'plans' },
-      { label: 'Support', section: 'kontakt', page: 'support' },
+      { label: 'Support', page: 'support' },
     ],
   },
   actions: {
@@ -275,7 +275,7 @@ export const en: Dictionary = {
       },
     },
     guarantee: '30-day money-back guarantee, no questions asked.',
-    compare: 'Compare all features',
+    compare: 'Compare plans',
   },
   faq: {
     title: 'Frequently asked questions',

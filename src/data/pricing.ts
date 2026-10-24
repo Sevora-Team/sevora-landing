@@ -13,3 +13,13 @@ export const prices = {
   Lang,
   { currency: string; locale: string; starter: number; premium: number }
 >;
+
+/** A whole-unit price in the language's currency, e.g. `5.700 RSD` or `€49`. */
+export function formatPrice(value: number, lang: Lang): string {
+  const { currency, locale } = prices[lang];
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 0,
+  }).format(value);
+}

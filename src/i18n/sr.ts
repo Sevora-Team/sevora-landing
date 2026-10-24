@@ -26,7 +26,7 @@ export const sr = {
       { label: 'Akademija', section: 'akademija', page: 'academy' },
       { label: 'Alati i partneri', section: 'ekosistem' },
       { label: 'Paketi', section: 'paketi', page: 'plans' },
-      { label: 'Podrška', section: 'kontakt', page: 'support' },
+      { label: 'Podrška', page: 'support' },
     ] satisfies NavItem[],
   },
   actions: {
@@ -283,7 +283,7 @@ export const sr = {
       },
     },
     guarantee: '30 dana garancija povrata novca, bez pitanja.',
-    compare: 'Uporedi sve funkcije',
+    compare: 'Uporedi pakete',
   },
   faq: {
     title: 'Česta pitanja',

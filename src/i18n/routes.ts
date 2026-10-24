@@ -22,17 +22,15 @@ export interface PageLink {
 export type SiteLink = { label: string } & (PageLink | { href: string });
 
 /**
- * A header item: a home section, and the page that covers it once that page exists.
+ * A header item: a home section, a page, or both (a page with a teaser section on home).
  * The home page's scroll spy follows `section`; other pages mark the item for their own `page`.
  */
-export interface NavItem {
-  label: string;
-  section: string;
-  page?: Page;
-}
+export type NavItem = { label: string } & (
+  { section: string; page?: Page } | { section?: undefined; page: Page }
+);
 
-export function getNavHref(lang: Lang, { section, page }: NavItem): string {
-  return page ? getPageUrl(lang, page) : getPageUrl(lang, 'home', section);
+export function getNavHref(lang: Lang, item: NavItem): string {
+  return item.page ? getPageUrl(lang, item.page) : getPageUrl(lang, 'home', item.section);
 }
 
 export function getPageUrl(lang: Lang, page: Page, hash?: string): string {

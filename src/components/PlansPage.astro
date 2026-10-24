@@ -5,8 +5,6 @@ import PageHero from '@/components/ui/PageHero.astro';
 import { links } from '@/data/links';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import PageLayout from '@/layouts/PageLayout.astro';
-import ClosingCta from './sections/ClosingCta.astro';
-import Faq from './sections/Faq.astro';
 import PlanComparison from './sections/PlanComparison.astro';
 import Pricing from './sections/Pricing.astro';
 
@@ -23,8 +21,6 @@ const page = t.plansPage;
       </Button>
     </div>
   </PageHero>
-  <Pricing onPlansPage />
+  <Pricing />
   <PlanComparison />
-  <Faq />
-  <ClosingCta />
 </PageLayout>
