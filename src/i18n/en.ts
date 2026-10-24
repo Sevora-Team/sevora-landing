@@ -18,7 +18,7 @@ export const en: Dictionary = {
       { label: 'Academy', section: 'akademija', page: 'academy' },
       { label: 'Tools & partners', section: 'ekosistem' },
       { label: 'Plans', section: 'paketi', page: 'plans' },
-      { label: 'Support', page: 'support' },
+      { label: 'Contact', page: 'contact' },
     ],
   },
   actions: {
@@ -391,7 +391,7 @@ export const en: Dictionary = {
         links: [
           { label: 'About', page: 'home', hash: 'o-nama' },
           { label: 'Affiliate program', href: links.affiliate },
-          { label: 'Contact', page: 'support' },
+          { label: 'Contact', page: 'contact' },
           { label: 'Terms of use', href: links.terms },
           { label: 'Privacy', href: links.privacy },
         ],
@@ -508,16 +508,15 @@ export const en: Dictionary = {
       ],
     },
   },
-  supportPage: {
+  contactPage: {
     meta: {
-      title: 'Support and contact · SEVORA',
+      title: 'Contact · SEVORA',
       description:
-        'Answers to common questions about SEVORA plans, connecting MT5, bots and cancelling, and a form for questions about your account, billing, the dashboard, shop orders and the affiliate program.',
+        'Write to the SEVORA team about your account, plans and billing, dashboard features, shop orders, the affiliate program or a partnership.',
     },
-    name: 'Support',
+    name: 'Contact',
     title: 'How can we help?',
-    lead: 'Check the answers to the most common questions. If yours isn’t there, send us a message about your account, billing, the dashboard, the shop or the affiliate program.',
-    write: 'Send a message',
+    lead: 'Send us a message about your account, billing, the dashboard, the shop or the affiliate program. Answers to the most common questions are on the home page.',
   },
   notFound: {
     title: 'Page not found',

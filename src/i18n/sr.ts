@@ -26,7 +26,7 @@ export const sr = {
       { label: 'Akademija', section: 'akademija', page: 'academy' },
       { label: 'Alati i partneri', section: 'ekosistem' },
       { label: 'Paketi', section: 'paketi', page: 'plans' },
-      { label: 'Podrška', page: 'support' },
+      { label: 'Kontakt', page: 'contact' },
     ] satisfies NavItem[],
   },
   actions: {
@@ -396,7 +396,7 @@ export const sr = {
         links: [
           { label: 'O nama', page: 'home', hash: 'o-nama' },
           { label: 'Partnerski program', href: links.affiliate },
-          { label: 'Kontakt', page: 'support' },
+          { label: 'Kontakt', page: 'contact' },
           { label: 'Uslovi korišćenja', href: links.terms },
           { label: 'Privatnost', href: links.privacy },
         ],
@@ -510,16 +510,15 @@ export const sr = {
       ] satisfies { title: string; rows: { feature: string; cells: (string | boolean)[] }[] }[],
     },
   },
-  supportPage: {
+  contactPage: {
     meta: {
-      title: 'Podrška i kontakt · SEVORA',
+      title: 'Kontakt · SEVORA',
       description:
-        'Odgovori na česta pitanja o SEVORA paketima, MT5 povezivanju, botovima i otkazivanju, i forma za pitanja o nalogu, plaćanju, dashboardu, prodavnici i partnerskom programu.',
+        'Piši SEVORA timu: pitanja o nalogu, paketima i plaćanju, funkcijama dashboarda, porudžbinama iz prodavnice, partnerskom programu ili saradnji.',
     },
-    name: 'Podrška',
+    name: 'Kontakt',
     title: 'Kako možemo da pomognemo?',
-    lead: 'Pogledaj odgovore na najčešća pitanja. Ako ne nađeš svoj, pošalji nam poruku o nalogu, plaćanju, dashboardu, prodavnici ili partnerskom programu.',
-    write: 'Pošalji poruku',
+    lead: 'Pošalji nam poruku o nalogu, plaćanju, dashboardu, prodavnici ili partnerskom programu. Odgovore na najčešća pitanja naći ćeš na početnoj strani.',
   },
   notFound: {
     title: 'Stranica nije pronađena',

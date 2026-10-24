@@ -25,6 +25,11 @@ const { faq } = useTranslations(getLangFromUrl(Astro.url));
 </section>
 
 <style>
+  /* Follows the pricing teaser, which already ends with section padding. */
+  .faq {
+    padding-top: 0;
+  }
+
   .layout {
     display: grid;
     grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
