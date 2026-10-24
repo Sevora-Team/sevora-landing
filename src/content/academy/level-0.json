@@ -1,0 +1,285 @@
+{
+  "order": 0,
+  "label": {
+    "sr": "Nivo 0",
+    "en": "Level 0"
+  },
+  "title": {
+    "sr": "Apsolutna nula",
+    "en": "Absolute zero"
+  },
+  "subtitle": {
+    "sr": "Pre osnova",
+    "en": "Pre-basics"
+  },
+  "goal": {
+    "sr": "Ako nikad nisi trgovao, ovde saznaješ šta je tržište i kako funkcioniše svet trejdinga, pre nego što otvoriš prvi grafikon.",
+    "en": "If you have never traded, this is where you learn what a market is and how the world of trading works, before you open your first chart."
+  },
+  "modules": [
+    {
+      "number": 1,
+      "title": {
+        "sr": "Šta je trgovanje i kako funkcioniše tržište",
+        "en": "What is trading and how the market works"
+      },
+      "badge": {
+        "sr": "Prvi korak",
+        "en": "First Step"
+      },
+      "milestone": {
+        "sr": "Kviz modula + bedž \"Prvi korak\"",
+        "en": "Module quiz + \"First Step\" badge"
+      },
+      "lessons": [
+        {
+          "number": "1.1",
+          "title": {
+            "sr": "Šta znači \"trgovati\" — analogija sa pazarom i razmenom",
+            "en": "What does \"trading\" mean — market and exchange analogy"
+          }
+        },
+        {
+          "number": "1.2",
+          "title": {
+            "sr": "Ko su učesnici tržišta (banke, institucije, mali trejderi, market makeri)",
+            "en": "Who are the market participants (banks, institutions, retail traders, market makers)"
+          }
+        },
+        {
+          "number": "1.3",
+          "title": {
+            "sr": "Šta je cena i zašto se menja (ponuda i potražnja — objašnjeno kao pazar)",
+            "en": "What is price and why it changes (supply and demand — explained as a market)"
+          }
+        },
+        {
+          "number": "1.4",
+          "title": {
+            "sr": "Šta je berza/tržište i kako se tamo \"sastaju\" kupci i prodavci",
+            "en": "What is a stock exchange/market and how buyers and sellers \"meet\" there"
+          }
+        },
+        {
+          "number": "1.5",
+          "title": {
+            "sr": "Razlika između investiranja i trejdovanja",
+            "en": "The difference between investing and trading"
+          }
+        },
+        {
+          "number": "1.6",
+          "title": {
+            "sr": "Šta je BUY i šta je SELL — najjednostavnije objašnjenje",
+            "en": "What is BUY and what is SELL — the simplest explanation"
+          }
+        },
+        {
+          "number": "1.7",
+          "title": {
+            "sr": "Mit vs realnost — zašto trejdovanje nije \"brzo bogaćenje\"",
+            "en": "Myth vs reality — why trading is not \"get rich quick\""
+          }
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": {
+        "sr": "Osnovni pojmovi tržišta (rečnik za potpune početnike)",
+        "en": "Basic market terms (glossary for complete beginners)"
+      },
+      "badge": {
+        "sr": "Rečnik trejdera",
+        "en": "Trader's Dictionary"
+      },
+      "milestone": {
+        "sr": "Kviz modula + bedž \"Rečnik trejdera\"",
+        "en": "Module quiz + \"Trader's Dictionary\" badge"
+      },
+      "lessons": [
+        {
+          "number": "2.1",
+          "title": {
+            "sr": "Šta je broker i čemu služi (analogija: broker kao \"kasir\" koji te spaja sa tržištem)",
+            "en": "What is a broker and what it does (analogy: broker as a \"cashier\" connecting you to the market)"
+          }
+        },
+        {
+          "number": "2.2",
+          "title": {
+            "sr": "Šta je platforma za trgovanje (uvod, bez konkretnog softvera još)",
+            "en": "What is a trading platform (introduction, no specific software yet)"
+          }
+        },
+        {
+          "number": "2.3",
+          "title": {
+            "sr": "Šta je CFD (Contract for Difference) — jednostavno objašnjeno",
+            "en": "What is a CFD (Contract for Difference) — simply explained"
+          }
+        },
+        {
+          "number": "2.4",
+          "title": {
+            "sr": "Šta je Forex tržište",
+            "en": "What is the Forex market"
+          }
+        },
+        {
+          "number": "2.5",
+          "title": {
+            "sr": "Šta je leverage (poluga) — analogija sa pozajmljenim novcem",
+            "en": "What is leverage — analogy with borrowed money"
+          }
+        },
+        {
+          "number": "2.6",
+          "title": {
+            "sr": "Šta je margin i zašto je vezan za leverage",
+            "en": "What is margin and why it is tied to leverage"
+          }
+        },
+        {
+          "number": "2.7",
+          "title": {
+            "sr": "Šta je spread i komisija (cena \"ulaska\" na tržište)",
+            "en": "What is spread and commission (cost of \"entering\" the market)"
+          }
+        },
+        {
+          "number": "2.8",
+          "title": {
+            "sr": "Šta je swap (prenoćna kamata)",
+            "en": "What is swap (overnight interest)"
+          }
+        },
+        {
+          "number": "2.9",
+          "title": {
+            "sr": "Šta je slippage (klizanje cene)",
+            "en": "What is slippage (price slip)"
+          }
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": {
+        "sr": "Vrste tržišta i instrumenti",
+        "en": "Types of markets and instruments"
+      },
+      "badge": {
+        "sr": "Poznavanje tržišta",
+        "en": "Market Knowledge"
+      },
+      "milestone": {
+        "sr": "Kviz modula + bedž \"Poznavanje tržišta\"",
+        "en": "Module quiz + \"Market Knowledge\" badge"
+      },
+      "lessons": [
+        {
+          "number": "3.1",
+          "title": {
+            "sr": "Forex (valute) — kako funkcioniše trgovina parovima valuta",
+            "en": "Forex (currencies) — how currency pair trading works"
+          }
+        },
+        {
+          "number": "3.2",
+          "title": {
+            "sr": "Kripto tržište — osnove",
+            "en": "Crypto market — basics"
+          }
+        },
+        {
+          "number": "3.3",
+          "title": {
+            "sr": "Indeksi (Indices) — šta predstavljaju (npr. korpa najvećih kompanija)",
+            "en": "Indices — what they represent (e.g. basket of the largest companies)"
+          }
+        },
+        {
+          "number": "3.4",
+          "title": {
+            "sr": "Akcije (Stocks) — osnovni koncept vlasništva u kompaniji",
+            "en": "Stocks — basic concept of ownership in a company"
+          }
+        },
+        {
+          "number": "3.5",
+          "title": {
+            "sr": "Zlato i srebro (Gold & Silver) — zašto se trguju kao \"sigurna luka\"",
+            "en": "Gold & Silver — why they are traded as a \"safe haven\""
+          }
+        },
+        {
+          "number": "3.6",
+          "title": {
+            "sr": "Nafta (Oil) — osnove energetskog tržišta",
+            "en": "Oil — basics of the energy market"
+          }
+        },
+        {
+          "number": "3.7",
+          "title": {
+            "sr": "Poređenje tržišta — koje je tržište za koji tip ličnosti/stila",
+            "en": "Market comparison — which market suits which personality/style"
+          }
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": {
+        "sr": "Platforme za trgovanje",
+        "en": "Trading Platforms"
+      },
+      "badge": {
+        "sr": "Spreman za grafikon",
+        "en": "Chart Ready"
+      },
+      "milestone": {
+        "sr": "Praktičan zadatak: otvori demo nalog + bedž \"Spreman za grafikon\"",
+        "en": "Practical task: open a demo account + \"Chart Ready\" badge"
+      },
+      "lessons": [
+        {
+          "number": "4.1",
+          "title": {
+            "sr": "Šta je TradingView i čemu služi (analiza i grafikoni)",
+            "en": "What is TradingView and what it does (analysis and charts)"
+          }
+        },
+        {
+          "number": "4.2",
+          "title": {
+            "sr": "Šta je MetaTrader (MT4/MT5) i čemu služi (izvršavanje trejdova)",
+            "en": "What is MetaTrader (MT4/MT5) and what it does (executing trades)"
+          }
+        },
+        {
+          "number": "4.3",
+          "title": {
+            "sr": "Razlika između demo i live (realnog) naloga",
+            "en": "The difference between demo and live accounts"
+          }
+        },
+        {
+          "number": "4.4",
+          "title": {
+            "sr": "Kako izgleda osnovni interfejs platforme (tura kroz ekran)",
+            "en": "What the basic platform interface looks like (screen tour)"
+          }
+        },
+        {
+          "number": "4.5",
+          "title": {
+            "sr": "Kako se otvara prvi demo nalog — vodič korak po korak",
+            "en": "How to open a first demo account — step by step guide"
+          }
+        }
+      ]
+    }
+  ]
+}

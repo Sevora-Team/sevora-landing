@@ -1,22 +1,30 @@
 ---
 import { links } from '@/data/links';
+import { getNavHref, getPageFromUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
 import LanguageSwitch from './ui/LanguageSwitch.astro';
 import Logo from './ui/Logo.astro';
 
-const t = useTranslations(getLangFromUrl(Astro.url));
-const [first] = t.nav.items;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const page = getPageFromUrl(Astro.url) ?? 'home';
+// The home page starts on its first item and lets the scroll spy move it; other pages mark their own item.
+const items = t.nav.items.map((item, i) => {
+  const current =
+    page === 'home' ? i === 0 && ('true' as const) : item.page === page && ('page' as const);
+  return { ...item, href: getNavHref(lang, item), current: current || undefined };
+});
 ---
 
 <header class="header" data-theme="dark">
   <div class="wrap">
     <div class="bar">
       <Logo />
-      <nav class="nav" aria-label={t.nav.label}>
-        {t.nav.items.map(({ label, href }) => (
-          <a href={href} aria-current={href === first.href ? 'true' : undefined}>
+      <nav class="nav" aria-label={t.nav.label} data-spy={page === 'home' ? '' : undefined}>
+        {items.map(({ label, href, section, current }) => (
+          <a href={href} data-section={section} aria-current={current}>
             {label}
           </a>
         ))}
@@ -44,8 +52,10 @@ const [first] = t.nav.items;
     </div>
 
     <nav id="mobile-nav" class="mobile-nav" aria-label={t.nav.label} hidden>
-      {t.nav.items.map(({ label, href }) => (
-        <a href={href}>{label}</a>
+      {items.map(({ label, href, current }) => (
+        <a href={href} aria-current={current}>
+          {label}
+        </a>
       ))}
       <div class="mobile-actions">
         <Button href={links.signup} icon="north-east">
@@ -79,9 +89,9 @@ const [first] = t.nav.items;
     if (event.key === 'Escape') setMenu(false);
   });
 
-  // Scroll spy: highlight the section under the upper half of the viewport.
-  const navLinks = [...(header?.querySelectorAll<HTMLAnchorElement>('.nav a') ?? [])];
-  const sections = navLinks.map((link) => document.querySelector(link.hash));
+  // Scroll spy (home page only): highlight the section under the upper half of the viewport.
+  const navLinks = [...(header?.querySelectorAll<HTMLAnchorElement>('.nav[data-spy] a') ?? [])];
+  const sections = navLinks.map((link) => document.getElementById(link.dataset.section ?? ''));
   let frame = 0;
 
   // Firefox lacks CSS scroll timelines, so the header's scrolled state is toggled here instead.
@@ -98,6 +108,7 @@ const [first] = t.nav.items;
   }
 
   function syncActive() {
+    if (!navLinks.length) return;
     const headerHeight = header?.offsetHeight ?? 0;
     const line = headerHeight + (window.innerHeight - headerHeight) * 0.45;
     const atBottom =

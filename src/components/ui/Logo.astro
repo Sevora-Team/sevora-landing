@@ -1,13 +1,15 @@
 ---
 import { Image } from 'astro:assets';
 import mark from '@/assets/brand/sevora-mark.webp';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl } from '@/i18n/utils';
 
 interface Props {
   size?: 'md' | 'lg';
   href?: string;
 }
 
-const { size = 'md', href = '#top' } = Astro.props;
+const { size = 'md', href = getPageUrl(getLangFromUrl(Astro.url), 'home', 'top') } = Astro.props;
 const px = size === 'lg' ? 48 : 36;
 ---
 

@@ -1,4 +1,13 @@
 import { links } from '@/data/links';
+import type { NavItem, SiteLink } from './routes';
+
+const plural = new Intl.PluralRules('sr-Latn');
+
+/** A count with its Serbian noun form: one (1, 21, …), few (2–4, 22–24, …) or other. */
+function count(n: number, one: string, few: string, other: string): string {
+  const form = plural.select(n);
+  return `${n} ${form === 'one' ? one : form === 'few' ? few : other}`;
+}
 
 export const sr = {
   meta: {
@@ -11,14 +20,14 @@ export const sr = {
     label: 'Glavna navigacija',
     menu: 'Meni',
     items: [
-      { label: 'Početna', href: '#top' },
-      { label: 'Tržišta', href: '#trzista' },
-      { label: 'Platforma', href: '#platforma' },
-      { label: 'Akademija', href: '#akademija' },
-      { label: 'Alati i partneri', href: '#ekosistem' },
-      { label: 'Paketi', href: '#paketi' },
-      { label: 'Kontakt', href: '#kontakt' },
-    ],
+      { label: 'Početna', section: 'top' },
+      { label: 'Tržišta', section: 'trzista' },
+      { label: 'Platforma', section: 'platforma' },
+      { label: 'Akademija', section: 'akademija', page: 'academy' },
+      { label: 'Alati i partneri', section: 'ekosistem' },
+      { label: 'Paketi', section: 'paketi' },
+      { label: 'Kontakt', section: 'kontakt' },
+    ] satisfies NavItem[],
   },
   actions: {
     login: 'Prijavi se',
@@ -346,25 +355,25 @@ export const sr = {
         title: 'Platforma',
         links: [
           { label: 'Dashboard', href: links.dashboard },
-          { label: 'Tržišta', href: '#trzista' },
-          { label: 'Kalendar', href: '#platforma' },
-          { label: 'Vesti', href: '#platforma' },
-          { label: 'Scenariji', href: '#plan' },
+          { label: 'Tržišta', page: 'home', hash: 'trzista' },
+          { label: 'Kalendar', page: 'home', hash: 'platforma' },
+          { label: 'Vesti', page: 'home', hash: 'platforma' },
+          { label: 'Scenariji', page: 'home', hash: 'plan' },
         ],
       },
       {
         title: 'Alati',
         links: [
-          { label: 'Žurnal', href: '#platforma' },
-          { label: 'AI mentor', href: '#platforma' },
-          { label: 'Bot dashboard', href: '#platforma' },
+          { label: 'Žurnal', page: 'home', hash: 'platforma' },
+          { label: 'AI mentor', page: 'home', hash: 'platforma' },
+          { label: 'Bot dashboard', page: 'home', hash: 'platforma' },
           { label: 'Prodavnica', href: links.shop },
         ],
       },
       {
         title: 'Učenje',
         links: [
-          { label: 'Akademija', href: '#akademija' },
+          { label: 'Akademija', page: 'academy' },
           { label: 'Rečnik', href: links.glossary },
           { label: 'Blog', href: links.blog },
         ],
@@ -372,17 +381,63 @@ export const sr = {
       {
         title: 'Kompanija',
         links: [
-          { label: 'O nama', href: '#o-nama' },
+          { label: 'O nama', page: 'home', hash: 'o-nama' },
           { label: 'Partnerski program', href: links.affiliate },
-          { label: 'Kontakt', href: '#kontakt' },
+          { label: 'Kontakt', page: 'home', hash: 'kontakt' },
           { label: 'Uslovi korišćenja', href: links.terms },
           { label: 'Privatnost', href: links.privacy },
         ],
       },
-    ],
+    ] satisfies { title: string; links: SiteLink[] }[],
     risk: 'Upozorenje o riziku: trgovanje forex parovima, metalima, kriptovalutama, indeksima i drugim finansijskim instrumentima nosi visok rizik i nije pogodno za svakoga. Sadržaj i alati na ovom sajtu su analitički i edukativni i ne predstavljaju investicioni savet. Prošli rezultati ne garantuju buduće.',
     copyright: '© 2026 SEVORA',
     legal: '[PRAVNO LICE · PIB · ADRESA]',
+  },
+  breadcrumb: {
+    label: 'Putanja',
+    home: 'Početna',
+  },
+  academyPage: {
+    meta: {
+      title: 'Akademija trejdinga: od nule do profesionalnog nivoa · SEVORA',
+      description:
+        'Kurs trejdinga na srpskom u 6 nivoa: od osnova tržišta, grafikona i indikatora do upravljanja rizikom, sopstvene strategije i demo naloga. Početni nivoi su besplatni.',
+    },
+    name: 'Akademija',
+    title: 'Akademija trejdinga, od nule do profesionalnog nivoa',
+    lead: 'Šest nivoa koji te vode od prvog pojma o tržištu do sopstvenog trading plana i demo naloga. Svaku temu učiš redom, sa proverom znanja posle svakog modula.',
+    program: 'Pogledaj program',
+    free: 'Početni nivoi su uključeni u besplatan nalog.',
+    curriculum: {
+      title: 'Program po nivoima',
+      lead: 'Svi nivoi, moduli i lekcije. Otvori modul da vidiš lekcije i kako se završava.',
+      jump: 'Nivoi',
+      module: 'Modul',
+      milestone: 'Završetak modula',
+      modules: (n: number) => count(n, 'modul', 'modula', 'modula'),
+      lessons: (n: number) => count(n, 'lekcija', 'lekcije', 'lekcija'),
+    },
+    method: {
+      title: 'Kako se uči u Akademiji',
+      items: [
+        {
+          title: 'Redom, od osnova do strategije',
+          text: 'Nivoi idu od prvog pojma o tržištu do sopstvene strategije. Veliki kviz na kraju nivoa otključava sledeći.',
+        },
+        {
+          title: 'Provera posle svakog modula',
+          text: 'Modul završavaš kvizom, zadatkom ili simulacijom, a za većinu modula dobijaš bedž.',
+        },
+        {
+          title: 'Vežba na pravim alatima',
+          text: 'Otvaraš demo nalog, računaš lot i pip, obeležavaš supply i demand zone i vodiš žurnal demo trejdova.',
+        },
+        {
+          title: 'Diploma na kraju',
+          text: 'Poslednji modul donosi SEVORA diplomu i sertifikat o završenoj edukaciji.',
+        },
+      ],
+    },
   },
   notFound: {
     title: 'Stranica nije pronađena',

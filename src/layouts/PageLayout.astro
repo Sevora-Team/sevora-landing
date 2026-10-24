@@ -1,0 +1,50 @@
+---
+// A page below the home page: header, footer and its breadcrumb trail as JSON-LD.
+// The visible trail is part of PageHero.
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  /** Short page name, the last breadcrumb. */
+  name: string;
+  title: string;
+  description: string;
+  structuredData?: Record<string, unknown>[];
+}
+
+const { name, title, description, structuredData = [] } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const site = Astro.site;
+const breadcrumbs = site
+  ? [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { name: t.breadcrumb.home, url: getPageUrl(lang, 'home') },
+          { name, url: Astro.url.pathname },
+        ].map((crumb, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: crumb.name,
+          item: new URL(crumb.url, site).href,
+        })),
+      },
+    ]
+  : [];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  structuredData={[...breadcrumbs, ...structuredData]}
+>
+  <Header />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

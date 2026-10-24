@@ -1,0 +1,219 @@
+{
+  "order": 3,
+  "label": {
+    "sr": "Nivo 3",
+    "en": "Level 3"
+  },
+  "title": {
+    "sr": "Srednji nivo",
+    "en": "Intermediate"
+  },
+  "subtitle": {
+    "sr": "Smart money i fundamentali",
+    "en": "Smart money and fundamentals"
+  },
+  "goal": {
+    "sr": "Razumeš strukturu tržišta na profesionalnom nivou (Smart Money koncepti), sesije i fundamentalne vesti.",
+    "en": "You understand market structure at a professional level (Smart Money concepts), trading sessions and fundamental news."
+  },
+  "modules": [
+    {
+      "number": 12,
+      "title": {
+        "sr": "Napredna struktura tržišta (Smart Money osnove)",
+        "en": "Advanced Market Structure (Smart Money Basics)"
+      },
+      "badge": {
+        "sr": "Smart Money osnove",
+        "en": "Smart Money Basics"
+      },
+      "milestone": {
+        "sr": "Kviz + praktična analiza grafikona uživo (live primer) + bedž \"Smart Money osnove\"",
+        "en": "Quiz + live chart analysis (live example) + \"Smart Money Basics\" badge"
+      },
+      "lessons": [
+        {
+          "number": "12.1",
+          "title": {
+            "sr": "Market Structure — pregled i povezivanje sa Nivoom 1",
+            "en": "Market Structure — overview and connection to Level 1"
+          }
+        },
+        {
+          "number": "12.2",
+          "title": {
+            "sr": "Break of Structure (BOS) — nastavak trenda",
+            "en": "Break of Structure (BOS) — trend continuation"
+          }
+        },
+        {
+          "number": "12.3",
+          "title": {
+            "sr": "Change of Character (CHoCH) — signal preokreta",
+            "en": "Change of Character (CHoCH) — reversal signal"
+          }
+        },
+        {
+          "number": "12.4",
+          "title": {
+            "sr": "Order Block — gde su institucije ulazile",
+            "en": "Order Block — where institutions entered"
+          }
+        },
+        {
+          "number": "12.5",
+          "title": {
+            "sr": "Fair Value Gap (FVG) — neefikasnost cene",
+            "en": "Fair Value Gap (FVG) — price inefficiency"
+          }
+        },
+        {
+          "number": "12.6",
+          "title": {
+            "sr": "Mitigation — kako cena \"popunjava\" zonu",
+            "en": "Mitigation — how price \"fills\" the zone"
+          }
+        },
+        {
+          "number": "12.7",
+          "title": {
+            "sr": "Retest — potvrda nivoa pre nastavka",
+            "en": "Retest — confirming a level before continuation"
+          }
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": {
+        "sr": "Sesije i fundamentalna analiza",
+        "en": "Sessions and Fundamental Analysis"
+      },
+      "badge": {
+        "sr": "Fundamentalna osnova",
+        "en": "Fundamental Foundation"
+      },
+      "milestone": {
+        "sr": "Kviz + zadatak (pronađi 3 vesti na ekonomskom kalendaru) + bedž \"Fundamentalna osnova\"",
+        "en": "Quiz + task (find 3 events on the economic calendar) + \"Fundamental Foundation\" badge"
+      },
+      "lessons": [
+        {
+          "number": "13.1",
+          "title": {
+            "sr": "Trading sesije — Azijska, Londonska, Njujorška",
+            "en": "Trading sessions — Asian, London, New York"
+          }
+        },
+        {
+          "number": "13.2",
+          "title": {
+            "sr": "Preklapanje sesija i zašto je tad najviše kretanja",
+            "en": "Session overlaps and why there is the most movement then"
+          }
+        },
+        {
+          "number": "13.3",
+          "title": {
+            "sr": "Ekonomski kalendar — šta je i kako se koristi",
+            "en": "Economic calendar — what it is and how to use it"
+          }
+        },
+        {
+          "number": "13.4",
+          "title": {
+            "sr": "High Impact News — zašto se izbegava trejdovanje u tim trenucima",
+            "en": "High Impact News — why trading is avoided during those times"
+          }
+        },
+        {
+          "number": "13.5",
+          "title": {
+            "sr": "Kamatne stope (Interest Rates) — uticaj na tržište",
+            "en": "Interest Rates — impact on the market"
+          }
+        },
+        {
+          "number": "13.6",
+          "title": {
+            "sr": "Inflacija (Inflation) i CPI",
+            "en": "Inflation and CPI"
+          }
+        },
+        {
+          "number": "13.7",
+          "title": {
+            "sr": "NFP (Non-Farm Payrolls) — zašto je \"najveća vest meseca\"",
+            "en": "NFP (Non-Farm Payrolls) — why it is the \"biggest news of the month\""
+          }
+        },
+        {
+          "number": "13.8",
+          "title": {
+            "sr": "FOMC — odluke centralne banke",
+            "en": "FOMC — central bank decisions"
+          }
+        },
+        {
+          "number": "13.9",
+          "title": {
+            "sr": "GDP i Unemployment — opšta slika ekonomije",
+            "en": "GDP and Unemployment — the big picture of the economy"
+          }
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": {
+        "sr": "Risk Management (osnove)",
+        "en": "Risk Management (Basics)"
+      },
+      "badge": {
+        "sr": "Zaštićen trejder",
+        "en": "Protected Trader"
+      },
+      "milestone": {
+        "sr": "Veliki kviz + kalkulacija position size na primeru + simulacija + bedž \"Zaštićen trejder\" + otključavanje Nivoa 4",
+        "en": "Big quiz + position size calculation + simulation + \"Protected Trader\" badge + Level 4 unlock"
+      },
+      "lessons": [
+        {
+          "number": "14.1",
+          "title": {
+            "sr": "Zašto je risk management važniji od strategije",
+            "en": "Why risk management is more important than strategy"
+          }
+        },
+        {
+          "number": "14.2",
+          "title": {
+            "sr": "Position Size — koliko \"uložiti\" u jedan trejd",
+            "en": "Position Size — how much to \"put in\" per trade"
+          }
+        },
+        {
+          "number": "14.3",
+          "title": {
+            "sr": "Risk/Reward odnos — objašnjeno kroz primer kockice",
+            "en": "Risk/Reward ratio — explained through a dice example"
+          }
+        },
+        {
+          "number": "14.4",
+          "title": {
+            "sr": "Stop Loss i Take Profit — zaštita i cilj",
+            "en": "Stop Loss and Take Profit — protection and target"
+          }
+        },
+        {
+          "number": "14.5",
+          "title": {
+            "sr": "Margin Call i Stop Out — povezivanje sa Modulom 6",
+            "en": "Margin Call and Stop Out — connecting to Module 6"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 ---
 import { Font, getImage } from 'astro:assets';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import sevoraMark from '@/assets/brand/sevora-mark.webp';
-import { defaultLang, langTags, languages, type Lang } from '@/i18n/locales';
-import { getLangFromUrl, getPathWithoutLocale, useTranslations } from '@/i18n/utils';
+import { defaultLang, langTags, languages, ogLocales, type Lang } from '@/i18n/locales';
+import { getPageFromUrl, getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import '@/styles/global.css';
 
 interface Props {
@@ -11,32 +11,61 @@ interface Props {
   description?: string;
   /** Keep the page out of search results (e.g. the 404 page). */
   noindex?: boolean;
+  /** Schema.org objects for this page, emitted as JSON-LD. */
+  structuredData?: Record<string, unknown>[];
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const { title = t.meta.title, description = t.meta.description, noindex = false } = Astro.props;
+const {
+  title = t.meta.title,
+  description = t.meta.description,
+  noindex = false,
+  structuredData = [],
+} = Astro.props;
+const page = getPageFromUrl(Astro.url);
+const langs = Object.keys(languages) as Lang[];
 
-const [favicon, appleTouchIcon] = await Promise.all([
+const [favicon, appleTouchIcon, shareImage] = await Promise.all([
   getImage({ src: sevoraMark, width: 32, height: 32, format: 'png' }),
   getImage({ src: sevoraMark, width: 180, height: 180, format: 'png' }),
+  getImage({ src: sevoraMark, width: 512, height: 512, format: 'png' }),
 ]);
 
-// hreflang alternates need absolute production URLs, so they are only emitted once `site` is set.
-const path = getPathWithoutLocale(Astro.url);
+// Canonical, hreflang, og:url, og:image and JSON-LD need absolute production URLs,
+// so they are only emitted once `site` is set.
+const site = Astro.site;
+const absolute = (path: string) => (site ? new URL(path, site).href : undefined);
+const canonical = noindex ? undefined : absolute(Astro.url.pathname);
 const alternates =
-  Astro.site && !noindex
+  canonical && page
     ? [
-        ...(Object.keys(languages) as Lang[]).map((code) => ({
+        ...langs.map((code) => ({
           hreflang: langTags[code],
-          href: new URL(getRelativeLocaleUrl(code, path), Astro.site).href,
+          href: absolute(getPageUrl(code, page)),
         })),
-        {
-          hreflang: 'x-default',
-          href: new URL(getRelativeLocaleUrl(defaultLang, path), Astro.site).href,
-        },
+        { hreflang: 'x-default', href: absolute(getPageUrl(defaultLang, page)) },
       ]
     : [];
+
+const homeUrl = absolute(getPageUrl(lang, 'home'));
+const graph = site
+  ? [
+      ...(page === 'home'
+        ? [
+            {
+              '@type': 'Organization',
+              name: 'SEVORA',
+              url: homeUrl,
+              logo: absolute(shareImage.src),
+              description: t.meta.description,
+            },
+            { '@type': 'WebSite', name: 'SEVORA', url: homeUrl, inLanguage: langTags[lang] },
+          ]
+        : []),
+      ...structuredData,
+    ]
+  : [];
 ---
 
 <!doctype html>
@@ -49,13 +78,33 @@ const alternates =
     <meta name="description" content={description} />
     <meta name="theme-color" content="#03060c" />
     {noindex && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href={favicon.src} />
     <link rel="apple-touch-icon" href={appleTouchIcon.src} />
     {alternates.map(({ hreflang, href }) => (
       <link rel="alternate" hreflang={hreflang} href={href} />
     ))}
-    {Astro.site && <link rel="sitemap" href="/sitemap-index.xml" />}
+    {site && <link rel="sitemap" href="/sitemap-index.xml" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SEVORA" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={ogLocales[lang]} />
+    {langs
+      .filter((code) => code !== lang)
+      .map((code) => (
+        <meta property="og:locale:alternate" content={ogLocales[code]} />
+      ))}
+    {canonical && <meta property="og:url" content={canonical} />}
+    {site && <meta property="og:image" content={absolute(shareImage.src)} />}
+    <meta name="twitter:card" content="summary" />
+    {graph.length > 0 && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}
+      />
+    )}
     <Font cssVariable="--font-sans" preload />
     <Font cssVariable="--font-mono" />
   </head>

@@ -1,0 +1,64 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { academyPage } = useTranslations(getLangFromUrl(Astro.url));
+const { method } = academyPage;
+const icons: IconName[] = ['stacked-line-chart', 'check-circle', 'insights', 'school'];
+---
+
+<section class="section" id="kako-se-uci">
+  <div class="wrap">
+    <h2 class="h2 reveal">{method.title}</h2>
+    <ul class="items">
+      {method.items.map(({ title, text }, i) => (
+        <li class="item reveal">
+          <span class="icon-circle">
+            <Icon name={icons[i]} />
+          </span>
+          <h3 class="h4">{title}</h3>
+          <p class="body-sm">{text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .item h3 {
+    margin-top: 8px;
+  }
+
+  @media (max-width: 1080px) {
+    .items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .items {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 32px;
+    }
+  }
+</style>

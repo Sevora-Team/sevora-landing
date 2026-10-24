@@ -1,0 +1,250 @@
+{
+  "order": 2,
+  "label": {
+    "sr": "Nivo 2",
+    "en": "Level 2"
+  },
+  "title": {
+    "sr": "Napredni početnik",
+    "en": "Advanced beginner"
+  },
+  "subtitle": {
+    "sr": "Formacije i indikatori",
+    "en": "Patterns and indicators"
+  },
+  "goal": {
+    "sr": "Prepoznaješ candlestick formacije i osnovne indikatore i povezuješ ponudu i potražnju sa cenom.",
+    "en": "You recognise candlestick patterns and basic indicators, and connect supply and demand with price."
+  },
+  "modules": [
+    {
+      "number": 8,
+      "title": {
+        "sr": "Candlestick formacije (Price Action osnove)",
+        "en": "Candlestick Patterns (Price Action Basics)"
+      },
+      "badge": {
+        "sr": "Price Action osnove",
+        "en": "Price Action Basics"
+      },
+      "milestone": {
+        "sr": "Kviz + zadatak prepoznavanja formacija na realnim grafikonima",
+        "en": "Quiz + pattern recognition task on real charts"
+      },
+      "lessons": [
+        {
+          "number": "8.1",
+          "title": {
+            "sr": "Doji — neodlučnost tržišta",
+            "en": "Doji — market indecision"
+          }
+        },
+        {
+          "number": "8.2",
+          "title": {
+            "sr": "Pin Bar — odbijanje cene",
+            "en": "Pin Bar — price rejection"
+          }
+        },
+        {
+          "number": "8.3",
+          "title": {
+            "sr": "Engulfing (bullish/bearish) — preokret snage",
+            "en": "Engulfing (bullish/bearish) — reversal of strength"
+          }
+        },
+        {
+          "number": "8.4",
+          "title": {
+            "sr": "Inside Bar — \"stezanje\" pred pokret",
+            "en": "Inside Bar — \"compression\" before a move"
+          }
+        },
+        {
+          "number": "8.5",
+          "title": {
+            "sr": "Outside Bar — eksplozija volatilnosti",
+            "en": "Outside Bar — volatility explosion"
+          }
+        },
+        {
+          "number": "8.6",
+          "title": {
+            "sr": "Gap — skok cene i šta znači",
+            "en": "Gap — price jump and what it means"
+          }
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": {
+        "sr": "Ponuda, potražnja i kretanje cene",
+        "en": "Supply, Demand and Price Movement"
+      },
+      "badge": {
+        "sr": "Price Action osnove",
+        "en": "Price Action Basics"
+      },
+      "milestone": {
+        "sr": "Kviz + praktičan zadatak (obeleži supply/demand zone) + bedž \"Price Action osnove\"",
+        "en": "Quiz + practical task (mark supply/demand zones) + \"Price Action Basics\" badge"
+      },
+      "lessons": [
+        {
+          "number": "9.1",
+          "title": {
+            "sr": "Supply i Demand zone — gde su \"veliki igrači\" ostavili trag",
+            "en": "Supply and Demand zones — where the \"big players\" left their mark"
+          }
+        },
+        {
+          "number": "9.2",
+          "title": {
+            "sr": "Liquidity (likvidnost) — gde se nalazi novac na tržištu",
+            "en": "Liquidity — where the money is in the market"
+          }
+        },
+        {
+          "number": "9.3",
+          "title": {
+            "sr": "Liquidity Zones — prepoznavanje na grafikonu",
+            "en": "Liquidity Zones — identifying on the chart"
+          }
+        },
+        {
+          "number": "9.4",
+          "title": {
+            "sr": "Breakout — probijanje nivoa",
+            "en": "Breakout — breaking through a level"
+          }
+        },
+        {
+          "number": "9.5",
+          "title": {
+            "sr": "Fake Breakout (lažni probni) — kako da ga ne uloviš",
+            "en": "Fake Breakout — how to avoid falling for it"
+          }
+        },
+        {
+          "number": "9.6",
+          "title": {
+            "sr": "Pullback — povratak na nivo",
+            "en": "Pullback — return to a level"
+          }
+        },
+        {
+          "number": "9.7",
+          "title": {
+            "sr": "Rejection — odbijanje od zone",
+            "en": "Rejection — bouncing off a zone"
+          }
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": {
+        "sr": "Indikatori (osnovni alati)",
+        "en": "Indicators (Basic Tools)"
+      },
+      "badge": {
+        "sr": "Alati trejdera",
+        "en": "Trader's Tools"
+      },
+      "milestone": {
+        "sr": "Kviz + zadatak (postavi 2 indikatora na TradingView) + bedž \"Alati trejdera\"",
+        "en": "Quiz + task (add 2 indicators on TradingView) + \"Trader's Tools\" badge"
+      },
+      "lessons": [
+        {
+          "number": "10.1",
+          "title": {
+            "sr": "Šta je indikator i zašto se koristi (alat, ne kristalna kugla)",
+            "en": "What is an indicator and why it is used (a tool, not a crystal ball)"
+          }
+        },
+        {
+          "number": "10.2",
+          "title": {
+            "sr": "Moving Average — SMA vs EMA",
+            "en": "Moving Average — SMA vs EMA"
+          }
+        },
+        {
+          "number": "10.3",
+          "title": {
+            "sr": "VWAP — prosečna cena ponderisana volumenom",
+            "en": "VWAP — volume-weighted average price"
+          }
+        },
+        {
+          "number": "10.4",
+          "title": {
+            "sr": "RSI — merenje \"umora\" trenda",
+            "en": "RSI — measuring trend \"fatigue\""
+          }
+        },
+        {
+          "number": "10.5",
+          "title": {
+            "sr": "MACD — merenje momentuma",
+            "en": "MACD — measuring momentum"
+          }
+        },
+        {
+          "number": "10.6",
+          "title": {
+            "sr": "Bollinger Bands — merenje volatilnosti",
+            "en": "Bollinger Bands — measuring volatility"
+          }
+        },
+        {
+          "number": "10.7",
+          "title": {
+            "sr": "ATR — prosečan domet kretanja cene",
+            "en": "ATR — average true range of price movement"
+          }
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": {
+        "sr": "Volume i volatilnost",
+        "en": "Volume and Volatility"
+      },
+      "badge": {
+        "sr": "Napredni početnik",
+        "en": "Advanced Beginner"
+      },
+      "milestone": {
+        "sr": "Veliki kviz + simulacija trejdovanja (1. nivo) + bedž \"Napredni početnik\" + otključavanje Nivoa 3",
+        "en": "Big quiz + trading simulation (level 1) + \"Advanced Beginner\" badge + Level 3 unlock"
+      },
+      "lessons": [
+        {
+          "number": "11.1",
+          "title": {
+            "sr": "Šta je volume i šta nam govori",
+            "en": "What is volume and what it tells us"
+          }
+        },
+        {
+          "number": "11.2",
+          "title": {
+            "sr": "Momentum — snaga pokreta",
+            "en": "Momentum — the strength of a move"
+          }
+        },
+        {
+          "number": "11.3",
+          "title": {
+            "sr": "Volatilnost kroz sesije (kada se tržište \"budi\")",
+            "en": "Volatility through sessions (when the market \"wakes up\")"
+          }
+        }
+      ]
+    }
+  ]
+}

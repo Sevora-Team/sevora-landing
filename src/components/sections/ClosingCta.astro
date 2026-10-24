@@ -2,9 +2,11 @@
 import Button from '@/components/ui/Button.astro';
 import Glyphs from '@/components/ui/Glyphs.astro';
 import { links } from '@/data/links';
+import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const t = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="cta section-dark" data-theme="dark">
@@ -13,7 +15,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     <p class="lead reveal">{t.cta.lead}</p>
     <div class="btn-row reveal">
       <Button href={links.signup}>{t.actions.start}</Button>
-      <Button href="#paketi" variant="ghost" icon="north-east">
+      <Button href={getPageUrl(lang, 'home', 'paketi')} variant="ghost" icon="north-east">
         {t.actions.seePlans}
       </Button>
     </div>

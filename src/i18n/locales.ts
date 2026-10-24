@@ -18,3 +18,9 @@ export const numberLocales = {
   sr: 'sr-Latn-RS',
   en: 'en-US',
 } as const satisfies Record<Lang, string>;
+
+/** Open Graph `og:locale` values. */
+export const ogLocales = {
+  sr: 'sr_RS',
+  en: 'en_US',
+} as const satisfies Record<Lang, string>;

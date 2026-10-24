@@ -1,0 +1,250 @@
+{
+  "order": 4,
+  "label": {
+    "sr": "Nivo 4",
+    "en": "Level 4"
+  },
+  "title": {
+    "sr": "Napredni nivo",
+    "en": "Advanced"
+  },
+  "subtitle": {
+    "sr": "Psihologija i strategije",
+    "en": "Psychology and strategies"
+  },
+  "goal": {
+    "sr": "Upravljaš rizikom kao profesionalac, razumeš psihologiju trgovanja i počinješ da gradiš sopstvenu strategiju.",
+    "en": "You manage risk like a professional, understand trading psychology and start building your own strategy."
+  },
+  "modules": [
+    {
+      "number": 15,
+      "title": {
+        "sr": "Risk Management (napredno)",
+        "en": "Risk Management (Advanced)"
+      },
+      "badge": {
+        "sr": "Napredno upravljanje rizikom",
+        "en": "Advanced Risk Management"
+      },
+      "milestone": {
+        "sr": "Kviz + praktičan zadatak na demo nalogu",
+        "en": "Quiz + practical task on demo account"
+      },
+      "lessons": [
+        {
+          "number": "15.1",
+          "title": {
+            "sr": "Trailing Stop — pomeranje zaštite sa profitom",
+            "en": "Trailing Stop — moving protection with profit"
+          }
+        },
+        {
+          "number": "15.2",
+          "title": {
+            "sr": "Break Even — \"trejd koji ne može da izgubi\"",
+            "en": "Break Even — \"the trade that can't lose\""
+          }
+        },
+        {
+          "number": "15.3",
+          "title": {
+            "sr": "Scaling (uvećavanje pozicije)",
+            "en": "Scaling (increasing position size)"
+          }
+        },
+        {
+          "number": "15.4",
+          "title": {
+            "sr": "Partial Close — delimično zatvaranje pozicije",
+            "en": "Partial Close — partially closing a position"
+          }
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": {
+        "sr": "Trading psihologija",
+        "en": "Trading Psychology"
+      },
+      "badge": {
+        "sr": "Mentalna disciplina",
+        "en": "Mental Discipline"
+      },
+      "milestone": {
+        "sr": "Veliki kviz + lični \"psihološki self-assessment\" zadatak + bedž \"Mentalna disciplina\"",
+        "en": "Big quiz + personal \"psychological self-assessment\" task + \"Mental Discipline\" badge"
+      },
+      "lessons": [
+        {
+          "number": "16.1",
+          "title": {
+            "sr": "Zašto je psihologija 80% uspeha u trejdovanju",
+            "en": "Why psychology is 80% of trading success"
+          }
+        },
+        {
+          "number": "16.2",
+          "title": {
+            "sr": "Disciplina — najvažnija osobina trejdera",
+            "en": "Discipline — the most important trader trait"
+          }
+        },
+        {
+          "number": "16.3",
+          "title": {
+            "sr": "Emocije — kako prepoznati kad odlučuješ emotivno",
+            "en": "Emotions — how to recognize when you are deciding emotionally"
+          }
+        },
+        {
+          "number": "16.4",
+          "title": {
+            "sr": "Greed (pohlepa) — kako uništava nalog",
+            "en": "Greed — how it destroys accounts"
+          }
+        },
+        {
+          "number": "16.5",
+          "title": {
+            "sr": "Fear (strah) — kako te sprečava da pratiš plan",
+            "en": "Fear — how it stops you from following the plan"
+          }
+        },
+        {
+          "number": "16.6",
+          "title": {
+            "sr": "Overtrading — zamka \"moram da uhvatim sve\"",
+            "en": "Overtrading — the \"I must catch everything\" trap"
+          }
+        },
+        {
+          "number": "16.7",
+          "title": {
+            "sr": "Revenge Trading — najopasnija navika",
+            "en": "Revenge Trading — the most dangerous habit"
+          }
+        },
+        {
+          "number": "16.8",
+          "title": {
+            "sr": "Kako izgraditi mentalnu rutinu profesionalnog trejdera",
+            "en": "How to build the mental routine of a professional trader"
+          }
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": {
+        "sr": "Strategije trgovanja",
+        "en": "Trading Strategies"
+      },
+      "badge": {
+        "sr": "Strateg",
+        "en": "Strategist"
+      },
+      "milestone": {
+        "sr": "Kviz + zadatak: izaberi i opiši svoju prvu strategiju + bedž \"Strateg\"",
+        "en": "Quiz + task: choose and describe your first strategy + \"Strategist\" badge"
+      },
+      "lessons": [
+        {
+          "number": "17.1",
+          "title": {
+            "sr": "Šta je strategija i zašto ti treba pisana strategija",
+            "en": "What is a strategy and why you need a written strategy"
+          }
+        },
+        {
+          "number": "17.2",
+          "title": {
+            "sr": "Trend Following strategija",
+            "en": "Trend Following strategy"
+          }
+        },
+        {
+          "number": "17.3",
+          "title": {
+            "sr": "Breakout strategija",
+            "en": "Breakout strategy"
+          }
+        },
+        {
+          "number": "17.4",
+          "title": {
+            "sr": "Reversal (preokret) strategija",
+            "en": "Reversal strategy"
+          }
+        },
+        {
+          "number": "17.5",
+          "title": {
+            "sr": "Scalping — stil brzog trejdovanja",
+            "en": "Scalping — fast trading style"
+          }
+        },
+        {
+          "number": "17.6",
+          "title": {
+            "sr": "Swing Trading — stil trejdovanja na dane/nedelje",
+            "en": "Swing Trading — day/week trading style"
+          }
+        },
+        {
+          "number": "17.7",
+          "title": {
+            "sr": "Kombinovanje koncepata iz Nivoa 2 i 3 u jednu strategiju",
+            "en": "Combining concepts from Level 2 and 3 into one strategy"
+          }
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": {
+        "sr": "Trading Journal i testiranje strategije",
+        "en": "Trading Journal and Strategy Testing"
+      },
+      "badge": {
+        "sr": "Profesionalna navika",
+        "en": "Professional Habit"
+      },
+      "milestone": {
+        "sr": "Veliki kviz + zadatak (vodi journal 5 demo trejdova) + simulacija + bedž \"Profesionalna navika\" + otključavanje Nivoa 5",
+        "en": "Big quiz + task (keep journal for 5 demo trades) + simulation + \"Professional Habit\" badge + Level 5 unlock"
+      },
+      "lessons": [
+        {
+          "number": "18.1",
+          "title": {
+            "sr": "Šta je Trading Journal i zašto ga svaki profesionalac vodi",
+            "en": "What is a Trading Journal and why every professional keeps one"
+          }
+        },
+        {
+          "number": "18.2",
+          "title": {
+            "sr": "Šta beležiti u journal (ulaz, izlaz, razlog, emocija, rezultat)",
+            "en": "What to record in the journal (entry, exit, reason, emotion, result)"
+          }
+        },
+        {
+          "number": "18.3",
+          "title": {
+            "sr": "Backtesting — testiranje strategije na prošlim podacima",
+            "en": "Backtesting — testing a strategy on historical data"
+          }
+        },
+        {
+          "number": "18.4",
+          "title": {
+            "sr": "Forward Testing — testiranje strategije u realnom vremenu (demo)",
+            "en": "Forward Testing — testing a strategy in real time (demo)"
+          }
+        }
+      ]
+    }
+  ]
+}

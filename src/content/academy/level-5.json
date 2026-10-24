@@ -1,0 +1,281 @@
+{
+  "order": 5,
+  "label": {
+    "sr": "Nivo 5",
+    "en": "Level 5"
+  },
+  "title": {
+    "sr": "Profesionalni nivo",
+    "en": "Professional"
+  },
+  "subtitle": {
+    "sr": "Spreman za demo",
+    "en": "Ready for demo"
+  },
+  "goal": {
+    "sr": "Spreman si da samostalno i odgovorno koristiš demo nalog, sa kompletnim planom i razumevanjem brokera i realnosti tržišta.",
+    "en": "You are ready to use a demo account on your own and responsibly, with a complete plan and an understanding of brokers and market reality."
+  },
+  "modules": [
+    {
+      "number": 19,
+      "title": {
+        "sr": "Trading plan i checklista",
+        "en": "Trading Plan and Checklist"
+      },
+      "badge": {
+        "sr": "Plan na papiru",
+        "en": "Plan on Paper"
+      },
+      "milestone": {
+        "sr": "Zadatak: kreiraj sopstveni trading plan + bedž \"Plan na papiru\"",
+        "en": "Task: create your own trading plan + \"Plan on Paper\" badge"
+      },
+      "lessons": [
+        {
+          "number": "19.1",
+          "title": {
+            "sr": "Šta je profesionalni trading plan i šta sadrži",
+            "en": "What is a professional trading plan and what it contains"
+          }
+        },
+        {
+          "number": "19.2",
+          "title": {
+            "sr": "Kako napraviti sopstvenu pre-trejd checklistu",
+            "en": "How to create your own pre-trade checklist"
+          }
+        },
+        {
+          "number": "19.3",
+          "title": {
+            "sr": "Pravila za ulazak, izlazak i upravljanje rizikom — pisano pravilo",
+            "en": "Entry, exit and risk management rules — written rules"
+          }
+        },
+        {
+          "number": "19.4",
+          "title": {
+            "sr": "Primer kompletnog trading plana (popunjen šablon)",
+            "en": "Example of a complete trading plan (filled template)"
+          }
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": {
+        "sr": "Live primeri i analiza tržišta",
+        "en": "Live Examples and Market Analysis"
+      },
+      "badge": {
+        "sr": "Live analiza",
+        "en": "Live Analysis"
+      },
+      "milestone": {
+        "sr": "Kviz + simulacija analize na novom grafikonu (provera znanja)",
+        "en": "Quiz + analysis simulation on a new chart (knowledge check)"
+      },
+      "lessons": [
+        {
+          "number": "20.1",
+          "title": {
+            "sr": "Live primer analize na Forex paru (korak po korak)",
+            "en": "Live analysis example on a Forex pair (step by step)"
+          }
+        },
+        {
+          "number": "20.2",
+          "title": {
+            "sr": "Live primer analize na Zlatu",
+            "en": "Live analysis example on Gold"
+          }
+        },
+        {
+          "number": "20.3",
+          "title": {
+            "sr": "Live primer analize na Indeksu",
+            "en": "Live analysis example on an Index"
+          }
+        },
+        {
+          "number": "20.4",
+          "title": {
+            "sr": "Live primer analize na Kriptu",
+            "en": "Live analysis example on Crypto"
+          }
+        },
+        {
+          "number": "20.5",
+          "title": {
+            "sr": "Kako spojiti tehničku i fundamentalnu analizu u odluku",
+            "en": "How to combine technical and fundamental analysis into a decision"
+          }
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": {
+        "sr": "Najčešće greške početnika",
+        "en": "Most Common Beginner Mistakes"
+      },
+      "badge": {
+        "sr": "Svesan trejder",
+        "en": "Aware Trader"
+      },
+      "milestone": {
+        "sr": "Kviz \"Prepoznaj grešku\" + bedž \"Svesan trejder\"",
+        "en": "\"Spot the Mistake\" quiz + \"Aware Trader\" badge"
+      },
+      "lessons": [
+        {
+          "number": "21.1",
+          "title": {
+            "sr": "Trejdovanje bez plana",
+            "en": "Trading without a plan"
+          }
+        },
+        {
+          "number": "21.2",
+          "title": {
+            "sr": "Premali stop loss / preveliki lot",
+            "en": "Too small stop loss / too large lot"
+          }
+        },
+        {
+          "number": "21.3",
+          "title": {
+            "sr": "Trejdovanje pred velike vesti",
+            "en": "Trading before major news"
+          }
+        },
+        {
+          "number": "21.4",
+          "title": {
+            "sr": "Praćenje \"signala\" bez razumevanja",
+            "en": "Following \"signals\" without understanding"
+          }
+        },
+        {
+          "number": "21.5",
+          "title": {
+            "sr": "Preterano trejdovanje (overtrading) — zamka \"moram da uhvatim sve\"",
+            "en": "Overtrading — the \"I must catch everything\" trap"
+          }
+        },
+        {
+          "number": "21.6",
+          "title": {
+            "sr": "Brzo prelaženje na live nalog bez dovoljno demo iskustva",
+            "en": "Rushing to a live account without enough demo experience"
+          }
+        },
+        {
+          "number": "21.7",
+          "title": {
+            "sr": "Nerealna očekivanja o profitu",
+            "en": "Unrealistic profit expectations"
+          }
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": {
+        "sr": "Brokeri, demo i funded nalozi",
+        "en": "Brokers, Demo and Funded Accounts"
+      },
+      "badge": {
+        "sr": "Informisan trejder",
+        "en": "Informed Trader"
+      },
+      "milestone": {
+        "sr": "Kviz + bedž \"Informisan trejder\"",
+        "en": "Quiz + \"Informed Trader\" badge"
+      },
+      "lessons": [
+        {
+          "number": "22.1",
+          "title": {
+            "sr": "Kako se bira regulisan broker — na šta paziti",
+            "en": "How to choose a regulated broker — what to watch for"
+          }
+        },
+        {
+          "number": "22.2",
+          "title": {
+            "sr": "Demo nalog — koliko dugo vežbati pre live naloga",
+            "en": "Demo account — how long to practice before going live"
+          }
+        },
+        {
+          "number": "22.3",
+          "title": {
+            "sr": "Funded Accounts (prop firme) — šta su i kako funkcionišu",
+            "en": "Funded Accounts (prop firms) — what they are and how they work"
+          }
+        },
+        {
+          "number": "22.4",
+          "title": {
+            "sr": "Realna očekivanja — edukacija nije garancija profita",
+            "en": "Realistic expectations — education is not a guarantee of profit"
+          }
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": {
+        "sr": "Priprema za prvi pravi trejd (Završni modul)",
+        "en": "Preparation for the First Real Trade (Final Module)"
+      },
+      "badge": {
+        "sr": "SEVORA Diploma",
+        "en": "SEVORA Diploma"
+      },
+      "milestone": {
+        "sr": "Završni bedž \"SEVORA Diploma — Spreman za Demo\" + sertifikat o završenoj edukaciji",
+        "en": "Final badge \"SEVORA Diploma — Ready for Demo\" + certificate of completed education"
+      },
+      "lessons": [
+        {
+          "number": "23.1",
+          "title": {
+            "sr": "Rezime celog puta — od Nivoa 0 do Nivoa 5",
+            "en": "Summary of the entire journey — from Level 0 to Level 5"
+          }
+        },
+        {
+          "number": "23.2",
+          "title": {
+            "sr": "Finalna checklista pre prvog demo trejda",
+            "en": "Final checklist before the first demo trade"
+          }
+        },
+        {
+          "number": "23.3",
+          "title": {
+            "sr": "Kako postaviti realne ciljeve za sledeća 3 meseca",
+            "en": "How to set realistic goals for the next 3 months"
+          }
+        },
+        {
+          "number": "23.4",
+          "title": {
+            "sr": "Završni veliki ispit (kombinovani kviz svih nivoa)",
+            "en": "Final comprehensive exam (combined quiz of all levels)"
+          }
+        },
+        {
+          "number": "23.5",
+          "title": {
+            "sr": "Finalna simulacija trejdovanja na demo nalogu",
+            "en": "Final trading simulation on a demo account"
+          }
+        }
+      ]
+    }
+  ]
+}

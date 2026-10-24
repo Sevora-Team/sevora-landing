@@ -1,9 +1,11 @@
 ---
 import Button from '@/components/ui/Button.astro';
 import { links } from '@/data/links';
+import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const { academy } = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const { academy, actions } = useTranslations(lang);
 // Highest level on top and flush; each lower rung steps further in.
 const last = academy.levels.length - 1;
 const rungs = academy.levels.map((level, i) => ({ ...level, indent: last - i })).reverse();
@@ -24,6 +26,9 @@ const rungs = academy.levels.map((level, i) => ({ ...level, indent: last - i }))
       </dl>
       <div class="btn-row">
         <Button href={links.signup}>{academy.cta}</Button>
+        <Button href={getPageUrl(lang, 'academy')} variant="ghost" icon="arrow-forward">
+          {actions.more}
+        </Button>
       </div>
     </div>
 

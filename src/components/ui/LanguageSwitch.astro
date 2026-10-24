@@ -1,17 +1,17 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { langTags, languages, type Lang } from '@/i18n/locales';
-import { getLangFromUrl, getPathWithoutLocale, useTranslations } from '@/i18n/utils';
+import { getPageFromUrl, getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const current = getLangFromUrl(Astro.url);
 const t = useTranslations(current);
-const path = getPathWithoutLocale(Astro.url);
+const page = getPageFromUrl(Astro.url) ?? 'home';
 ---
 
 <div class="switch" role="group" aria-label={t.language}>
   {(Object.keys(languages) as Lang[]).map((lang) => (
     <a
-      href={getRelativeLocaleUrl(lang, path)}
+      href={getPageUrl(lang, page)}
       hreflang={langTags[lang]}
       lang={langTags[lang]}
       aria-current={lang === current ? 'true' : undefined}

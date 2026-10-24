@@ -1,10 +1,12 @@
 ---
+import { getLinkHref } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Icon from './ui/Icon.astro';
 import LanguageSwitch from './ui/LanguageSwitch.astro';
 import Logo from './ui/Logo.astro';
 
-const { footer } = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const { footer } = useTranslations(lang);
 ---
 
 <footer class="footer section-dark" data-theme="dark">
@@ -19,9 +21,9 @@ const { footer } = useTranslations(getLangFromUrl(Astro.url));
         <nav aria-label={title}>
           <h2 class="mono-label heading">{title}</h2>
           <ul>
-            {links.map(({ label, href }) => (
+            {links.map((link) => (
               <li>
-                <a href={href}>{label}</a>
+                <a href={getLinkHref(lang, link)}>{link.label}</a>
               </li>
             ))}
           </ul>

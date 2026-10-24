@@ -12,13 +12,13 @@ export const en: Dictionary = {
     label: 'Main navigation',
     menu: 'Menu',
     items: [
-      { label: 'Home', href: '#top' },
-      { label: 'Markets', href: '#trzista' },
-      { label: 'Platform', href: '#platforma' },
-      { label: 'Academy', href: '#akademija' },
-      { label: 'Tools & partners', href: '#ekosistem' },
-      { label: 'Plans', href: '#paketi' },
-      { label: 'Contact', href: '#kontakt' },
+      { label: 'Home', section: 'top' },
+      { label: 'Markets', section: 'trzista' },
+      { label: 'Platform', section: 'platforma' },
+      { label: 'Academy', section: 'akademija', page: 'academy' },
+      { label: 'Tools & partners', section: 'ekosistem' },
+      { label: 'Plans', section: 'paketi' },
+      { label: 'Contact', section: 'kontakt' },
     ],
   },
   actions: {
@@ -350,25 +350,25 @@ export const en: Dictionary = {
         title: 'Platform',
         links: [
           { label: 'Dashboard', href: links.dashboard },
-          { label: 'Markets', href: '#trzista' },
-          { label: 'Calendar', href: '#platforma' },
-          { label: 'News', href: '#platforma' },
-          { label: 'Scenarios', href: '#plan' },
+          { label: 'Markets', page: 'home', hash: 'trzista' },
+          { label: 'Calendar', page: 'home', hash: 'platforma' },
+          { label: 'News', page: 'home', hash: 'platforma' },
+          { label: 'Scenarios', page: 'home', hash: 'plan' },
         ],
       },
       {
         title: 'Tools',
         links: [
-          { label: 'Journal', href: '#platforma' },
-          { label: 'AI mentor', href: '#platforma' },
-          { label: 'Bot dashboard', href: '#platforma' },
+          { label: 'Journal', page: 'home', hash: 'platforma' },
+          { label: 'AI mentor', page: 'home', hash: 'platforma' },
+          { label: 'Bot dashboard', page: 'home', hash: 'platforma' },
           { label: 'Shop', href: links.shop },
         ],
       },
       {
         title: 'Learn',
         links: [
-          { label: 'Academy', href: '#akademija' },
+          { label: 'Academy', page: 'academy' },
           { label: 'Glossary', href: links.glossary },
           { label: 'Blog', href: links.blog },
         ],
@@ -376,9 +376,9 @@ export const en: Dictionary = {
       {
         title: 'Company',
         links: [
-          { label: 'About', href: '#o-nama' },
+          { label: 'About', page: 'home', hash: 'o-nama' },
           { label: 'Affiliate program', href: links.affiliate },
-          { label: 'Contact', href: '#kontakt' },
+          { label: 'Contact', page: 'home', hash: 'kontakt' },
           { label: 'Terms of use', href: links.terms },
           { label: 'Privacy', href: links.privacy },
         ],
@@ -387,6 +387,52 @@ export const en: Dictionary = {
     risk: 'Risk warning: trading forex, metals, cryptocurrencies, indices and other financial instruments carries a high level of risk and is not suitable for everyone. The content and tools on this site are analytical and educational and are not investment advice. Past performance does not guarantee future results.',
     copyright: '© 2026 SEVORA',
     legal: '[LEGAL ENTITY · TAX ID · ADDRESS]',
+  },
+  breadcrumb: {
+    label: 'Breadcrumb',
+    home: 'Home',
+  },
+  academyPage: {
+    meta: {
+      title: 'Trading academy: from zero to a professional level · SEVORA',
+      description:
+        'A trading course in 6 levels: from market basics, charts and indicators to risk management, your own strategy and a demo account. The starter levels are free.',
+    },
+    name: 'Academy',
+    title: 'Trading academy, from zero to a professional level',
+    lead: 'Six levels that take you from your first idea of a market to your own trading plan and a demo account. You learn each topic in order, with a knowledge check after every module.',
+    program: 'See the curriculum',
+    free: 'The starter levels are included in a free account.',
+    curriculum: {
+      title: 'Curriculum by level',
+      lead: 'Every level, module and lesson. Open a module to see its lessons and how it ends.',
+      jump: 'Levels',
+      module: 'Module',
+      milestone: 'Module completion',
+      modules: (n: number) => `${n} ${n === 1 ? 'module' : 'modules'}`,
+      lessons: (n: number) => `${n} ${n === 1 ? 'lesson' : 'lessons'}`,
+    },
+    method: {
+      title: 'How you learn in the Academy',
+      items: [
+        {
+          title: 'In order, from basics to strategy',
+          text: 'The levels run from your first idea of a market to your own strategy. A big quiz at the end of a level unlocks the next one.',
+        },
+        {
+          title: 'A check after every module',
+          text: 'Each module ends with a quiz, a task or a simulation, and most of them earn a badge.',
+        },
+        {
+          title: 'Practice with real tools',
+          text: 'You open a demo account, calculate lot size and pip value, mark supply and demand zones and keep a journal of demo trades.',
+        },
+        {
+          title: 'A diploma at the end',
+          text: 'The last module awards the SEVORA diploma and a certificate of completed education.',
+        },
+      ],
+    },
   },
   notFound: {
     title: 'Page not found',

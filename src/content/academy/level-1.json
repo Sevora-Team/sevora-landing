@@ -1,0 +1,198 @@
+{
+  "order": 1,
+  "label": {
+    "sr": "Nivo 1",
+    "en": "Level 1"
+  },
+  "title": {
+    "sr": "Osnove",
+    "en": "Basics"
+  },
+  "subtitle": {
+    "sr": "Čitanje grafikona",
+    "en": "Chart reading"
+  },
+  "goal": {
+    "sr": "Naučićeš da čitaš grafikon i osnovne tehničke pojmove koje koristi svaki trejder.",
+    "en": "You learn to read a chart and the basic technical terms every trader uses."
+  },
+  "modules": [
+    {
+      "number": 5,
+      "title": {
+        "sr": "Kako se čita grafikon",
+        "en": "How to Read a Chart"
+      },
+      "badge": {
+        "sr": "Čitanje grafikona",
+        "en": "Chart Reading"
+      },
+      "milestone": {
+        "sr": "Kviz + praktičan zadatak (prepoznaj sveće na grafikonu) + bedž \"Čitanje grafikona\"",
+        "en": "Quiz + practical task (identify candles on the chart) + \"Chart Reading\" badge"
+      },
+      "lessons": [
+        {
+          "number": "5.1",
+          "title": {
+            "sr": "Šta je grafikon cene i zašto postoji",
+            "en": "What is a price chart and why it exists"
+          }
+        },
+        {
+          "number": "5.2",
+          "title": {
+            "sr": "Vrste grafikona (linijski, bar, candlestick) — zašto su sveće standard",
+            "en": "Types of charts (line, bar, candlestick) — why candles are the standard"
+          }
+        },
+        {
+          "number": "5.3",
+          "title": {
+            "sr": "Anatomija sveće (Candle Anatomy) — telo, senke, otvaranje/zatvaranje",
+            "en": "Candle anatomy — body, wicks, open/close"
+          }
+        },
+        {
+          "number": "5.4",
+          "title": {
+            "sr": "Bullish vs Bearish sveća — boja i značenje",
+            "en": "Bullish vs Bearish candle — color and meaning"
+          }
+        },
+        {
+          "number": "5.5",
+          "title": {
+            "sr": "Šta je timeframe (vremenski okvir) — 1m, 5m, 1h, 1D...",
+            "en": "What is a timeframe — 1m, 5m, 1h, 1D..."
+          }
+        },
+        {
+          "number": "5.6",
+          "title": {
+            "sr": "Kako izgled grafikona zavisi od izabranog timeframe-a",
+            "en": "How a chart looks depending on the selected timeframe"
+          }
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": {
+        "sr": "Tehnički pojmovi koje mora da znaš",
+        "en": "Technical Terms You Must Know"
+      },
+      "badge": {
+        "sr": "Tehnički rečnik",
+        "en": "Technical Dictionary"
+      },
+      "milestone": {
+        "sr": "Kviz + kalkulator-vežba (ručni proračun lota i pipa) + bedž \"Tehnički rečnik\"",
+        "en": "Quiz + calculator exercise (manual lot and pip calculation) + \"Technical Dictionary\" badge"
+      },
+      "lessons": [
+        {
+          "number": "6.1",
+          "title": {
+            "sr": "Pip i Point — najmanja jedinica kretanja cene",
+            "en": "Pip and Point — the smallest unit of price movement"
+          }
+        },
+        {
+          "number": "6.2",
+          "title": {
+            "sr": "Tick — šta predstavlja",
+            "en": "Tick — what it represents"
+          }
+        },
+        {
+          "number": "6.3",
+          "title": {
+            "sr": "Lot, Mini Lot, Micro Lot — veličina pozicije objašnjena kroz primer",
+            "en": "Lot, Mini Lot, Micro Lot — position size explained through an example"
+          }
+        },
+        {
+          "number": "6.4",
+          "title": {
+            "sr": "Kako se računa vrednost pipa u zavisnosti od lota",
+            "en": "How to calculate pip value depending on lot size"
+          }
+        },
+        {
+          "number": "6.5",
+          "title": {
+            "sr": "Margin Call i Stop Out — kada i zašto se to dešava (sa primerom)",
+            "en": "Margin Call and Stop Out — when and why it happens (with an example)"
+          }
+        },
+        {
+          "number": "6.6",
+          "title": {
+            "sr": "Volatilnost — šta znači \"tržište je nervozno\"",
+            "en": "Volatility — what it means when \"the market is nervous\""
+          }
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": {
+        "sr": "Trend i osnovna struktura tržišta",
+        "en": "Trend and Basic Market Structure"
+      },
+      "badge": {
+        "sr": "Osnove osvojene",
+        "en": "Basics Mastered"
+      },
+      "milestone": {
+        "sr": "Veliki kviz + praktičan zadatak + simulacija (uoči trend na 5 grafikona) + bedž \"Osnove osvojene\" + otključavanje Nivoa 2",
+        "en": "Big quiz + practical task + simulation (identify trend on 5 charts) + \"Basics Mastered\" badge + Level 2 unlock"
+      },
+      "lessons": [
+        {
+          "number": "7.1",
+          "title": {
+            "sr": "Šta je trend (uptrend, downtrend, sideways/range)",
+            "en": "What is a trend (uptrend, downtrend, sideways/range)"
+          }
+        },
+        {
+          "number": "7.2",
+          "title": {
+            "sr": "Higher High / Higher Low — kako prepoznati uptrend",
+            "en": "Higher High / Higher Low — how to identify an uptrend"
+          }
+        },
+        {
+          "number": "7.3",
+          "title": {
+            "sr": "Lower High / Lower Low — kako prepoznati downtrend",
+            "en": "Lower High / Lower Low — how to identify a downtrend"
+          }
+        },
+        {
+          "number": "7.4",
+          "title": {
+            "sr": "Range (bočno tržište) — kada tržište \"ne odlučuje\"",
+            "en": "Range (sideways market) — when the market \"can't decide\""
+          }
+        },
+        {
+          "number": "7.5",
+          "title": {
+            "sr": "Support i Resistance — analogija sa \"podom i plafonom\"",
+            "en": "Support and Resistance — \"floor and ceiling\" analogy"
+          }
+        },
+        {
+          "number": "7.6",
+          "title": {
+            "sr": "Kako povući prvu liniju support/resistance na grafikonu",
+            "en": "How to draw the first support/resistance line on a chart"
+          }
+        }
+      ]
+    }
+  ]
+}
