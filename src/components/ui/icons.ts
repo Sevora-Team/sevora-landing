@@ -8,7 +8,9 @@ import CallSplit from '@/assets/icons/call-split.svg';
 import Check from '@/assets/icons/check.svg';
 import CheckCircle from '@/assets/icons/check-circle.svg';
 import Close from '@/assets/icons/close.svg';
+import CreditCard from '@/assets/icons/credit-card.svg';
 import EventNote from '@/assets/icons/event-note.svg';
+import EventRepeat from '@/assets/icons/event-repeat.svg';
 import ExpandMore from '@/assets/icons/expand-more.svg';
 import Forum from '@/assets/icons/forum.svg';
 import Handshake from '@/assets/icons/handshake.svg';
@@ -19,13 +21,17 @@ import Menu from '@/assets/icons/menu.svg';
 import MenuBook from '@/assets/icons/menu-book.svg';
 import NorthEast from '@/assets/icons/north-east.svg';
 import Notifications from '@/assets/icons/notifications.svg';
+import PlayCircle from '@/assets/icons/play-circle.svg';
 import Psychology from '@/assets/icons/psychology.svg';
+import Quiz from '@/assets/icons/quiz.svg';
 import Schedule from '@/assets/icons/schedule.svg';
 import School from '@/assets/icons/school.svg';
 import SmartToy from '@/assets/icons/smart-toy.svg';
 import StackedLineChart from '@/assets/icons/stacked-line-chart.svg';
 import Storefront from '@/assets/icons/storefront.svg';
+import Translate from '@/assets/icons/translate.svg';
 import VerifiedUser from '@/assets/icons/verified-user.svg';
+import WorkspacePremium from '@/assets/icons/workspace-premium.svg';
 
 export const icons = {
   'arrow-back': ArrowBack,
@@ -35,7 +41,9 @@ export const icons = {
   check: Check,
   'check-circle': CheckCircle,
   close: Close,
+  'credit-card': CreditCard,
   'event-note': EventNote,
+  'event-repeat': EventRepeat,
   'expand-more': ExpandMore,
   forum: Forum,
   handshake: Handshake,
@@ -46,13 +54,17 @@ export const icons = {
   'menu-book': MenuBook,
   'north-east': NorthEast,
   notifications: Notifications,
+  'play-circle': PlayCircle,
   psychology: Psychology,
+  quiz: Quiz,
   schedule: Schedule,
   school: School,
   'smart-toy': SmartToy,
   'stacked-line-chart': StackedLineChart,
   storefront: Storefront,
+  translate: Translate,
   'verified-user': VerifiedUser,
+  'workspace-premium': WorkspacePremium,
 } as const satisfies Record<string, SvgComponent>;
 
 export type IconName = keyof typeof icons;

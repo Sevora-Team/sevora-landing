@@ -5,18 +5,30 @@ import { links } from '@/data/links';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
+interface Props {
+  /** Defaults to the home page's closing copy and a link to the plans page. */
+  title?: string;
+  lead?: string;
+  secondary?: { label: string; href: string };
+}
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const {
+  title = t.cta.title,
+  lead = t.cta.lead,
+  secondary = { label: t.actions.seePlans, href: getPageUrl(lang, 'plans') },
+} = Astro.props;
 ---
 
 <section class="cta section-dark" data-theme="dark">
   <div class="wrap content">
-    <h2 class="display reveal">{t.cta.title}</h2>
-    <p class="lead reveal">{t.cta.lead}</p>
+    <h2 class="display reveal">{title}</h2>
+    <p class="lead reveal">{lead}</p>
     <div class="btn-row reveal">
       <Button href={links.signup}>{t.actions.start}</Button>
-      <Button href={getPageUrl(lang, 'plans')} variant="ghost" icon="north-east">
-        {t.actions.seePlans}
+      <Button href={secondary.href} variant="ghost" icon="north-east">
+        {secondary.label}
       </Button>
     </div>
   </div>

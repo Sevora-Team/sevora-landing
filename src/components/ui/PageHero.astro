@@ -1,6 +1,7 @@
 ---
-// Dark opening band of a page below home: breadcrumbs, the page's h1 and lead.
-// The default slot holds what follows the lead (actions, stats).
+// Dark, centred opening band of a page below home: breadcrumbs, the page's h1 and lead.
+// The default slot follows the lead (actions, a toggle). The `below` slot is full width under
+// the text and takes the place of the glyph dome (the Academy's level path).
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Glyphs from './Glyphs.astro';
@@ -10,14 +11,17 @@ interface Props {
   name: string;
   title: string;
   lead: string;
+  /** Leaves room at the bottom for the cards right after the hero to rise into it. */
+  overlap?: boolean;
 }
 
-const { name, title, lead } = Astro.props;
+const { name, title, lead, overlap = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const { breadcrumb } = useTranslations(lang);
+const below = Astro.slots.has('below');
 ---
 
-<section class="page-hero section-dark" data-theme="dark">
+<section class:list={['page-hero section-dark', { overlap, 'has-below': below }]} data-theme="dark">
   <div class="wrap content">
     <nav class="crumbs rise" aria-label={breadcrumb.label}>
       <ol>
@@ -33,18 +37,26 @@ const { breadcrumb } = useTranslations(lang);
     <p class="lead rise" style="--delay: 0.16s">
       {lead}
     </p>
-    <div class="extra rise" style="--delay: 0.24s">
-      <slot />
-    </div>
+    {Astro.slots.has('default') && (
+      <div class="extra rise" style="--delay: 0.24s">
+        <slot />
+      </div>
+    )}
   </div>
-  <Glyphs name="dome" class="dome" />
+  {below ? (
+    <div class="wrap below">
+      <slot name="below" />
+    </div>
+  ) : (
+    <Glyphs name="dome" class="dome" />
+  )}
 </section>
 
 <style>
   .page-hero {
     /* Slide under the sticky header. */
     margin-top: -84px;
-    padding: 84px 0 300px;
+    padding-top: 84px;
   }
 
   .page-hero::before {
@@ -53,7 +65,7 @@ const { breadcrumb } = useTranslations(lang);
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(55% 65% at 0% 100%, rgb(66 202 215 / 0.11), transparent 70%),
+      radial-gradient(55% 70% at 0% 100%, rgb(66 202 215 / 0.1), transparent 70%),
       radial-gradient(35% 45% at 100% 0%, rgb(66 202 215 / 0.05), transparent 70%);
   }
 
@@ -61,13 +73,24 @@ const { breadcrumb } = useTranslations(lang);
     position: relative;
     z-index: 2;
     display: grid;
-    justify-items: start;
-    padding-top: 64px;
+    justify-items: center;
+    gap: 20px;
+    padding-block: 80px 104px;
+    text-align: center;
+  }
+
+  .overlap .content {
+    padding-bottom: 230px;
+  }
+
+  .has-below .content {
+    padding-bottom: 0;
   }
 
   .crumbs ol {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -78,7 +101,7 @@ const { breadcrumb } = useTranslations(lang);
 
   .crumbs li + li::before {
     content: '/';
-    margin: 0 10px;
+    margin: 0 8px;
   }
 
   .crumbs a {
@@ -95,40 +118,50 @@ const { breadcrumb } = useTranslations(lang);
   }
 
   .display {
-    max-width: 18ch;
-    margin-top: 24px;
+    max-width: 17ch;
   }
 
   .lead {
-    max-width: 60ch;
-    margin-top: 20px;
+    text-align: center;
   }
 
   .extra {
-    margin-top: 32px;
+    display: grid;
+    justify-items: center;
+    margin-top: 12px;
+  }
+
+  .below {
+    position: relative;
+    z-index: 2;
   }
 
   .dome {
     position: absolute;
     inset: auto 0 0;
     z-index: 1;
-    height: 260px;
+    height: 240px;
+    opacity: 0.55;
     pointer-events: none;
-    animation: rise 1.4s var(--ease) 0.35s both;
+    animation: rise 1.4s var(--ease) 0.3s both;
   }
 
   @media (max-width: 640px) {
     .page-hero {
       margin-top: -68px;
-      padding: 68px 0 180px;
+      padding-top: 68px;
     }
 
     .content {
-      padding-top: 40px;
+      padding-block: 48px 72px;
     }
 
-    .dome {
-      height: 180px;
+    .overlap .content {
+      padding-bottom: 180px;
+    }
+
+    .has-below .content {
+      padding-bottom: 0;
     }
   }
 </style>

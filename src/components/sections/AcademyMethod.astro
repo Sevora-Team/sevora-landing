@@ -3,16 +3,15 @@ import Icon from '@/components/ui/Icon.astro';
 import type { IconName } from '@/components/ui/icons';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-const { academyPage } = useTranslations(getLangFromUrl(Astro.url));
-const { method } = academyPage;
-const icons: IconName[] = ['stacked-line-chart', 'check-circle', 'insights', 'school'];
+const { learn } = useTranslations(getLangFromUrl(Astro.url)).academyPage;
+const icons: IconName[] = ['menu-book', 'quiz', 'workspace-premium', 'translate'];
 ---
 
-<section class="section" id="kako-se-uci">
+<section class="section method">
   <div class="wrap">
-    <h2 class="h2 reveal">{method.title}</h2>
+    <h2 class="h2 reveal">{learn.title}</h2>
     <ul class="items">
-      {method.items.map(({ title, text }, i) => (
+      {learn.items.map(({ title, text }, i) => (
         <li class="item reveal">
           <span class="icon-circle">
             <Icon name={icons[i]} />
@@ -26,6 +25,10 @@ const icons: IconName[] = ['stacked-line-chart', 'check-circle', 'insights', 'sc
 </section>
 
 <style>
+  .method {
+    padding-top: 0;
+  }
+
   .items {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -38,15 +41,30 @@ const icons: IconName[] = ['stacked-line-chart', 'check-circle', 'insights', 'sc
   .item {
     display: grid;
     align-content: start;
-    gap: 12px;
-    padding: 24px;
+    gap: 14px;
+    padding: 28px;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-card);
     background: var(--surface);
+    transition:
+      border-color 0.25s var(--ease),
+      translate 0.35s var(--ease);
   }
 
-  .item h3 {
-    margin-top: 8px;
+  .item:hover {
+    border-color: var(--border-strong);
+    translate: 0 -3px;
+  }
+
+  .icon-circle {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+
+  h3 {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 26px;
   }
 
   @media (max-width: 1080px) {

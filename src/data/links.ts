@@ -5,6 +5,7 @@ export const links = {
   dashboard: '#',
   shop: '#',
   affiliate: '#',
+  discord: '#',
   glossary: '#',
   blog: '#',
   terms: '#',

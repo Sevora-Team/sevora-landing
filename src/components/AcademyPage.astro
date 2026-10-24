@@ -2,13 +2,15 @@
 // The Academy page, shared by every locale like HomePage.
 import Button from '@/components/ui/Button.astro';
 import PageHero from '@/components/ui/PageHero.astro';
-import { links } from '@/data/links';
 import { langTags } from '@/i18n/locales';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import PageLayout from '@/layouts/PageLayout.astro';
-import AcademyCurriculum from './sections/AcademyCurriculum.astro';
+import AcademyPath from './AcademyPath.astro';
+import AcademyIntro from './sections/AcademyIntro.astro';
+import AcademyLevels from './sections/AcademyLevels.astro';
 import AcademyMethod from './sections/AcademyMethod.astro';
+import AcademyQuote from './sections/AcademyQuote.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -33,49 +35,22 @@ const course = Astro.site && {
   structuredData={course ? [course] : []}
 >
   <PageHero name={page.name} title={page.title} lead={page.lead}>
-    <dl class="stats">
-      {t.academy.stats.map(({ value, label }) => (
-        <div>
-          <dt class="caption">{label}</dt>
-          <dd>{value}</dd>
-        </div>
-      ))}
-    </dl>
     <div class="btn-row">
-      <Button href={links.signup}>{t.actions.start}</Button>
-      <Button href="#program" variant="ghost" icon="arrow-forward">
-        {page.program}
+      <Button href="#nivo-0">{page.start}</Button>
+      <Button href={getPageUrl(lang, 'plans')} variant="ghost" icon="north-east">
+        {t.actions.seePlans}
       </Button>
     </div>
-    <p class="caption free">{page.free}</p>
+    <AcademyPath slot="below" />
   </PageHero>
+  <AcademyIntro />
+  <AcademyLevels />
   <AcademyMethod />
-  <AcademyCurriculum />
+  <AcademyQuote />
 </PageLayout>
 
 <style>
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin: 0 0 32px;
-  }
-
-  .stats div {
-    display: grid;
-    gap: 2px;
-  }
-
-  /* Number above its label. */
-  .stats dd {
-    order: -1;
-    margin: 0;
-    font: 400 44px/52px var(--font-sans);
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
-
-  .free {
-    margin-top: 16px;
+  .btn-row {
+    justify-content: center;
   }
 </style>

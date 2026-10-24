@@ -1,46 +1,24 @@
 ---
 import { PUBLIC_CONTACT_ENDPOINT } from 'astro:env/client';
+import ContactAside from '@/components/ContactAside.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
-import type { IconName } from '@/components/ui/icons';
 import TextField from '@/components/ui/TextField.astro';
 import { links } from '@/data/links';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const { contact } = useTranslations(lang);
-
-const channels: {
-  channel: (typeof contact.channels)[keyof typeof contact.channels];
-  icon: IconName;
-}[] = [
-  { channel: contact.channels.email, icon: 'mail' },
-  { channel: contact.channels.discord, icon: 'forum' },
-  { channel: contact.channels.response, icon: 'schedule' },
-];
 ---
 
-<section class="contact" id="kontakt">
+<section class="section contact" id="kontakt">
   <div class="wrap layout">
-    <div class="info intro reveal">
-      <h2 class="h2">{contact.title}</h2>
-      <p class="lead">{contact.lead}</p>
-      <ul class="channels">
-        {channels.map(({ channel, icon }) => (
-          <li>
-            <span class="icon-circle">
-              <Icon name={icon} />
-            </span>
-            <span>
-              <strong>{channel.title}</strong>
-              <span class="caption">{channel.text}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <div class="card" id="poruka">
+      <div class="intro">
+        <h2 class="h2 title">{contact.title}</h2>
+        <p class="body-sm">{contact.lead}</p>
+      </div>
 
-    <div class="form-area reveal">
       <form class="form" method="post" action={PUBLIC_CONTACT_ENDPOINT}>
         <input type="hidden" name="lang" value={lang} />
         <!-- Spam trap: hidden from people, filled in by bots. -->
@@ -52,12 +30,21 @@ const channels: {
         </div>
         <div class="row">
           <TextField
-            label={contact.name}
-            name="name"
-            autocomplete="name"
-            placeholder={contact.namePlaceholder}
+            label={contact.firstName}
+            name="firstName"
+            autocomplete="given-name"
+            placeholder={contact.firstNamePlaceholder}
             required
           />
+          <TextField
+            label={contact.lastName}
+            name="lastName"
+            autocomplete="family-name"
+            placeholder={contact.lastNamePlaceholder}
+            required
+          />
+        </div>
+        <div class="row">
           <TextField
             label={contact.email}
             name="email"
@@ -66,36 +53,45 @@ const channels: {
             placeholder={contact.emailPlaceholder}
             required
           />
+          <TextField
+            label={contact.phone}
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            inputmode="tel"
+            placeholder={contact.phonePlaceholder}
+            hint={contact.phoneHint}
+          />
         </div>
 
-        <fieldset class="topics">
-          <legend>{contact.topic}</legend>
-          {contact.topics.map((topic, i) => (
-            <label>
-              <input class="sr-only" type="radio" name="topic" value={topic} checked={i === 0} />
-              <span>{topic}</span>
-            </label>
-          ))}
-        </fieldset>
+        <div class="select">
+          <label for="field-topic">{contact.topic}</label>
+          <div class="select-box">
+            <select id="field-topic" name="topic" required>
+              <option value="">{contact.topicPlaceholder}</option>
+              {contact.topics.map((topic) => (
+                <option value={topic}>{topic}</option>
+              ))}
+            </select>
+            <Icon name="expand-more" class="chevron" />
+          </div>
+        </div>
 
         <TextField
           label={contact.message}
           name="message"
           multiline
-          rows={5}
+          rows={6}
           placeholder={contact.messagePlaceholder}
           required
         />
 
         <div class="foot">
-          <label class="consent caption">
-            <input type="checkbox" name="consent" value="yes" required />
-            <span>
-              {contact.consent.before}
-              <a href={links.privacy}>{contact.consent.link}</a>
-              {contact.consent.after}
-            </span>
-          </label>
+          <p class="caption consent">
+            {contact.consent.before}
+            <a href={links.privacy}>{contact.consent.link}</a>
+            {contact.consent.after}
+          </p>
           <Button type="submit" icon="north-east" data-sending={contact.sending}>
             {contact.send}
           </Button>
@@ -115,11 +111,13 @@ const channels: {
         </Button>
       </div>
     </div>
+
+    <ContactAside />
   </div>
 </section>
 
 <script>
-  const area = document.querySelector<HTMLElement>('#kontakt .form-area');
+  const area = document.querySelector<HTMLElement>('#poruka');
   const form = area?.querySelector<HTMLFormElement>('form');
   const done = area?.querySelector<HTMLElement>('.done');
   const error = area?.querySelector<HTMLElement>('.error');
@@ -164,119 +162,105 @@ const channels: {
     if (!form || !done) return;
     done.hidden = true;
     form.hidden = false;
-    form.querySelector<HTMLElement>('#field-name')?.focus();
+    form.querySelector<HTMLElement>('#field-firstName')?.focus();
   });
 </script>
 
 <style>
   .contact {
-    padding-block: 120px;
-    border-top: 1px solid var(--border);
-    background: var(--surface);
+    padding-top: 72px;
   }
 
   .layout {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     align-items: start;
-    gap: 96px;
+    gap: 48px;
   }
 
-  .info {
-    position: sticky;
-    top: 120px;
+  .card {
+    padding: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    scroll-margin-top: 100px;
   }
 
-  .channels {
-    width: 100%;
-    margin: 16px 0 0;
-    padding: 0;
-    border-top: 1px solid var(--border);
-    list-style: none;
+  .intro {
+    gap: 8px;
   }
 
-  .channels li {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .channels li > span:last-child {
-    display: grid;
-    gap: 2px;
-  }
-
-  .channels strong {
-    font: 500 15px/22px var(--font-sans);
-    color: var(--text);
+  .title {
+    font-size: 36px;
+    line-height: 44px;
   }
 
   .form {
     display: grid;
     gap: 28px;
+    margin-top: 28px;
   }
 
-  .form[hidden] {
+  .form[hidden],
+  .card:has(.done:not([hidden])) .intro {
     display: none;
   }
 
   .row {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
     gap: 16px;
   }
 
-  .topics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
+  .select {
+    display: grid;
+    gap: 6px;
   }
 
-  legend {
-    margin-bottom: 8px;
-    padding: 0;
-    font: 500 14px/20px var(--font-sans);
+  .select label {
     color: var(--text);
+    font: 500 14px/20px var(--font-sans);
   }
 
-  /* Anchors the visually hidden radio, so focusing it doesn't scroll the page. */
-  .topics label {
+  .select-box {
     position: relative;
   }
 
-  .topics span {
-    display: inline-block;
-    padding: 8px 14px;
+  select {
+    width: 100%;
+    padding: 11px 40px 11px 14px;
     border: 1px solid var(--border-strong);
-    border-radius: var(--radius-pill);
-    font: 400 14px/20px var(--font-sans);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font: 400 14px/22px var(--font-sans);
+    appearance: none;
     cursor: pointer;
-    transition:
-      background-color 0.2s var(--ease),
-      color 0.2s var(--ease),
-      border-color 0.2s var(--ease);
+    transition: border-color 0.2s var(--ease);
   }
 
-  .topics span:hover {
-    background: var(--surface-hover);
+  select:hover,
+  select:focus {
+    border-color: var(--accent-border);
+  }
+
+  /* The placeholder option reads like a placeholder until a topic is chosen. */
+  select:invalid {
+    color: var(--text-muted);
+  }
+
+  option {
     color: var(--text);
   }
 
-  .topics input:checked + span {
-    border-color: var(--accent-border);
-    background: var(--accent-subtle);
-    color: var(--accent-text);
-  }
-
-  .topics input:focus-visible + span {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 3px;
+  .chevron {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    color: var(--text-muted);
+    transform: translateY(-50%);
+    pointer-events: none;
   }
 
   .foot {
@@ -290,19 +274,7 @@ const channels: {
   }
 
   .consent {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    max-width: 44ch;
-    cursor: pointer;
-  }
-
-  .consent input {
-    flex: none;
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    accent-color: var(--accent);
+    max-width: 40ch;
   }
 
   .consent a {
@@ -347,17 +319,16 @@ const channels: {
   @media (max-width: 1080px) {
     .layout {
       grid-template-columns: minmax(0, 1fr);
-      gap: 48px;
-    }
-
-    .info {
-      position: static;
     }
   }
 
   @media (max-width: 640px) {
     .contact {
-      padding-block: 72px;
+      padding-top: 48px;
+    }
+
+    .card {
+      padding: 22px;
     }
 
     .row {

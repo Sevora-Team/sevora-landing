@@ -1,0 +1,93 @@
+---
+// The Academy page's closing band: a quote over a staircase of glyphs, and the way in.
+import Button from '@/components/ui/Button.astro';
+import Glyphs from '@/components/ui/Glyphs.astro';
+import { links } from '@/data/links';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const page = t.academyPage;
+---
+
+<section class="quote-band section-dark" data-theme="dark">
+  <Glyphs name="stair" align="xMaxYMax" class="stair" />
+  <div class="wrap content">
+    <blockquote class="reveal">
+      <p class="quote">
+        {page.quote.map(({ text, tone }) => (
+          <span class:list={[tone && `tone-${tone}`]}>{text}</span>
+        ))}
+      </p>
+      <footer class="mono-label by">{page.quoteBy}</footer>
+    </blockquote>
+    <div class="btn-row reveal">
+      <Button href={links.signup}>{page.learnFree}</Button>
+      <Button href={getPageUrl(lang, 'plans')} variant="ghost" icon="north-east">
+        {t.actions.seePlans}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quote-band {
+    padding-block: 140px;
+  }
+
+  .stair {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 44%;
+    height: 100%;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  .quote {
+    max-width: 20ch;
+    margin: 0;
+    font: 400 49px/58px var(--font-sans);
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .tone-accent {
+    color: var(--accent-text);
+  }
+
+  .tone-muted {
+    color: var(--text-muted);
+  }
+
+  .by {
+    margin-top: 28px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .btn-row {
+    margin-top: 40px;
+  }
+
+  @media (max-width: 640px) {
+    .quote-band {
+      padding-block: 80px;
+    }
+
+    .quote {
+      font-size: 31px;
+      line-height: 40px;
+    }
+  }
+</style>

@@ -12,7 +12,6 @@ export const en: Dictionary = {
     label: 'Main navigation',
     menu: 'Menu',
     items: [
-      { label: 'Home', section: 'top' },
       { label: 'Markets', section: 'trzista' },
       { label: 'Platform', section: 'platforma' },
       { label: 'Academy', section: 'akademija', page: 'academy' },
@@ -222,7 +221,6 @@ export const en: Dictionary = {
   },
   pricing: {
     title: 'Start for free, upgrade when you need it',
-    lead: 'Monthly or yearly billing — yearly saves you 10% on every plan.',
     billingLabel: 'Billing period',
     monthly: 'Monthly',
     yearly: 'Yearly',
@@ -241,7 +239,7 @@ export const en: Dictionary = {
           'News (3 per day)',
           'Basic economic calendar',
           'Community access',
-          'Academy: starter levels',
+          'Academy: levels 0–1',
         ],
         cta: 'Create an account',
       },
@@ -254,8 +252,7 @@ export const en: Dictionary = {
           'AI mentor (50 messages a day)',
           'Price alerts (10)',
           'Journal with analytics',
-          'Full economic calendar',
-          'Discord access',
+          'Academy: levels 0–3',
         ],
         cta: 'Choose Starter',
       },
@@ -268,14 +265,14 @@ export const en: Dictionary = {
           'Prop firm tools',
           'Advanced AI analysis',
           'Unlimited AI mentor and alerts',
-          'Discord VIP and priority support',
-          'Monthly strategy session',
+          'Full Academy and strategy session',
         ],
         cta: 'Choose Premium',
       },
     },
     guarantee: '30-day money-back guarantee, no questions asked.',
     compare: 'Compare plans',
+    teaserLead: 'Three plans, from free to professional. Monthly or yearly, with 10% off.',
   },
   faq: {
     title: 'Frequently asked questions',
@@ -313,26 +310,23 @@ export const en: Dictionary = {
     ],
   },
   contact: {
-    title: 'Contact us',
-    lead: 'A question about plans, technical help or a partnership — write to us and we’ll get back to you.',
-    channels: {
-      email: { title: 'Email', text: '[EMAIL ADDRESS]' },
-      discord: {
-        title: 'Discord community',
-        text: 'The fastest answers from the team and traders',
-      },
-      response: { title: 'Response time', text: 'On weekdays, within [TIME]' },
-    },
-    name: 'Full name',
-    namePlaceholder: 'Jane Smith',
+    title: 'Send a message',
+    lead: 'Fill in the form and we’ll reply by email.',
+    firstName: 'First name',
+    firstNamePlaceholder: 'Jane',
+    lastName: 'Last name',
+    lastNamePlaceholder: 'Smith',
     email: 'Email',
     emailPlaceholder: 'name@example.com',
-    topic: 'Topic',
+    phone: 'Phone number',
+    phonePlaceholder: '+44 7xxx xxxxxx',
+    phoneHint: 'Optional — if you’d like us to call you.',
+    topic: 'Enquiry type',
+    topicPlaceholder: 'Choose an enquiry type',
     topics: [
-      'Account',
       'Plans and billing',
-      'Dashboard features',
-      'Shop order',
+      'Technical support',
+      'Academy',
       'Affiliate program',
       'Partnership',
       'Other',
@@ -340,7 +334,7 @@ export const en: Dictionary = {
     message: 'Message',
     messagePlaceholder: 'Tell us how we can help…',
     consent: {
-      before: 'I accept the ',
+      before: 'By sending this message you accept our ',
       link: 'privacy policy',
       after: '. We only use your details to reply to you.',
     },
@@ -350,7 +344,7 @@ export const en: Dictionary = {
     doneTitle: 'Message sent',
     doneText: 'Thank you. We’ll reply to your email as soon as we can.',
     again: 'Send another message',
-    error: 'Your message wasn’t sent. Please try again or email us.',
+    error: 'The message wasn’t sent. Try again or email us.',
   },
   cta: {
     title: 'Markets move fast. Be ready.',
@@ -389,7 +383,7 @@ export const en: Dictionary = {
       {
         title: 'Company',
         links: [
-          { label: 'About', page: 'home', hash: 'o-nama' },
+          { label: 'Plans', page: 'plans' },
           { label: 'Affiliate program', href: links.affiliate },
           { label: 'Contact', page: 'contact' },
           { label: 'Terms of use', href: links.terms },
@@ -409,43 +403,52 @@ export const en: Dictionary = {
     meta: {
       title: 'Trading academy: from zero to a professional level · SEVORA',
       description:
-        'A trading course in 6 levels: from market basics, charts and indicators to risk management, your own strategy and a demo account. The starter levels are free.',
+        'A trading course in 6 levels: from market basics, charts and indicators to risk management, your own strategy and a demo account. Levels 0 and 1 are free.',
     },
     name: 'Academy',
-    title: 'Trading academy, from zero to a professional level',
-    lead: 'Six levels that take you from your first idea of a market to your own trading plan and a demo account. You learn each topic in order, with a knowledge check after every module.',
-    program: 'See the curriculum',
-    free: 'The starter levels are included in a free account.',
-    curriculum: {
-      title: 'Curriculum by level',
-      lead: 'Every level, module and lesson. Open a module to see its lessons and how it ends.',
-      jump: 'Levels',
-      module: 'Module',
-      milestone: 'Module completion',
+    title: 'Master the mindset. Master the market.',
+    lead: 'The path from absolute zero to professional trader, in six levels. Each level builds on the last — no skipping the basics.',
+    start: 'Start at level 0',
+    path: 'Academy levels',
+    statement: [
+      { text: 'Six levels, ' },
+      { text: '23 modules and 138 lessons', tone: 'accent' },
+      { text: ' — with a knowledge check after every module, ' },
+      { text: 'in English and Serbian.', tone: 'muted' },
+    ],
+    level: {
+      startFree: 'Start for free',
+      includedIn: (plan: string) => `Included in ${plan}`,
+      check: 'A check after every module',
+      toggle: (n: number) => `See modules (${n})`,
       modules: (n: number) => `${n} ${n === 1 ? 'module' : 'modules'}`,
       lessons: (n: number) => `${n} ${n === 1 ? 'lesson' : 'lessons'}`,
     },
-    method: {
+    learn: {
       title: 'How you learn in the Academy',
       items: [
-        {
-          title: 'In order, from basics to strategy',
-          text: 'The levels run from your first idea of a market to your own strategy. A big quiz at the end of a level unlocks the next one.',
-        },
+        { title: 'Step-by-step lessons', text: 'Short lessons that build on each other.' },
         {
           title: 'A check after every module',
-          text: 'Each module ends with a quiz, a task or a simulation, and most of them earn a badge.',
+          text: 'A quiz, a practical task or a simulation before you move on.',
         },
         {
-          title: 'Practice with real tools',
-          text: 'You open a demo account, calculate lot size and pip value, mark supply and demand zones and keep a journal of demo trades.',
+          title: 'Badges for progress',
+          text: 'Completed modules earn badges, and finishing the Academy earns the SEVORA diploma.',
         },
         {
-          title: 'A diploma at the end',
-          text: 'The last module awards the SEVORA diploma and a certificate of completed education.',
+          title: 'In English and Serbian',
+          text: 'The whole curriculum is available in both languages.',
         },
       ],
     },
+    quote: [
+      { text: 'Discipline today, freedom tomorrow. ' },
+      { text: 'The market rewards patience, ', tone: 'accent' },
+      { text: 'not emotion.', tone: 'muted' },
+    ],
+    quoteBy: 'SEVORA Academy',
+    learnFree: 'Start learning for free',
   },
   plansPage: {
     meta: {
@@ -454,69 +457,159 @@ export const en: Dictionary = {
         'Compare SEVORA plans: a free account, Starter with the AI daily plan, journal and AI mentor, and Premium with the bot dashboard and prop firm tools. Monthly or yearly with 10% off.',
     },
     name: 'Plans',
-    title: 'Plans and pricing',
-    lead: 'Start with a free account and move to Starter or Premium when you need the AI plan, the journal, the mentor or the bots. Below is everything each plan includes.',
+    title: 'Plans for every stage of trading',
+    lead: 'Start for free and upgrade when you need the advanced tools. Monthly or yearly — yearly billing saves you 10% on every plan.',
     comparison: {
       title: 'Compare plans',
-      lead: 'Every dashboard feature and the plan that includes it.',
+      lead: 'Everything you get in each plan, in one place.',
       feature: 'Feature',
+      note: 'Features and limits may change as the platform grows.',
+      choose: ['Sign up', 'Choose', 'Choose'],
       included: 'Included',
       notIncluded: 'Not included',
       groups: [
         {
           title: 'Analysis and markets',
           rows: [
+            { feature: 'Gold overview', cells: [true, true, true] },
             {
-              feature: 'Gold and markets',
-              cells: [
-                'Basic gold overview',
-                'All instruments and key levels',
-                'All instruments and key levels',
-              ],
+              feature: 'All instruments (forex, crypto, indices, commodities)',
+              cells: [false, true, true],
             },
-            { feature: 'AI daily plan and scenarios', cells: [false, true, true] },
+            { feature: 'AI daily plan', cells: [false, true, true] },
+            { feature: 'Key levels', cells: ['First level', 'All levels', 'All levels'] },
+            { feature: 'Scenarios with entry and invalidation', cells: [false, true, true] },
             { feature: 'Advanced AI analysis', cells: [false, false, true] },
-            { feature: 'Economic calendar', cells: ['Basic', 'Full calendar', 'Full calendar'] },
-            { feature: 'News', cells: ['3 a day', '[TO CONFIRM]', '[TO CONFIRM]'] },
-            { feature: 'Price alerts', cells: [false, '10', 'Unlimited'] },
           ],
         },
         {
-          title: 'Trading tools',
+          title: 'Tools',
           rows: [
-            { feature: 'Journal with analytics', cells: [false, true, true] },
+            { feature: 'Economic calendar', cells: ['Basic', 'Full', 'Full'] },
+            { feature: 'News', cells: ['3 per day', 'Unlimited', 'Unlimited'] },
             { feature: 'AI mentor', cells: [false, '50 messages a day', 'Unlimited'] },
-            { feature: 'Bot dashboard', cells: [false, false, 'Full access'] },
+            { feature: 'Price alerts', cells: [false, '10', 'Unlimited'] },
+            { feature: 'Journal with analytics', cells: [false, true, true] },
+          ],
+        },
+        {
+          title: 'Automation',
+          rows: [
+            { feature: 'Bot dashboard (MT5)', cells: [false, false, 'Full access'] },
             { feature: 'Prop firm tools', cells: [false, false, true] },
           ],
         },
         {
-          title: 'Learning and community',
+          title: 'Learning and support',
           rows: [
-            { feature: 'Academy', cells: ['Starter levels', '[TO CONFIRM]', '[TO CONFIRM]'] },
+            { feature: 'Academy', cells: ['Levels 0–1', 'Levels 0–3', 'All levels'] },
+            { feature: 'Community', cells: [true, 'Discord', 'Discord VIP'] },
+            { feature: 'Support', cells: ['Email', 'Email', 'Priority'] },
             { feature: 'Monthly strategy session', cells: [false, false, true] },
-            {
-              feature: 'Community and support',
-              cells: ['Community access', 'Discord', 'Discord VIP and priority support'],
-            },
-            {
-              feature: 'Affiliate program',
-              cells: ['[TO CONFIRM]', '[TO CONFIRM]', '[TO CONFIRM]'],
-            },
           ],
         },
       ],
+      trust: [
+        {
+          title: '30-day guarantee',
+          text: 'Not satisfied? We refund the full amount, no questions asked.',
+        },
+        {
+          title: 'Cancel anytime',
+          text: 'No contract. Your plan stays active until the end of the paid period.',
+        },
+        { title: 'Secure payment', text: 'Card payments via [PAYMENT PROVIDER].' },
+      ],
+    },
+    faq: {
+      title: 'Billing questions',
+      lead: 'Can’t find an answer? Write to us and we’ll help you pick the right plan.',
+      contact: 'Contact us',
+      items: [
+        {
+          question: 'How does yearly billing work?',
+          answer: 'You pay once a year and get 10% off the monthly price of every plan.',
+        },
+        {
+          question: 'Can I change plans later?',
+          answer: 'Yes. Upgrades take effect immediately. [DOWNGRADE TERMS]',
+        },
+        {
+          question: 'How does the money-back guarantee work?',
+          answer:
+            'If within the first 30 days you decide SEVORA isn’t for you, we refund the full amount, no questions asked.',
+        },
+        { question: 'Which payment methods do you accept?', answer: '[PAYMENT METHODS]' },
+        {
+          question: 'Which currency am I charged in?',
+          answer:
+            'Prices are shown in dinars on the Serbian site and in euros on the English site. [BILLING CURRENCY]',
+        },
+        {
+          question: 'Is there a free trial?',
+          answer:
+            'The Free plan has no time limit, and paid plans come with a 30-day money-back guarantee.',
+        },
+      ],
+    },
+    cta: {
+      title: 'Not sure which plan to choose?',
+      lead: 'Start for free or write to us — we’ll help you decide.',
+      contact: 'Contact us',
     },
   },
   contactPage: {
     meta: {
       title: 'Contact · SEVORA',
       description:
-        'Write to the SEVORA team about your account, plans and billing, dashboard features, shop orders, the affiliate program or a partnership.',
+        'Write to the SEVORA team: plans and billing, technical support, the Academy, the affiliate program and partnerships. Email, the Discord community or the message form.',
     },
     name: 'Contact',
-    title: 'How can we help?',
-    lead: 'Send us a message about your account, billing, the dashboard, the shop or the affiliate program. Answers to the most common questions are on the home page.',
+    title: 'Contact us',
+    lead: 'We’re here for questions about plans, technical help and partnerships. Pick the channel that suits you best.',
+    channels: {
+      email: {
+        title: 'Email support',
+        text: 'For questions about your account, plans and billing.',
+        value: '[EMAIL ADDRESS]',
+      },
+      discord: {
+        title: 'Discord community',
+        text: 'The fastest answers from the team and other traders.',
+        value: 'Join the community',
+      },
+      partners: {
+        title: 'Partnerships',
+        text: 'Affiliate program, media and business enquiries.',
+        value: '[PARTNERSHIP EMAIL]',
+      },
+    },
+    quick: {
+      title: 'The answer may already be here',
+      links: [
+        { label: 'Compare plans and prices', page: 'plans' },
+        { label: 'Billing and refund questions', page: 'plans', hash: 'pitanja' },
+        { label: 'Academy curriculum by level', page: 'academy' },
+        { label: 'Affiliate program', page: 'home', hash: 'ekosistem' },
+      ],
+    },
+    hours: {
+      title: 'Support',
+      rows: [
+        { label: 'Monday – Friday', value: '[HOURS] CET' },
+        { label: 'Weekend', value: 'Discord community' },
+        { label: 'Response time', value: 'within [TIME]' },
+      ],
+      note: 'For urgent technical issues, Discord is the fastest route.',
+    },
+    company: {
+      title: 'Company details',
+      rows: [
+        { label: 'Name', value: '[LEGAL ENTITY]' },
+        { label: 'Tax ID / Reg. no.', value: '[TAX ID] / [REG. NO.]' },
+        { label: 'Address', value: '[ADDRESS]' },
+      ],
+    },
   },
   notFound: {
     title: 'Page not found',

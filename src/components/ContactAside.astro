@@ -1,0 +1,148 @@
+---
+// The contact page's side column: answers that may save a message, support hours, company details.
+import Icon from '@/components/ui/Icon.astro';
+import { getLinkHref } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { quick, hours, company } = useTranslations(lang).contactPage;
+---
+
+<aside class="aside">
+  <div class="box">
+    <h2 class="h4">{quick.title}</h2>
+    <ul class="quick">
+      {quick.links.map((link) => (
+        <li>
+          <a href={getLinkHref(lang, link)}>
+            {link.label}
+            <Icon name="north-east" size={18} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="box" data-theme="dark">
+    <div class="box-top">
+      <h2 class="h4">{hours.title}</h2>
+      <Icon name="schedule" class="clock" />
+    </div>
+    <dl class="rows">
+      {hours.rows.map(({ label, value }) => (
+        <div>
+          <dt>{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="caption">{hours.note}</p>
+  </div>
+
+  <div class="box">
+    <h2 class="h4">{company.title}</h2>
+    <dl class="rows">
+      {company.rows.map(({ label, value }) => (
+        <div>
+          <dt>{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</aside>
+
+<style>
+  .aside {
+    position: sticky;
+    top: 100px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .box {
+    display: grid;
+    gap: 14px;
+    padding: 28px;
+    border-radius: var(--radius-card);
+    background: var(--surface-hover);
+  }
+
+  .box[data-theme='dark'] {
+    background: var(--bg);
+  }
+
+  .box-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clock {
+    color: var(--accent-text);
+  }
+
+  .quick {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+
+  .quick a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 22px;
+    text-decoration: none;
+    transition:
+      color 0.2s var(--ease),
+      padding 0.3s var(--ease);
+  }
+
+  .quick a :global(svg) {
+    flex: none;
+    color: var(--text-muted);
+    transition: transform 0.25s var(--ease);
+  }
+
+  .quick a:hover {
+    padding-left: 4px;
+    color: var(--accent-text);
+  }
+
+  .quick a:hover :global(svg) {
+    transform: translate(2px, -2px);
+  }
+
+  .rows {
+    margin: 0;
+  }
+
+  .rows div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text);
+    font: 400 13px/20px var(--font-mono);
+    text-align: right;
+  }
+
+  @media (max-width: 1080px) {
+    .aside {
+      position: static;
+    }
+  }
+</style>

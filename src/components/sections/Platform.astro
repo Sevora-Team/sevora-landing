@@ -3,6 +3,7 @@ import Button from '@/components/ui/Button.astro';
 import Glyphs from '@/components/ui/Glyphs.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { IconName } from '@/components/ui/icons';
+import Statement from '@/components/ui/Statement.astro';
 import { links } from '@/data/links';
 import type { Dictionary } from '@/i18n/sr';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -31,11 +32,7 @@ const features: {
 
 <section class="section" id="platforma">
   <div class="wrap">
-    <p class="statement">
-      {platform.statement.map(({ text, tone }) => (
-        <span class:list={[tone && `tone-${tone}`]}>{text}</span>
-      ))}
-    </p>
+    <Statement parts={platform.statement} class="statement" />
 
     <div class="carousel">
       <div class="controls reveal">
@@ -89,37 +86,8 @@ const features: {
 </script>
 
 <style>
-  @keyframes ink {
-    from {
-      opacity: 0.18;
-    }
-  }
-
   .statement {
-    max-width: 30ch;
-    margin: 20px 0 0;
-    font: 400 34px/46px var(--font-sans);
-    letter-spacing: -0.015em;
-    color: var(--text);
-  }
-
-  /* Words darken as the statement scrolls into view. */
-  @supports (animation-timeline: view()) {
-    .statement span {
-      animation-name: ink;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 40%;
-    }
-  }
-
-  .tone-accent {
-    color: var(--accent-text);
-  }
-
-  .tone-muted {
-    color: var(--text-muted);
+    margin-top: 20px;
   }
 
   .carousel {
@@ -235,11 +203,6 @@ const features: {
   }
 
   @media (max-width: 640px) {
-    .statement {
-      font-size: 24px;
-      line-height: 34px;
-    }
-
     .rail {
       margin-right: -16px;
       padding-right: 16px;

@@ -20,7 +20,6 @@ export const sr = {
     label: 'Glavna navigacija',
     menu: 'Meni',
     items: [
-      { label: 'Početna', section: 'top' },
       { label: 'Tržišta', section: 'trzista' },
       { label: 'Platforma', section: 'platforma' },
       { label: 'Akademija', section: 'akademija', page: 'academy' },
@@ -94,7 +93,7 @@ export const sr = {
       { text: ' i ' },
       { text: 'učenje na svom jeziku', tone: 'muted' },
       { text: ' — od prvog trejda do profesionalnog nivoa.' },
-    ],
+    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
     toolsCount: '10 alata u jednoj platformi',
     prev: 'Prethodna kartica',
     next: 'Sledeća kartica',
@@ -230,7 +229,6 @@ export const sr = {
   },
   pricing: {
     title: 'Počni besplatno, nadogradi kad ti zatreba',
-    lead: 'Mesečna ili godišnja pretplata — uz godišnju štediš 10% na svakom paketu.',
     billingLabel: 'Način plaćanja',
     monthly: 'Mesečno',
     yearly: 'Godišnje',
@@ -249,7 +247,7 @@ export const sr = {
           'Vesti (3 dnevno)',
           'Osnovni ekonomski kalendar',
           'Pristup zajednici',
-          'Akademija: početni nivoi',
+          'Akademija: nivoi 0–1',
         ],
         cta: 'Napravi nalog',
       },
@@ -262,8 +260,7 @@ export const sr = {
           'AI mentor (50 poruka dnevno)',
           'Cenovni alarmi (10)',
           'Žurnal sa analitikom',
-          'Ceo ekonomski kalendar',
-          'Discord pristup',
+          'Akademija: nivoi 0–3',
         ],
         cta: 'Izaberi Starter',
       },
@@ -276,14 +273,15 @@ export const sr = {
           'Prop firm alati',
           'Napredna AI analiza',
           'Neograničen AI mentor i alarmi',
-          'Discord VIP i prioritetna podrška',
-          'Mesečna strateška sesija',
+          'Cela Akademija i strateška sesija',
         ],
         cta: 'Izaberi Premium',
       },
     },
     guarantee: '30 dana garancija povrata novca, bez pitanja.',
     compare: 'Uporedi pakete',
+    teaserLead:
+      'Tri paketa, od besplatnog do profesionalnog. Mesečno ili godišnje, uz 10% popusta.',
   },
   faq: {
     title: 'Česta pitanja',
@@ -321,23 +319,23 @@ export const sr = {
     ],
   },
   contact: {
-    title: 'Kontaktiraj nas',
-    lead: 'Pitanje o paketima, tehnička pomoć ili saradnja — piši nam i javićemo ti se.',
-    channels: {
-      email: { title: 'Email', text: '[EMAIL ADRESA]' },
-      discord: { title: 'Discord zajednica', text: 'Najbrži odgovori od tima i trejdera' },
-      response: { title: 'Vreme odgovora', text: 'Radnim danima, u roku od [VREME]' },
-    },
-    name: 'Ime i prezime',
-    namePlaceholder: 'Petar Petrović',
+    title: 'Pošalji poruku',
+    lead: 'Popuni formu i javićemo ti se na email.',
+    firstName: 'Ime',
+    firstNamePlaceholder: 'Petar',
+    lastName: 'Prezime',
+    lastNamePlaceholder: 'Petrović',
     email: 'Email',
     emailPlaceholder: 'ime@primer.rs',
-    topic: 'Tema',
+    phone: 'Broj telefona',
+    phonePlaceholder: '+381 6x xxx xxxx',
+    phoneHint: 'Opciono — ako želiš da te pozovemo.',
+    topic: 'Vrsta upita',
+    topicPlaceholder: 'Izaberi vrstu upita',
     topics: [
-      'Nalog',
       'Paketi i plaćanje',
-      'Funkcije dashboarda',
-      'Porudžbina iz prodavnice',
+      'Tehnička podrška',
+      'Akademija',
       'Partnerski program',
       'Saradnja',
       'Drugo',
@@ -345,7 +343,7 @@ export const sr = {
     message: 'Poruka',
     messagePlaceholder: 'Napiši nam kako možemo da pomognemo…',
     consent: {
-      before: 'Prihvatam ',
+      before: 'Slanjem poruke prihvataš ',
       link: 'politiku privatnosti',
       after: '. Podatke koristimo samo da bismo ti odgovorili.',
     },
@@ -394,7 +392,7 @@ export const sr = {
       {
         title: 'Kompanija',
         links: [
-          { label: 'O nama', page: 'home', hash: 'o-nama' },
+          { label: 'Paketi', page: 'plans' },
           { label: 'Partnerski program', href: links.affiliate },
           { label: 'Kontakt', page: 'contact' },
           { label: 'Uslovi korišćenja', href: links.terms },
@@ -414,43 +412,52 @@ export const sr = {
     meta: {
       title: 'Akademija trejdinga: od nule do profesionalnog nivoa · SEVORA',
       description:
-        'Kurs trejdinga na srpskom u 6 nivoa: od osnova tržišta, grafikona i indikatora do upravljanja rizikom, sopstvene strategije i demo naloga. Početni nivoi su besplatni.',
+        'Kurs trejdinga na srpskom u 6 nivoa: od osnova tržišta, grafikona i indikatora do upravljanja rizikom, sopstvene strategije i demo naloga. Nivoi 0 i 1 su besplatni.',
     },
     name: 'Akademija',
-    title: 'Akademija trejdinga, od nule do profesionalnog nivoa',
-    lead: 'Šest nivoa koji te vode od prvog pojma o tržištu do sopstvenog trading plana i demo naloga. Svaku temu učiš redom, sa proverom znanja posle svakog modula.',
-    program: 'Pogledaj program',
-    free: 'Početni nivoi su uključeni u besplatan nalog.',
-    curriculum: {
-      title: 'Program po nivoima',
-      lead: 'Svi nivoi, moduli i lekcije. Otvori modul da vidiš lekcije i kako se završava.',
-      jump: 'Nivoi',
-      module: 'Modul',
-      milestone: 'Završetak modula',
+    title: 'Savladaj način razmišljanja. Savladaj tržište.',
+    lead: 'Put od apsolutne nule do profesionalnog trejdera, u šest nivoa. Svaki nivo gradi na prethodnom — bez preskakanja osnova.',
+    start: 'Počni od nivoa 0',
+    path: 'Nivoi Akademije',
+    statement: [
+      { text: 'Šest nivoa, ' },
+      { text: '23 modula i 138 lekcija', tone: 'accent' },
+      { text: ' — sa proverom znanja posle svakog modula, ' },
+      { text: 'na srpskom i engleskom.', tone: 'muted' },
+    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
+    level: {
+      startFree: 'Počni besplatno',
+      includedIn: (plan: string) => `Uključeno u ${plan}`,
+      check: 'Provera posle svakog modula',
+      toggle: (n: number) => `Pogledaj module (${n})`,
       modules: (n: number) => count(n, 'modul', 'modula', 'modula'),
       lessons: (n: number) => count(n, 'lekcija', 'lekcije', 'lekcija'),
     },
-    method: {
-      title: 'Kako se uči u Akademiji',
+    learn: {
+      title: 'Kako učiš u Akademiji',
       items: [
         {
-          title: 'Redom, od osnova do strategije',
-          text: 'Nivoi idu od prvog pojma o tržištu do sopstvene strategije. Veliki kviz na kraju nivoa otključava sledeći.',
+          title: 'Lekcije korak po korak',
+          text: 'Kratke lekcije koje se nadovezuju jedna na drugu.',
         },
         {
           title: 'Provera posle svakog modula',
-          text: 'Modul završavaš kvizom, zadatkom ili simulacijom, a za većinu modula dobijaš bedž.',
+          text: 'Kviz, praktičan zadatak ili simulacija pre nego što kreneš dalje.',
         },
         {
-          title: 'Vežba na pravim alatima',
-          text: 'Otvaraš demo nalog, računaš lot i pip, obeležavaš supply i demand zone i vodiš žurnal demo trejdova.',
+          title: 'Bedževi za napredak',
+          text: 'Završeni moduli donose bedževe, a kraj Akademije SEVORA diplomu.',
         },
-        {
-          title: 'Diploma na kraju',
-          text: 'Poslednji modul donosi SEVORA diplomu i sertifikat o završenoj edukaciji.',
-        },
+        { title: 'Na srpskom i engleskom', text: 'Ceo program je dostupan na oba jezika.' },
       ],
     },
+    quote: [
+      { text: 'Disciplina danas, sloboda sutra. ' },
+      { text: 'Tržište nagrađuje strpljenje, ', tone: 'accent' },
+      { text: 'ne emocije.', tone: 'muted' },
+    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
+    quoteBy: 'SEVORA Akademija',
+    learnFree: 'Počni da učiš besplatno',
   },
   plansPage: {
     meta: {
@@ -459,66 +466,159 @@ export const sr = {
         'Uporedi SEVORA pakete: besplatan nalog, Starter sa AI dnevnim planom, žurnalom i AI mentorom, i Premium sa bot dashboardom i prop firm alatima. Mesečno ili godišnje uz 10% popusta.',
     },
     name: 'Paketi',
-    title: 'Paketi i cene',
-    lead: 'Počni sa besplatnim nalogom i pređi na Starter ili Premium kad ti zatrebaju AI plan, žurnal, mentor ili botovi. Ispod je sve što svaki paket uključuje.',
+    title: 'Paketi za svaki nivo trejdinga',
+    lead: 'Počni besplatno i nadogradi kad ti zatrebaju napredni alati. Mesečno ili godišnje — uz godišnju pretplatu štediš 10% na svakom paketu.',
     comparison: {
-      title: 'Poređenje paketa',
-      lead: 'Svaka funkcija dashboarda i šta dobijaš u kom paketu.',
+      title: 'Uporedi pakete',
+      lead: 'Sve što dobijaš u svakom paketu, na jednom mestu.',
       feature: 'Funkcija',
+      note: 'Funkcije i limiti mogu se menjati kako platforma raste.',
+      choose: ['Napravi nalog', 'Izaberi', 'Izaberi'],
       included: 'Uključeno',
       notIncluded: 'Nije uključeno',
       groups: [
         {
           title: 'Analiza i tržišta',
           rows: [
+            { feature: 'Pregled zlata', cells: [true, true, true] },
             {
-              feature: 'Zlato i tržišta',
-              cells: [
-                'Osnovni pregled zlata',
-                'Svi instrumenti i ključni nivoi',
-                'Svi instrumenti i ključni nivoi',
-              ],
+              feature: 'Svi instrumenti (forex, kripto, indeksi, robe)',
+              cells: [false, true, true],
             },
-            { feature: 'AI dnevni plan i scenariji', cells: [false, true, true] },
+            { feature: 'AI dnevni plan', cells: [false, true, true] },
+            { feature: 'Ključni nivoi', cells: ['Prvi nivo', 'Svi nivoi', 'Svi nivoi'] },
+            { feature: 'Scenariji sa ulazom i invalidacijom', cells: [false, true, true] },
             { feature: 'Napredna AI analiza', cells: [false, false, true] },
-            { feature: 'Ekonomski kalendar', cells: ['Osnovni', 'Ceo kalendar', 'Ceo kalendar'] },
-            { feature: 'Vesti', cells: ['3 dnevno', '[POTVRDITI]', '[POTVRDITI]'] },
-            { feature: 'Cenovni alarmi', cells: [false, '10', 'Neograničeno'] },
           ],
         },
         {
-          title: 'Trejding alati',
+          title: 'Alati',
           rows: [
+            { feature: 'Ekonomski kalendar', cells: ['Osnovni', 'Ceo', 'Ceo'] },
+            { feature: 'Vesti', cells: ['3 dnevno', 'Bez ograničenja', 'Bez ograničenja'] },
+            { feature: 'AI mentor', cells: [false, '50 poruka dnevno', 'Bez ograničenja'] },
+            { feature: 'Cenovni alarmi', cells: [false, '10', 'Bez ograničenja'] },
             { feature: 'Žurnal sa analitikom', cells: [false, true, true] },
-            { feature: 'AI mentor', cells: [false, '50 poruka dnevno', 'Neograničeno'] },
-            { feature: 'Bot dashboard', cells: [false, false, 'Pun pristup'] },
+          ],
+        },
+        {
+          title: 'Automatizacija',
+          rows: [
+            { feature: 'Bot dashboard (MT5)', cells: [false, false, 'Pun pristup'] },
             { feature: 'Prop firm alati', cells: [false, false, true] },
           ],
         },
         {
-          title: 'Učenje i zajednica',
+          title: 'Učenje i podrška',
           rows: [
-            { feature: 'Akademija', cells: ['Početni nivoi', '[POTVRDITI]', '[POTVRDITI]'] },
+            { feature: 'Akademija', cells: ['Nivoi 0–1', 'Nivoi 0–3', 'Svi nivoi'] },
+            { feature: 'Zajednica', cells: [true, 'Discord', 'Discord VIP'] },
+            { feature: 'Podrška', cells: ['Email', 'Email', 'Prioritetna'] },
             { feature: 'Mesečna strateška sesija', cells: [false, false, true] },
-            {
-              feature: 'Zajednica i podrška',
-              cells: ['Pristup zajednici', 'Discord', 'Discord VIP i prioritetna podrška'],
-            },
-            { feature: 'Partnerski program', cells: ['[POTVRDITI]', '[POTVRDITI]', '[POTVRDITI]'] },
           ],
         },
       ] satisfies { title: string; rows: { feature: string; cells: (string | boolean)[] }[] }[],
+      trust: [
+        {
+          title: '30 dana garancija',
+          text: 'Ako nisi zadovoljan, vraćamo ceo iznos, bez pitanja.',
+        },
+        {
+          title: 'Otkaži kad hoćeš',
+          text: 'Bez ugovorne obaveze. Pretplata važi do kraja plaćenog perioda.',
+        },
+        { title: 'Sigurno plaćanje', text: 'Plaćanje karticom preko [PROVAJDER PLAĆANJA].' },
+      ],
+    },
+    faq: {
+      title: 'Pitanja o plaćanju',
+      lead: 'Ne vidiš odgovor? Piši nam i pomoći ćemo ti da izabereš pravi paket.',
+      contact: 'Kontaktiraj nas',
+      items: [
+        {
+          question: 'Kako funkcioniše godišnja pretplata?',
+          answer: 'Plaćaš jednom godišnje i dobijaš 10% popusta na mesečnu cenu svakog paketa.',
+        },
+        {
+          question: 'Mogu li da promenim paket kasnije?',
+          answer: 'Da. Prelazak na viši paket važi odmah. [USLOVI ZA PRELAZAK NA NIŽI PAKET]',
+        },
+        {
+          question: 'Kako radi garancija povrata novca?',
+          answer:
+            'Ako u prvih 30 dana zaključiš da ti SEVORA ne odgovara, vraćamo ceo iznos, bez pitanja.',
+        },
+        { question: 'Koje načine plaćanja prihvatate?', answer: '[NAČINI PLAĆANJA]' },
+        {
+          question: 'U kojoj valuti se plaća?',
+          answer:
+            'Na srpskoj verziji sajta cene su u dinarima, a na engleskoj u evrima. [VALUTA NAPLATE]',
+        },
+        {
+          question: 'Da li postoji probni period?',
+          answer:
+            'Besplatni paket nema vremensko ograničenje, a za plaćene pakete važi 30 dana garancija povrata novca.',
+        },
+      ],
+    },
+    cta: {
+      title: 'Nisi siguran koji paket da izabereš?',
+      lead: 'Počni besplatno ili nam piši — pomoći ćemo ti da izabereš.',
+      contact: 'Kontaktiraj nas',
     },
   },
   contactPage: {
     meta: {
       title: 'Kontakt · SEVORA',
       description:
-        'Piši SEVORA timu: pitanja o nalogu, paketima i plaćanju, funkcijama dashboarda, porudžbinama iz prodavnice, partnerskom programu ili saradnji.',
+        'Piši SEVORA timu: pitanja o paketima i plaćanju, tehnička podrška, Akademija, partnerski program i saradnja. Email, Discord zajednica ili forma za poruku.',
     },
     name: 'Kontakt',
-    title: 'Kako možemo da pomognemo?',
-    lead: 'Pošalji nam poruku o nalogu, plaćanju, dashboardu, prodavnici ili partnerskom programu. Odgovore na najčešća pitanja naći ćeš na početnoj strani.',
+    title: 'Kontaktiraj nas',
+    lead: 'Tu smo za pitanja o paketima, tehničku pomoć i saradnju. Izaberi kanal koji ti najviše odgovara.',
+    channels: {
+      email: {
+        title: 'Email podrška',
+        text: 'Za pitanja o nalogu, paketima i plaćanju.',
+        value: '[EMAIL ADRESA]',
+      },
+      discord: {
+        title: 'Discord zajednica',
+        text: 'Najbrži odgovori od tima i drugih trejdera.',
+        value: 'Pridruži se zajednici',
+      },
+      partners: {
+        title: 'Saradnja i partnerstva',
+        text: 'Partnerski program, mediji i poslovni upiti.',
+        value: '[EMAIL ZA SARADNJU]',
+      },
+    },
+    quick: {
+      title: 'Možda je odgovor već ovde',
+      links: [
+        { label: 'Uporedi pakete i cene', page: 'plans' },
+        { label: 'Pitanja o plaćanju i povratu novca', page: 'plans', hash: 'pitanja' },
+        { label: 'Program Akademije po nivoima', page: 'academy' },
+        { label: 'Partnerski program', page: 'home', hash: 'ekosistem' },
+      ] satisfies SiteLink[],
+    },
+    hours: {
+      title: 'Podrška',
+      rows: [
+        { label: 'Ponedeljak – petak', value: '[VREME] CET' },
+        { label: 'Vikend', value: 'Discord zajednica' },
+        { label: 'Vreme odgovora', value: 'do [VREME]' },
+      ],
+      note: 'Za hitne tehničke probleme najbrže je preko Discorda.',
+    },
+    company: {
+      title: 'Podaci o firmi',
+      rows: [
+        { label: 'Naziv', value: '[PRAVNO LICE]' },
+        { label: 'PIB / MB', value: '[PIB] / [MB]' },
+        { label: 'Adresa', value: '[ADRESA]' },
+      ],
+    },
   },
   notFound: {
     title: 'Stranica nije pronađena',

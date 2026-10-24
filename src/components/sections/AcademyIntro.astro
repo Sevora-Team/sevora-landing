@@ -1,0 +1,72 @@
+---
+import Statement from '@/components/ui/Statement.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section class="section">
+  <div class="wrap layout">
+    <Statement parts={t.academyPage.statement} />
+    <dl class="stats">
+      {t.academy.stats.map(({ value, label }) => (
+        <div class="reveal">
+          <dt class="caption">{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: 64px;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 48px;
+    margin: 0;
+  }
+
+  .stats div {
+    display: grid;
+    gap: 2px;
+  }
+
+  /* Number above its label. */
+  .stats dd {
+    order: -1;
+    margin: 0;
+    font: 400 56px/60px var(--font-sans);
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  @media (max-width: 1080px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stats {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stats {
+      gap: 28px;
+    }
+
+    .stats dd {
+      font-size: 40px;
+      line-height: 44px;
+    }
+  }
+</style>

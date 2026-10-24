@@ -10,12 +10,12 @@ import Logo from './ui/Logo.astro';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const page = getPageFromUrl(Astro.url) ?? 'home';
-// The home page starts on its first item and lets the scroll spy move it; other pages mark their own item.
-const items = t.nav.items.map((item, i) => {
-  const current =
-    page === 'home' ? i === 0 && ('true' as const) : item.page === page && ('page' as const);
-  return { ...item, href: getNavHref(lang, item), current: current || undefined };
-});
+// Other pages mark their own item; on the home page the scroll spy marks the section in view.
+const items = t.nav.items.map((item) => ({
+  ...item,
+  href: getNavHref(lang, item),
+  current: item.page === page ? ('page' as const) : undefined,
+}));
 ---
 
 <header class="header" data-theme="dark">
@@ -114,15 +114,11 @@ const items = t.nav.items.map((item, i) => {
     if (!navLinks.length) return;
     const headerHeight = header?.offsetHeight ?? 0;
     const line = headerHeight + (window.innerHeight - headerHeight) * 0.45;
-    const atBottom =
-      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-    let active = 0;
-    if (atBottom) active = sections.length - 1;
-    else if (window.scrollY > 120) {
-      sections.forEach((section, i) => {
-        if (section && section.getBoundingClientRect().top <= line) active = i;
-      });
-    }
+    // Nothing is marked over the hero, before the first section is reached.
+    let active = -1;
+    sections.forEach((section, i) => {
+      if (section && section.getBoundingClientRect().top <= line) active = i;
+    });
     navLinks.forEach((link, i) => {
       if (i === active) link.setAttribute('aria-current', 'true');
       else link.removeAttribute('aria-current');

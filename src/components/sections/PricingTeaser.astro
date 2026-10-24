@@ -1,14 +1,15 @@
 ---
-// The home page's short version of the plans: name, one line and the monthly price.
+// The home page's short version of the plans: one row per plan with its monthly price.
 // The full cards, billing toggle and comparison live on the plans page.
 import Button from '@/components/ui/Button.astro';
-import { links } from '@/data/links';
+import Icon from '@/components/ui/Icon.astro';
 import { formatPrice, prices } from '@/data/pricing';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
-const { pricing, actions } = useTranslations(lang);
+const { pricing } = useTranslations(lang);
+const plansUrl = getPageUrl(lang, 'plans');
 const plans = [
   { ...pricing.plans.free, price: formatPrice(0, lang), per: pricing.forever, featured: false },
   {
@@ -27,38 +28,38 @@ const plans = [
 ---
 
 <section class="section pricing-teaser" id="paketi">
-  <div class="wrap">
-    <div class="intro-center reveal">
-      <h2 class="h2" style="max-width: 18ch">
-        {pricing.title}
-      </h2>
-      <p class="lead">{pricing.lead}</p>
+  <div class="wrap layout">
+    <div class="intro reveal">
+      <h2 class="h2">{pricing.title}</h2>
+      <p class="lead">{pricing.teaserLead}</p>
+      <div class="btn-row">
+        <Button href={plansUrl} icon="north-east">
+          {pricing.compare}
+        </Button>
+      </div>
+      <p class="caption guarantee">
+        <Icon name="verified-user" size={16} />
+        {pricing.guarantee}
+      </p>
     </div>
 
-    <ul class="plans">
+    <ul class="rows">
       {plans.map(({ name, description, price, per, featured }) => (
-        <li
-          class:list={['plan', 'reveal', { featured }]}
-          data-theme={featured ? 'dark' : undefined}
-        >
-          <h3 class="h4">{name}</h3>
-          <p class="body-sm">{description}</p>
-          <p class="price">
-            <strong>{price}</strong>
-            <span class="caption">{per}</span>
-          </p>
+        <li class="reveal">
+          <a class="row" href={plansUrl} data-theme={featured ? 'dark' : undefined}>
+            <span class="name">
+              <strong>{name}</strong>
+              <span class="caption">{description}</span>
+            </span>
+            <span class="price">
+              <strong>{price}</strong>
+              <span class="caption">{per}</span>
+            </span>
+            <Icon name="north-east" class="arrow" />
+          </a>
         </li>
       ))}
     </ul>
-
-    <div class="btn-row reveal">
-      <Button href={getPageUrl(lang, 'plans')} icon="arrow-forward">
-        {pricing.compare}
-      </Button>
-      <Button href={links.signup} variant="ghost" icon="north-east">
-        {actions.start}
-      </Button>
-    </div>
   </div>
 </section>
 
@@ -67,54 +68,108 @@ const plans = [
     padding-top: 0;
   }
 
-  .plans {
+  .layout {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: 64px;
+  }
+
+  .btn-row {
+    margin-top: 8px;
+  }
+
+  .guarantee {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 14px;
+  }
+
+  .guarantee :global(svg) {
+    color: var(--accent-text);
+  }
+
+  .rows {
+    display: grid;
+    gap: 10px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .plan {
+  .row {
     display: grid;
-    align-content: start;
-    gap: 8px;
-    padding: 28px;
+    grid-template-columns: minmax(0, 1fr) auto 32px;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 28px;
     border: 1px solid var(--border);
     border-radius: var(--radius-card);
     background: var(--surface);
+    text-decoration: none;
+    transition:
+      border-color 0.25s var(--ease),
+      translate 0.35s var(--ease);
   }
 
-  .featured {
-    border-color: var(--accent-border);
+  .row:hover {
+    border-color: var(--border-strong);
+    translate: 4px 0;
+  }
+
+  .row[data-theme='dark'] {
     background: var(--bg);
   }
 
+  .name,
   .price {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 8px;
-    margin: 12px 0 0;
+    display: grid;
+    gap: 2px;
   }
 
-  .price strong {
-    font: 400 31px/38px var(--font-sans);
-    letter-spacing: -0.02em;
+  .name strong {
+    font: 400 22px/28px var(--font-sans);
     color: var(--text);
   }
 
-  .btn-row {
-    justify-content: center;
-    margin-top: 32px;
+  .price {
+    text-align: right;
+  }
+
+  .price strong {
+    font: 400 25px/30px var(--font-sans);
+    color: var(--text);
+  }
+
+  .arrow {
+    color: var(--text-muted);
+    transition:
+      transform 0.25s var(--ease),
+      color 0.25s var(--ease);
+  }
+
+  .row:hover .arrow {
+    transform: translate(2px, -2px);
+    color: var(--text);
   }
 
   @media (max-width: 1080px) {
-    .plans {
+    .layout {
       grid-template-columns: minmax(0, 1fr);
-      max-width: 640px;
-      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      padding: 20px;
+    }
+
+    .arrow {
+      display: none;
     }
   }
 </style>

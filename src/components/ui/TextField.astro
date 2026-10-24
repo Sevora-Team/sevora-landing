@@ -6,15 +6,27 @@ type Props = Omit<HTMLAttributes<'input'> & HTMLAttributes<'textarea'>, 'id'> & 
   name: string;
   /** Renders a `<textarea>`. */
   multiline?: boolean;
+  /** Short help shown under the field. */
+  hint?: string;
 };
 
-const { label, name, multiline = false, class: className, ...rest } = Astro.props;
+const { label, name, multiline = false, hint, class: className, ...rest } = Astro.props;
 const id = `field-${name}`;
+const hintId = hint ? `${id}-hint` : undefined;
 ---
 
 <div class:list={['field', className]}>
   <label for={id}>{label}</label>
-  {multiline ? <textarea id={id} name={name} {...rest} /> : <input id={id} name={name} {...rest} />}
+  {multiline ? (
+    <textarea id={id} name={name} aria-describedby={hintId} {...rest} />
+  ) : (
+    <input id={id} name={name} aria-describedby={hintId} {...rest} />
+  )}
+  {hint && (
+    <p class="caption" id={hintId}>
+      {hint}
+    </p>
+  )}
 </div>
 
 <style>

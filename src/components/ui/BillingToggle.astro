@@ -1,0 +1,80 @@
+---
+// Monthly / yearly switch: a segmented radio group, no script. Anything on the page marked
+// `when-monthly` or `when-yearly` shows only for the checked option.
+import { YEARLY_DISCOUNT } from '@/data/pricing';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { pricing } = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<fieldset class="billing">
+  <legend class="sr-only">{pricing.billingLabel}</legend>
+  <input class="sr-only" type="radio" name="billing" id="billing-monthly" checked />
+  <label for="billing-monthly">{pricing.monthly}</label>
+  <input class="sr-only" type="radio" name="billing" id="billing-yearly" />
+  <label for="billing-yearly">
+    {pricing.yearly}
+    <span class="save">−{YEARLY_DISCOUNT * 100}%</span>
+  </label>
+</fieldset>
+
+<style>
+  :global(body:has(#billing-monthly:checked) .when-yearly),
+  :global(body:has(#billing-yearly:checked) .when-monthly) {
+    display: none;
+  }
+
+  .billing {
+    /* Anchors the visually hidden radios, so focusing one doesn't scroll the page. */
+    position: relative;
+    display: flex;
+    gap: 2px;
+    width: max-content;
+    margin: 0;
+    padding: 4px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+  }
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    color: var(--text-muted);
+    font: 500 14px/20px var(--font-sans);
+    cursor: pointer;
+    transition:
+      background-color 0.25s var(--ease),
+      color 0.25s var(--ease);
+  }
+
+  label:hover {
+    color: var(--text);
+  }
+
+  input:checked + label {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  input:focus-visible + label {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .save {
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+    font: 500 12px/16px var(--font-mono);
+  }
+
+  input:checked + label .save {
+    background: var(--on-accent);
+    color: var(--accent);
+  }
+</style>

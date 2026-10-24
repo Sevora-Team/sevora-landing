@@ -1,0 +1,44 @@
+---
+// Billing questions on the plans page, next to a way to ask about the rest.
+import Button from '@/components/ui/Button.astro';
+import FaqList from '@/components/ui/FaqList.astro';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { faq } = useTranslations(lang).plansPage;
+---
+
+<section class="section plans-faq" id="pitanja">
+  <div class="wrap layout">
+    <div class="intro reveal">
+      <h2 class="h2">{faq.title}</h2>
+      <p class="lead">{faq.lead}</p>
+      <div class="btn-row">
+        <Button href={getPageUrl(lang, 'contact')} variant="ghost" icon="north-east">
+          {faq.contact}
+        </Button>
+      </div>
+    </div>
+    <FaqList items={faq.items} name="plans-faq" />
+  </div>
+</section>
+
+<style>
+  .plans-faq {
+    padding-top: 0;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    align-items: start;
+    gap: 56px;
+  }
+
+  @media (max-width: 1080px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

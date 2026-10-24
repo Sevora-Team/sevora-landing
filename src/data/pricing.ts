@@ -23,3 +23,13 @@ export function formatPrice(value: number, lang: Lang): string {
     maximumFractionDigits: 0,
   }).format(value);
 }
+
+/** A paid plan's price per month, billed monthly or yearly, and the yearly total. */
+export function planPrice(monthly: number, lang: Lang) {
+  const yearly = Math.round(monthly * (1 - YEARLY_DISCOUNT));
+  return {
+    monthly: formatPrice(monthly, lang),
+    yearly: formatPrice(yearly, lang),
+    yearlyTotal: formatPrice(yearly * 12, lang),
+  };
+}

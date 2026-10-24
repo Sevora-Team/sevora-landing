@@ -1,0 +1,113 @@
+---
+// Ways to reach the team, as cards that rise into the page hero above.
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { links } from '@/data/links';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { channels } = useTranslations(getLangFromUrl(Astro.url)).contactPage;
+const cards: {
+  channel: (typeof channels)[keyof typeof channels];
+  icon: IconName;
+  href: string;
+  dark?: boolean;
+}[] = [
+  { channel: channels.email, icon: 'mail', href: '#poruka' },
+  { channel: channels.discord, icon: 'forum', href: links.discord, dark: true },
+  { channel: channels.partners, icon: 'handshake', href: '#poruka' },
+];
+---
+
+<section class="channels">
+  <div class="wrap">
+    <ul class="cards">
+      {cards.map(({ channel, icon, href, dark }) => (
+        <li>
+          <a class="card" href={href} data-theme={dark ? 'dark' : undefined}>
+            <span class="top">
+              <span class="icon-circle">
+                <Icon name={icon} />
+              </span>
+              <Icon name="north-east" class="arrow" />
+            </span>
+            <strong>{channel.title}</strong>
+            <span class="body-sm">{channel.text}</span>
+            <span class="value">{channel.value}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cards {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: -150px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    height: 100%;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    text-decoration: none;
+    transition:
+      border-color 0.25s var(--ease),
+      translate 0.35s var(--ease);
+  }
+
+  .card:hover {
+    border-color: var(--border-strong);
+    translate: 0 -3px;
+  }
+
+  .card[data-theme='dark'] {
+    background: var(--bg);
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .arrow {
+    color: var(--text-muted);
+    transition:
+      transform 0.25s var(--ease),
+      color 0.25s var(--ease);
+  }
+
+  .card:hover .arrow {
+    transform: translate(2px, -2px);
+    color: var(--text);
+  }
+
+  strong {
+    color: var(--text);
+    font: 400 22px/28px var(--font-sans);
+  }
+
+  .value {
+    color: var(--accent-text);
+    font: 500 15px/22px var(--font-sans);
+  }
+
+  @media (max-width: 1080px) {
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: -110px;
+    }
+  }
+</style>
