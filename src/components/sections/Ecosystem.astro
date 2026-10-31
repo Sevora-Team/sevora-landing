@@ -10,7 +10,7 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem;
 ---
 
-<section class="section ecosystem" id="ekosistem">
+<section class="section" id="ekosistem">
   <div class="wrap grid">
     <article class="card card-teal reveal-left" data-theme="dark">
       <div class="photo parallax">
@@ -73,10 +73,6 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
 </section>
 
 <style>
-  .ecosystem {
-    padding-top: 0;
-  }
-
   .grid {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -91,7 +87,7 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
     gap: 28px;
     min-height: 440px;
     padding: 40px;
-    overflow: hidden;
+    overflow: clip;
     border: 1px solid var(--border);
     border-radius: var(--radius-card);
     background: var(--bg);

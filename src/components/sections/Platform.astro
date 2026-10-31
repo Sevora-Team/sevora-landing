@@ -144,7 +144,8 @@ const features: {
     gap: 16px;
     margin: 0 calc(-1 * var(--gutter)) 0 0;
     padding: 0 var(--gutter) 4px 0;
-    overflow-x: auto;
+    /* Sideways only: cards rising in would otherwise let the rail scroll vertically. */
+    overflow: auto hidden;
     list-style: none;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;

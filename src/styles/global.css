@@ -178,10 +178,12 @@ main > section + section {
 }
 
 /* A full-bleed dark band: a translucent deepening that fades in and out, so the backdrop
-   flows through. Heroes and the footer replace this background with their own. */
+   flows through. Heroes and the footer replace this background with their own.
+   It clips rather than hides: a hidden box is a scroll container, which would freeze the
+   scroll-driven reveals inside it. */
 .section-dark {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   background: linear-gradient(
     180deg,
     rgb(2 4 8 / 0) 0%,
@@ -270,7 +272,7 @@ main > section + section {
 .photo {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  overflow: clip;
   pointer-events: none;
 }
 
@@ -352,8 +354,9 @@ main > section + section {
     translate: 0 -7%;
   }
 
+  /* Still zoomed enough to cover the 7% shift, so no edge shows at the top. */
   to {
-    scale: 1.04;
+    scale: 1.16;
     translate: 0 7%;
   }
 }
