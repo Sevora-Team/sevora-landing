@@ -82,7 +82,6 @@ const graph = site
     <meta name="theme-color" content="#03060c" />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="google-site-verification" content="Ybb74-oI_y5pz03PEwxdVxjGKA1D31c4TIUP7ANfrQU" />
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3F6NHZVLG8"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -92,6 +91,22 @@ const graph = site
       }
       gtag('js', new Date());
       gtag('config', 'G-3F6NHZVLG8');
+
+      // gtag.js (~180 KB) loads on the first interaction, or after 4 s, so it doesn't compete
+      // with the first paint. Events queued in dataLayer until then are sent once it loads.
+      {
+        const events = ['scroll', 'pointerdown', 'pointermove', 'keydown', 'touchstart'];
+        const load = () => {
+          clearTimeout(timer);
+          events.forEach((event) => removeEventListener(event, load));
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-3F6NHZVLG8';
+          document.head.append(script);
+        };
+        const timer = setTimeout(load, 4000);
+        events.forEach((event) => addEventListener(event, load, { once: true, passive: true }));
+      }
     </script>
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
