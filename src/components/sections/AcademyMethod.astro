@@ -25,7 +25,12 @@ const visuals: { icon: IconName; photo: ImageMetadata }[] = [
       {learn.items.map(({ title, text }, i) => (
         <li class="item reveal">
           <div class="photo parallax">
-            <Image src={visuals[i].photo} alt="" />
+            <Image
+              src={visuals[i].photo}
+              alt=""
+              widths={[400, 600]}
+              sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 25vw"
+            />
           </div>
           <span class="icon-circle icon-circle-accent">
             <Icon name={visuals[i].icon} />

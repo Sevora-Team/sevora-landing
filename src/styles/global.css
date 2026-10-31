@@ -351,13 +351,13 @@ textarea {
   from {
     opacity: 0;
     transform: translateY(30px);
-    filter: blur(3px);
   }
 }
 
-/* Load-in for above-the-fold content; stagger with --delay. */
+/* Load-in for above-the-fold content; stagger with --delay. Kept short so the first
+   screen settles fast (LCP, Speed Index). */
 .rise {
-  animation: hero-in 1.15s var(--ease-out) var(--delay, 0s) both;
+  animation: hero-in 0.8s var(--ease-out) var(--delay, 0s) both;
 }
 
 /* Elements ease up as they scroll into view (CSS only, where supported).

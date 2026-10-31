@@ -14,7 +14,7 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
   <div class="wrap grid">
     <article class="card card-teal reveal-left" data-theme="dark">
       <div class="photo parallax">
-        <Image src={shopPhoto} alt="" />
+        <Image src={shopPhoto} alt="" widths={[600, 900]} sizes="(max-width: 1080px) 100vw, 58vw" />
       </div>
       <div>
         <span class="icon-circle">
@@ -37,7 +37,12 @@ const { shop, affiliate } = useTranslations(getLangFromUrl(Astro.url)).ecosystem
 
     <article class="card card-grey reveal-right">
       <div class="photo parallax">
-        <Image src={affiliatePhoto} alt="" />
+        <Image
+          src={affiliatePhoto}
+          alt=""
+          widths={[600, 900]}
+          sizes="(max-width: 1080px) 100vw, 58vw"
+        />
       </div>
       <div>
         <span class="icon-circle">

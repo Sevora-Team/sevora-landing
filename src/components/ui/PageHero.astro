@@ -45,14 +45,14 @@ const controls = Astro.slots.has('default');
         <li aria-current="page">{name}</li>
       </ol>
     </nav>
-    <h1 class="display rise" style="--delay: 0.2s">
+    <h1 class="display rise" style="--delay: 0.08s">
       {title}
     </h1>
-    <p class="lead rise" style="--delay: 0.36s">
+    <p class="lead rise" style="--delay: 0.16s">
       {lead}
     </p>
     {controls && (
-      <div class="extra rise" style="--delay: 0.52s">
+      <div class="extra rise" style="--delay: 0.24s">
         <slot />
       </div>
     )}
@@ -114,7 +114,7 @@ const controls = Astro.slots.has('default');
 
   .photo img {
     opacity: 0.45;
-    animation: photo-in 2.4s var(--ease-out) both;
+    animation: photo-in 1.4s var(--ease-out) both;
   }
 
   .photo::after {

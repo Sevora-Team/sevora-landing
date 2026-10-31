@@ -21,7 +21,12 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
     <div class="grid">
       <article class="card reveal" data-theme="dark">
         <div class="photo parallax">
-          <Image src={analysisPhoto} alt="" />
+          <Image
+            src={analysisPhoto}
+            alt=""
+            widths={[480, 800]}
+            sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 33vw"
+          />
         </div>
         <div>
           <h3 class="h3" style="max-width: 13ch">
@@ -38,7 +43,12 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
 
       <article class="card reveal" data-theme="dark">
         <div class="photo parallax">
-          <Image src={mentorPhoto} alt="" />
+          <Image
+            src={mentorPhoto}
+            alt=""
+            widths={[480, 800]}
+            sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 33vw"
+          />
         </div>
         <div>
           <h3 class="h3" style="max-width: 14ch">
@@ -55,7 +65,12 @@ const { about } = useTranslations(getLangFromUrl(Astro.url));
 
       <article class="card faint reveal" data-theme="dark">
         <div class="photo parallax">
-          <Image src={academyPhoto} alt="" />
+          <Image
+            src={academyPhoto}
+            alt=""
+            widths={[480, 800]}
+            sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 33vw"
+          />
         </div>
         <p class="label">{about.academy.label}</p>
         <div>

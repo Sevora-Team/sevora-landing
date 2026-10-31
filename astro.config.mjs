@@ -4,8 +4,13 @@ import { defineConfig, envField, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: set the production URL before launch; it enables the sitemap and hreflang links.
-  // site: 'https://…',
+  // Production URL; enables the sitemap, canonical and hreflang links. Update it when the
+  // custom domain goes live.
+  site: 'https://sevora-landing.vercel.app',
+  build: {
+    // The CSS is small; inlining it saves render-blocking requests before first paint.
+    inlineStylesheets: 'always',
+  },
   env: {
     schema: {
       // Where the contact form posts (FormData, expects a 2xx response). Unset = sending disabled.
