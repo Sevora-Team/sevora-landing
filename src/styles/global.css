@@ -158,6 +158,12 @@ textarea {
   padding-inline: var(--gutter);
 }
 
+/* Clips the sideways reveals. On the body this would move to the viewport, which iOS
+   Safari ignores, so the page could be panned sideways. */
+main {
+  overflow-x: clip;
+}
+
 /* Sections after the first are not rendered until they near the viewport, so their
    scroll-driven reveals cost nothing at load. Their paint is clipped to the section; a
    section that reaches outside it opts out with `content-visibility: visible`. */
@@ -294,7 +300,6 @@ main > section + section {
     opacity: 0;
     translate: 0 70px;
     scale: 0.96;
-    filter: blur(2px);
   }
 }
 
@@ -302,7 +307,6 @@ main > section + section {
   from {
     opacity: 0;
     translate: -80px 0;
-    filter: blur(1.5px);
   }
 }
 
@@ -310,7 +314,6 @@ main > section + section {
   from {
     opacity: 0;
     translate: 80px 0;
-    filter: blur(1.5px);
   }
 }
 
