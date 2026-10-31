@@ -28,6 +28,7 @@ public/                 # Served as-is (favicon.ico)
 src/
 ├── assets/
 │   ├── brand/          # Logo and brand images (optimized by astro:assets)
+│   ├── fonts/          # IBM Plex subsets (Sevora Sans, Sevora Mono), see Fonts below
 │   ├── icons/          # SVG icons, imported as components
 │   └── photos/         # Page photos, duotoned to the SEVORA teal (optimized by astro:assets)
 ├── components/
@@ -55,8 +56,13 @@ src/
   never raw hex values. The site is dark throughout: the base theme is a lifted ink tone and
   sections opt into the deeper `data-theme="dark"`. Sections are transparent over one page
   backdrop (`body`); dark bands fade in and out of it.
-- **Fonts:** IBM Plex Sans and IBM Plex Mono, self-hosted through the Astro Fonts API
-  (`--font-sans`, `--font-mono`).
+- **Fonts:** IBM Plex Sans (weights 400–600) and IBM Plex Mono (400, 500), self-hosted
+  through the Astro Fonts API (`--font-sans`, `--font-mono`). The files in
+  `src/assets/fonts/` are subsets of Google's IBM Plex files: Latin text and punctuation, and
+  the Serbian letters in their own file. The character ranges are in `astro.config.mjs`; text
+  outside them falls back to the system font. To add characters, re-subset the originals with
+  fontTools (`pyftsubset`, and `fonttools varLib.instancer` for the Sans weight range).
+  Because of the OFL Reserved Font Name, the subsets are renamed Sevora Sans and Sevora Mono.
 - **Locale pages stay thin:** `pages/index.astro` and `pages/en/index.astro` only render
   `HomePage`; components read the language from the URL with `getLangFromUrl`.
 - **Icons:** Material Symbols Outlined (weight 300, optical size 20, Apache-2.0) as SVG

@@ -2,6 +2,12 @@
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, envField, fontProviders } from 'astro/config';
 
+// Characters in the self-hosted font files: Latin text and punctuation, and the Serbian
+// letters in a separate file that only Serbian pages download.
+const latinRange =
+  'U+0020-007E, U+00A0, U+00A9, U+00AB, U+00B0, U+00B7, U+00BB, U+00D7, U+2013-2014, U+2018-201E, U+2022, U+2026, U+2032-2033, U+20AC, U+2122, U+2190-2193, U+2197, U+2212';
+const serbianRange = 'U+0106-0107, U+010C-010D, U+0110-0111, U+0160-0161, U+017D-017E';
+
 // https://astro.build/config
 export default defineConfig({
   // Production URL; enables the sitemap, canonical and hreflang links. Update it when the
@@ -38,24 +44,62 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  // IBM Plex subsets (see README): ~37 KB instead of ~103 KB from Google Fonts.
   fonts: [
     {
-      name: 'IBM Plex Sans',
+      name: 'Sevora Sans',
       cssVariable: '--font-sans',
-      provider: fontProviders.google(),
-      weights: [400, 500, 600],
-      styles: ['normal'],
-      // latin-ext covers Serbian Latin diacritics (č ć đ š ž)
-      subsets: ['latin', 'latin-ext'],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ['./src/assets/fonts/sans-400-600-latin.woff2'],
+            weight: '400 600',
+            style: 'normal',
+            unicodeRange: [latinRange],
+          },
+          {
+            src: ['./src/assets/fonts/sans-400-600-sr.woff2'],
+            weight: '400 600',
+            style: 'normal',
+            unicodeRange: [serbianRange],
+          },
+        ],
+      },
       fallbacks: ['system-ui', 'sans-serif'],
     },
     {
-      name: 'IBM Plex Mono',
+      name: 'Sevora Mono',
       cssVariable: '--font-mono',
-      provider: fontProviders.google(),
-      weights: [400, 500],
-      styles: ['normal'],
-      subsets: ['latin', 'latin-ext'],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ['./src/assets/fonts/mono-400-latin.woff2'],
+            weight: 400,
+            style: 'normal',
+            unicodeRange: [latinRange],
+          },
+          {
+            src: ['./src/assets/fonts/mono-400-sr.woff2'],
+            weight: 400,
+            style: 'normal',
+            unicodeRange: [serbianRange],
+          },
+          {
+            src: ['./src/assets/fonts/mono-500-latin.woff2'],
+            weight: 500,
+            style: 'normal',
+            unicodeRange: [latinRange],
+          },
+          {
+            src: ['./src/assets/fonts/mono-500-sr.woff2'],
+            weight: 500,
+            style: 'normal',
+            unicodeRange: [serbianRange],
+          },
+        ],
+      },
       fallbacks: ['ui-monospace', 'monospace'],
     },
   ],
