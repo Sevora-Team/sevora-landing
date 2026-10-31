@@ -82,6 +82,17 @@ const graph = site
     <meta name="theme-color" content="#03060c" />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="google-site-verification" content="Ybb74-oI_y5pz03PEwxdVxjGKA1D31c4TIUP7ANfrQU" />
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3F6NHZVLG8"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        // gtag.js needs the arguments object itself; a rest array is ignored.
+        // eslint-disable-next-line prefer-rest-params
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-3F6NHZVLG8');
+    </script>
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href={favicon.src} />
