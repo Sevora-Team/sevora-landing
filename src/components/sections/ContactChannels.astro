@@ -41,6 +41,11 @@ const cards: {
 </section>
 
 <style>
+  /* The cards rise into the page hero above, so the section must not clip them. */
+  .channels {
+    content-visibility: visible;
+  }
+
   .cards {
     position: relative;
     z-index: 3;

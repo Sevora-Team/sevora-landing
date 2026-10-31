@@ -22,7 +22,7 @@ const plans = [
       {plans.map(({ name, description, items, cta, price, featured }, i) => (
         <article
           class:list={['plan', 'rise', { featured }]}
-          style={`--delay: ${0.6 + i * 0.12}s`}
+          style={`--delay: ${0.32 + i * 0.08}s`}
           data-theme={featured ? 'dark' : undefined}
         >
           <div>
@@ -80,7 +80,9 @@ const plans = [
 </section>
 
 <style>
+  /* Not clipped, so the cards can rise into the page hero. */
   .pricing {
+    content-visibility: visible;
     padding-bottom: 24px;
   }
 
