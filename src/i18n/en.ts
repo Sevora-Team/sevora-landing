@@ -504,8 +504,8 @@ export const en: Dictionary = {
         'A trading course in 6 levels: from market basics, charts and indicators to risk management, your own strategy and a demo account. Levels 0 and 1 are free.',
     },
     name: 'Academy',
-    title: 'Master the mindset. Master the market.',
-    lead: 'The path from absolute zero to professional trader, in six levels. Each level builds on the last — no skipping the basics.',
+    title: 'A trading course from zero to professional',
+    lead: 'Master the mindset, then the market. Six levels in English and Serbian, from absolute zero to professional trader. Each level builds on the last, with no skipped basics.',
     path: 'Academy levels',
     statement: [
       { text: 'Six levels, ' },

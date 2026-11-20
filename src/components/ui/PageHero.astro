@@ -1,9 +1,7 @@
 ---
-// Dark, centred opening band of a page below home: a photo behind breadcrumbs, the page's h1
-// and lead. The default slot follows the lead (a toggle). The `below` slot is full width under
+// Dark, centred opening band of a page below home: breadcrumbs, the page's h1 and lead over
+// the home hero's dot grid, with a quieter gold horizon low in the band. The default slot follows the lead (a toggle). The `below` slot is full width under
 // the text, and the hero then fills the viewport (the Academy's level path).
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
@@ -12,12 +10,11 @@ interface Props {
   name: string;
   title: string;
   lead: string;
-  photo: ImageMetadata;
   /** Leaves room at the bottom for the cards right after the hero to rise into it. */
   overlap?: boolean;
 }
 
-const { name, title, lead, photo, overlap = false } = Astro.props;
+const { name, title, lead, overlap = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const { breadcrumb } = useTranslations(lang);
 const below = Astro.slots.has('below');
@@ -26,16 +23,7 @@ const controls = Astro.slots.has('default');
 ---
 
 <section class:list={['page-hero section-dark', { overlap, 'has-below': below }]} data-theme="dark">
-  <div class="photo">
-    <Image
-      src={photo}
-      alt=""
-      widths={[800, 1600]}
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
-  </div>
+  <div class="horizon" aria-hidden="true"></div>
   <div class:list={['wrap content', { leaves: !controls }]}>
     <nav class="crumbs rise" aria-label={breadcrumb.label}>
       <ol>
@@ -65,10 +53,10 @@ const controls = Astro.slots.has('default');
 </section>
 
 <style>
-  @keyframes photo-in {
+  @keyframes rise-horizon {
     from {
       opacity: 0;
-      transform: scale(1.14);
+      translate: 0 80px;
     }
   }
 
@@ -81,55 +69,46 @@ const controls = Astro.slots.has('default');
 
   .page-hero {
     /* Slide under the sticky header. */
+    --peak: 150px;
+    isolation: isolate;
     margin-top: -84px;
     padding-top: 84px;
-    background: var(--bg);
   }
 
+  .overlap {
+    --peak: 216px;
+  }
+
+  .has-below {
+    --peak: 120px;
+  }
+
+  /* The home hero's faint dot grid around the heading. */
   .page-hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(60% 75% at 0% 100%, var(--haze), transparent 70%),
-      radial-gradient(45% 55% at 100% 0%, rgb(22 164 173 / 0.16), transparent 70%);
+    z-index: -2;
+    background-image: radial-gradient(rgb(124 137 150 / 0.16) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 70% 50% at 50% 25%, #000 30%, transparent 75%);
   }
 
-  /* The bottom melts into the page backdrop. */
-  .page-hero::after {
-    content: '';
+  /* The home hero's gold horizon, thinner and lower: its top sits --peak above the band's end.
+     Only the line and its glow are drawn, so the page backdrop runs on into the next section. */
+  .horizon {
     position: absolute;
-    inset: auto 0 0;
-    z-index: 3;
-    height: 260px;
-    pointer-events: none;
-    background: linear-gradient(180deg, rgb(5 9 15 / 0), var(--page));
-  }
-
-  .has-below::after {
-    z-index: 1;
-    height: 60px;
-  }
-
-  .photo img {
-    opacity: 0.45;
-    animation: photo-in 1.4s var(--ease-out) both;
-  }
-
-  .photo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(
-        180deg,
-        rgb(3 6 12 / 0.7) 0%,
-        rgb(3 6 12 / 0.35) 38%,
-        rgb(3 6 12 / 0.55) 70%,
-        var(--bg) 100%
-      ),
-      radial-gradient(55% 55% at 50% 42%, rgb(3 6 12 / 0.5), transparent 75%);
+    top: calc(100% - var(--peak));
+    left: 50%;
+    z-index: -1;
+    width: 2400px;
+    height: 1400px;
+    margin-left: -1200px;
+    border-radius: 50%;
+    box-shadow:
+      0 -1px 0 0 var(--horizon-gold),
+      0 -8px 40px 0 var(--horizon-gold-glow);
+    animation: rise-horizon 1.8s var(--ease-out) both;
   }
 
   .content {
@@ -138,7 +117,7 @@ const controls = Astro.slots.has('default');
     display: grid;
     justify-items: center;
     gap: 20px;
-    padding-block: 80px 104px;
+    padding-block: 80px calc(var(--peak) + 72px);
     text-align: center;
   }
 
@@ -153,7 +132,7 @@ const controls = Astro.slots.has('default');
   }
 
   .overlap .content {
-    padding-bottom: 230px;
+    padding-bottom: 240px;
   }
 
   .has-below .content {
@@ -241,16 +220,26 @@ const controls = Astro.slots.has('default');
 
   @media (max-width: 640px) {
     .page-hero {
+      --peak: 72px;
       margin-top: -68px;
       padding-top: 68px;
     }
 
+    .overlap {
+      --peak: 168px;
+    }
+
+    /* The level path scrolls sideways here, so the line sits just above its cards. */
+    .has-below {
+      --peak: 160px;
+    }
+
     .content {
-      padding-block: 48px 72px;
+      padding-block: 48px calc(var(--peak) + 48px);
     }
 
     .overlap .content {
-      padding-bottom: 180px;
+      padding-bottom: 200px;
     }
 
     .has-below .content {

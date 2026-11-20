@@ -1,6 +1,5 @@
 ---
 // The plans and pricing page, shared by every locale like HomePage.
-import photo from '@/assets/photos/heroes/plans.webp';
 import BillingToggle from '@/components/ui/BillingToggle.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import { prices } from '@/data/pricing';
@@ -42,7 +41,7 @@ const product = Astro.site && {
   description={page.meta.description}
   structuredData={product ? [product] : []}
 >
-  <PageHero name={page.name} title={page.title} lead={page.lead} photo={photo} overlap>
+  <PageHero name={page.name} title={page.title} lead={page.lead} overlap>
     <BillingToggle />
   </PageHero>
   <Pricing />

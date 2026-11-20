@@ -513,8 +513,8 @@ export const sr = {
         'Kurs trejdinga na srpskom u 6 nivoa: od osnova tržišta, grafikona i indikatora do upravljanja rizikom, sopstvene strategije i demo naloga. Nivoi 0 i 1 su besplatni.',
     },
     name: 'Akademija',
-    title: 'Savladaj način razmišljanja. Savladaj tržište.',
-    lead: 'Put od apsolutne nule do profesionalnog trejdera, u šest nivoa. Svaki nivo gradi na prethodnom — bez preskakanja osnova.',
+    title: 'Kurs trejdinga od nule do profesionalca',
+    lead: 'Savladaj način razmišljanja, pa tržište. Šest nivoa na srpskom, od apsolutne nule do profesionalnog trejdera. Svaki nivo gradi na prethodnom, bez preskakanja osnova.',
     path: 'Nivoi Akademije',
     statement: [
       { text: 'Šest nivoa, ' },
