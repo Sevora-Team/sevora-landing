@@ -53,11 +53,13 @@ src/
   their copy with `useTranslations(getLangFromUrl(Astro.url))`.
 - **Design tokens:** colors, spacing and radii come from the SEVORA design system and live in
   `src/styles/tokens.css`. Components use semantic tokens (`--text`, `--surface`, `--accent`…),
-  never raw hex values. The site is dark throughout: the base theme is a lifted ink tone and
-  sections opt into the deeper `data-theme="dark"`. Sections are transparent over one page
+  never raw hex values. The site is dark: the base theme is a lifted ink tone and sections
+  opt into the deeper `data-theme="dark"`; the home page's Academy band is the one light
+  section (`data-theme="mist"`). Sections are transparent over one page
   backdrop (`body`); dark bands fade in and out of it.
-- **Fonts:** IBM Plex Sans (weights 400–600) and IBM Plex Mono (400, 500), self-hosted
-  through the Astro Fonts API (`--font-sans`, `--font-mono`). The files in
+- **Fonts:** Bricolage Grotesque 700 for page and section titles (`--font-display`,
+  downloaded from Google Fonts at build time), IBM Plex Sans (weights 400–600) and IBM Plex
+  Mono (400, 500), all self-hosted through the Astro Fonts API (`--font-sans`, `--font-mono`). The files in
   `src/assets/fonts/` are subsets of Google's IBM Plex files: Latin text and punctuation, and
   the Serbian letters in their own file. The character ranges are in `astro.config.mjs`; text
   outside them falls back to the system font. To add characters, re-subset the originals with

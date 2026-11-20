@@ -78,15 +78,15 @@ textarea {
 
 .display {
   margin: 0;
-  font: 400 64px/70px var(--font-sans);
-  letter-spacing: -0.025em;
+  font: 700 64px/68px var(--font-display);
+  letter-spacing: -0.035em;
   color: var(--text);
 }
 
 .h2 {
   margin: 0;
-  font: 400 44px/52px var(--font-sans);
-  letter-spacing: -0.02em;
+  font: 700 44px/50px var(--font-display);
+  letter-spacing: -0.03em;
   color: var(--text);
 }
 

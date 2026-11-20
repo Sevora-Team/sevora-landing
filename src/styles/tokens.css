@@ -61,6 +61,34 @@
   --glyph: #a9b4bf;
 }
 
+/* The one light band (the Academy on the home page), from the design system's light theme. */
+[data-theme='mist'] {
+  --bg: #f3f6f9;
+  --surface: #e7ecf1;
+  --surface-raised: #ffffff;
+  --surface-hover: #dde6ec;
+  --border: #d3dbe3;
+  --border-strong: #7c8996;
+  --text: #070d16;
+  --text-body: #33424f;
+  --text-muted: #5a6876;
+  --text-disabled: #7c8996;
+  --accent: #070d16;
+  --accent-hover: #13202d;
+  --accent-pressed: #03060c;
+  --accent-border: #09707a;
+  --accent-text: #09707a;
+  --accent-subtle: #e1f3f4;
+  --on-accent: #f0f0f0;
+  --focus-ring: #09707a;
+  --up: #137a4c;
+  --down: #c2323f;
+  --price: #8c5a00;
+  --danger: #c2323f;
+  --on-danger: #ffffff;
+  --glyph: #33424f;
+}
+
 :root {
   --space-1: 4px;
   --space-2: 8px;
@@ -97,6 +125,14 @@
   --teal-glass-lifted: linear-gradient(180deg, rgb(66 202 215 / 0.08), rgb(19 32 45 / 0.9));
   --teal-line: rgb(66 202 215 / 0.24);
   --teal-line-soft: rgb(66 202 215 / 0.14);
+
+  /* The horizon line: a gold sunrise behind the home hero, teal behind the closing call. */
+  --horizon-gold: rgb(255 214 138 / 0.9);
+  --horizon-gold-glow: rgb(245 181 68 / 0.32);
+  --horizon-teal: rgb(122 223 231 / 0.9);
+  --horizon-teal-glow: rgb(66 202 215 / 0.35);
+  /* The time-of-day line, from the gold morning to the teal evening. */
+  --day-line: linear-gradient(180deg, #f5b544, #42cad7);
   --haze: rgb(22 164 173 / 0.26);
 
   --gutter: clamp(16px, 4.4vw, 72px);

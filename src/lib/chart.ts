@@ -1,4 +1,4 @@
-// Sample candlestick chart for the analysis panel, generated at build time.
+// Sample candlestick chart for the dash preview in the home hero, generated at build time.
 import type { Instrument, Levels } from '@/data/markets';
 import { seededRandom } from './random';
 
@@ -8,7 +8,6 @@ type Candle = [number, number, number, number];
 export const CHART_WIDTH = 1000;
 export const CHART_HEIGHT = 340;
 const CANDLE_COUNT = 56;
-const AVERAGE_PERIOD = 10;
 
 /** A random walk between the levels that ends exactly at the last price. */
 function sampleCandles({ levels, seed, last }: Instrument): Candle[] {
@@ -43,7 +42,6 @@ export interface Chart {
   bodiesDown: string;
   wicksUp: string;
   wicksDown: string;
-  average: string;
   levels: Record<keyof Levels, Mark>;
   last: Mark;
 }
@@ -75,7 +73,6 @@ export function buildChart(instrument: Instrument): Chart {
     bodiesDown: '',
     wicksUp: '',
     wicksDown: '',
-    average: '',
     levels: {
       r2: mark(levels.r2),
       r1: mark(levels.r1),
@@ -99,14 +96,6 @@ export function buildChart(instrument: Instrument): Chart {
       chart.wicksDown += wick;
     }
   });
-
-  const points: string[] = [];
-  for (let i = AVERAGE_PERIOD - 1; i < candles.length; i++) {
-    const window = candles.slice(i - AVERAGE_PERIOD + 1, i + 1);
-    const avg = window.reduce((sum, c) => sum + c[3], 0) / AVERAGE_PERIOD;
-    points.push(`${(step * i + step / 2).toFixed(1)} ${y(avg).toFixed(1)}`);
-  }
-  chart.average = `M${points.join('L')}`;
 
   return chart;
 }

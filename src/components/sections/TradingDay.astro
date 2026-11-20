@@ -1,0 +1,450 @@
+---
+// A trading day from 07:45 to 22:00, one step per tool in use. The times stay in place
+// while their step scrolls by, and a script marks the step it is now in Belgrade.
+import Icon from '@/components/ui/Icon.astro';
+import { GOLD, instruments } from '@/data/markets';
+import { numberLocales } from '@/i18n/locales';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { formatNumber } from '@/lib/format';
+
+const lang = getLangFromUrl(Astro.url);
+const { day: t, dash } = useTranslations(lang);
+const locale = numberLocales[lang];
+
+const gold = instruments.find(({ symbol }) => symbol === GOLD) ?? instruments[0];
+const format = (v: number) => formatNumber(v, gold.decimals, locale);
+const planRows = [
+  { label: t.plan.rows[0], value: format(gold.levels.r1) },
+  { label: t.plan.rows[1], value: format(gold.last), current: true },
+  { label: t.plan.rows[2], value: format(gold.levels.pivot) },
+  { label: t.plan.rows[3], value: format(gold.levels.s1) },
+];
+
+// Minutes after midnight when each step starts.
+const steps = [
+  { time: '07:45', start: 465, ...t.plan },
+  { time: '09:00', start: 540, ...t.london },
+  { time: '14:30', start: 870, ...t.newYork },
+  { time: '17:30', start: 1050, ...t.close },
+  { time: '22:00', start: 1320, ...t.evening },
+];
+---
+
+<section class="section day" id="dan">
+  <div class="wrap">
+    <div class="intro-center">
+      <h2 class="h2 reveal-title">{t.title}</h2>
+      <p class="lead reveal">{t.lead}</p>
+    </div>
+
+    <ol class="timeline">
+      {steps.map(({ time, start, when, title, text, tools, label }, i) => (
+        <li class="step" data-start={start}>
+          <div class="when">
+            <time class="time">{time}</time>
+            <span class="caption">{when}</span>
+            <span class="now" hidden>
+              {t.now} <span data-clock />
+            </span>
+          </div>
+          <div class="body reveal">
+            <h3 class="h3">{title}</h3>
+            <p class="text">{text}</p>
+            <div class="panel" role="img" aria-label={label}>
+              {i === 0 && (
+                <dl class="rows">
+                  <div class="row">
+                    <dt>{gold.symbol}</dt>
+                    <dd class="bias">
+                      <span aria-hidden="true">▲ </span>
+                      {dash.biasValue}
+                    </dd>
+                  </div>
+                  {planRows.map(({ label: rowLabel, value, current }) => (
+                    <div class:list={['row', { current }]}>
+                      <dt>{rowLabel}</dt>
+                      <dd>{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              {i === 1 && (
+                <p class="alert">
+                  <Icon name="notifications" size={24} />
+                  <span>
+                    {t.london.alert}
+                    <span class="caption">{t.london.alertMeta}</span>
+                  </span>
+                </p>
+              )}
+              {i === 2 && (
+                <>
+                  <p class="bubble me">{t.newYork.question}</p>
+                  <p class="bubble ai">{t.newYork.answer}</p>
+                </>
+              )}
+              {i === 3 && (
+                <dl class="rows">
+                  <div class="row">
+                    <dt>{t.close.limit}</dt>
+                    <dd>
+                      {formatNumber(620, 0, locale)} / {formatNumber(1000, 0, locale)} $
+                    </dd>
+                  </div>
+                  <div class="meter" aria-hidden="true">
+                    <span />
+                  </div>
+                  <div class="row">
+                    <dt>{t.close.goal}</dt>
+                    <dd>71%</dd>
+                  </div>
+                </dl>
+              )}
+              {i === 4 && (
+                <>
+                  <dl class="rows">
+                    <div class="row">
+                      <dt>{t.evening.trade}</dt>
+                      <dd class="gain">+{formatNumber(1.8, 1, locale)}R</dd>
+                    </div>
+                  </dl>
+                  <p class="bubble ai">{t.evening.note}</p>
+                </>
+              )}
+            </div>
+            <ul class="tools">
+              {tools.map((tool) => (
+                <li>{tool}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  // Mark the steps already passed and the one it is now, by the clock in Belgrade.
+  const steps = [...document.querySelectorAll<HTMLElement>('#dan .step')];
+  const clock = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Belgrade',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  });
+
+  function update() {
+    const time = clock.format(new Date());
+    const [hours, minutes] = time.split(':').map(Number);
+    const now = hours * 60 + minutes;
+    const current = steps.findLastIndex((step) => now >= Number(step.dataset.start));
+
+    steps.forEach((step, i) => {
+      step.classList.toggle('past', i < current);
+      step.classList.toggle('current', i === current);
+      const marker = step.querySelector<HTMLElement>('.now');
+      if (marker) marker.hidden = i !== current;
+      step.querySelectorAll('[data-clock]').forEach((el) => (el.textContent = time));
+    });
+  }
+
+  update();
+  setInterval(update, 30_000);
+</script>
+
+<style>
+  .day {
+    padding-top: 40px;
+  }
+
+  .timeline {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* The line through the times, and its gold-to-teal fill that grows as the day scrolls by. */
+  .timeline::before,
+  .timeline::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 250px;
+    width: 2px;
+  }
+
+  .timeline::before {
+    background: var(--border);
+  }
+
+  .timeline::after {
+    background: var(--day-line);
+    transform-origin: top;
+  }
+
+  @supports (animation-timeline: view()) {
+    @keyframes fill-day {
+      from {
+        transform: scaleY(0);
+      }
+    }
+
+    .timeline::after {
+      animation-name: fill-day;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 30% exit 60%;
+    }
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    padding-bottom: 96px;
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+  .when {
+    position: sticky;
+    top: calc(var(--header-height) + 48px);
+    display: grid;
+    justify-items: end;
+    align-self: start;
+    gap: 6px;
+    padding-right: 40px;
+  }
+
+  .time {
+    color: var(--text);
+    font: 700 56px/1 var(--font-display);
+    letter-spacing: -0.04em;
+  }
+
+  .now {
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--price);
+    color: var(--ink);
+    font: 600 12px/18px var(--font-mono);
+  }
+
+  .now[hidden] {
+    display: none;
+  }
+
+  .body {
+    position: relative;
+    padding-left: 56px;
+  }
+
+  /* The step's dot on the line: hollow ahead, filled once passed, ringed at the current step. */
+  .body::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: -8px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    background: var(--page);
+  }
+
+  .past .body::before {
+    border-color: var(--price);
+    background: var(--price);
+  }
+
+  .current .body::before {
+    border-color: var(--price);
+    outline: 2px solid var(--price);
+    outline-offset: 4px;
+  }
+
+  .h3 {
+    font: 700 34px/38px var(--font-display);
+    letter-spacing: -0.03em;
+  }
+
+  .text {
+    max-width: 52ch;
+    margin: 14px 0 0;
+    font-size: 18px;
+    line-height: 29px;
+  }
+
+  .panel {
+    max-width: 560px;
+    margin-top: 28px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  .rows {
+    margin: 0;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--surface-hover);
+  }
+
+  .row:last-child {
+    border-bottom: 0;
+  }
+
+  .row dt {
+    color: var(--text-muted);
+  }
+
+  .row dd {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .row.current {
+    margin: 4px -10px;
+    padding: 9px 10px;
+    border: 1px solid rgb(245 181 68 / 0.35);
+    border-radius: var(--radius-sm);
+    background: rgb(245 181 68 / 0.07);
+  }
+
+  .row.current dd {
+    color: var(--price);
+  }
+
+  .row .bias {
+    padding: 0 12px;
+    border-radius: var(--radius-pill);
+    background: rgb(61 214 140 / 0.12);
+    color: var(--up);
+    font-size: 13px;
+  }
+
+  .gain {
+    color: var(--up) !important;
+  }
+
+  .alert {
+    display: flex;
+    gap: 14px;
+    margin: 0;
+    color: var(--text);
+  }
+
+  .alert svg {
+    flex: none;
+    color: var(--price);
+  }
+
+  .alert .caption {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .bubble {
+    width: fit-content;
+    max-width: 90%;
+    margin: 10px 0 0;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+  }
+
+  .bubble.me {
+    margin: 0 0 0 auto;
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .bubble.ai {
+    border: 1px solid var(--teal-line);
+    background: var(--teal-grad);
+    color: var(--text);
+  }
+
+  .meter {
+    height: 10px;
+    margin: 6px 0 2px;
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    background: var(--surface-hover);
+  }
+
+  .meter span {
+    display: block;
+    width: 62%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--up), var(--price));
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tools li {
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  @media (max-width: 760px) {
+    .timeline::before,
+    .timeline::after {
+      left: 8px;
+    }
+
+    .step {
+      grid-template-columns: minmax(0, 1fr);
+      padding-bottom: 64px;
+    }
+
+    .when {
+      position: static;
+      justify-items: start;
+      padding: 0 0 12px 40px;
+    }
+
+    .time {
+      font-size: 40px;
+    }
+
+    .body {
+      padding-left: 40px;
+    }
+
+    .body::before {
+      top: -48px;
+      left: 0;
+    }
+
+    .h3 {
+      font-size: 28px;
+      line-height: 32px;
+    }
+  }
+</style>

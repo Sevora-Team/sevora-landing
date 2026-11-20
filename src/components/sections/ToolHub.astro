@@ -1,0 +1,301 @@
+---
+// Ten tools around one SEVORA core, joined by beams of light: one account, not ten apps.
+// Hovering a tool lights its own beam.
+import { Image } from 'astro:assets';
+import mark from '@/assets/brand/sevora-mark.webp';
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { hub: t } = useTranslations(getLangFromUrl(Astro.url));
+
+const left: [keyof typeof t.tools, IconName][] = [
+  ['analysis', 'insights'],
+  ['plan', 'event-note'],
+  ['scenarios', 'call-split'],
+  ['alerts', 'notifications'],
+  ['calendar', 'calendar-month'],
+];
+const right: [keyof typeof t.tools, IconName][] = [
+  ['journal', 'menu-book'],
+  ['mentor', 'psychology'],
+  ['bots', 'smart-toy'],
+  ['propFirm', 'flag'],
+  ['academy', 'school'],
+];
+
+// The diagram is drawn on a 1100 × 540 grid; nodes sit on two columns, the core in the middle.
+const WIDTH = 1100;
+const HEIGHT = 540;
+const rows = [48, 151, 270, 389, 492];
+const nodes = [
+  ...left.map(([key, icon], i) => ({
+    key,
+    icon,
+    side: 'left',
+    y: rows[i],
+    path: `M250 ${rows[i]} C 400 ${rows[i]}, 380 270, 475 270`,
+  })),
+  ...right.map(([key, icon], i) => ({
+    key,
+    icon,
+    side: 'right',
+    y: rows[i],
+    path: `M850 ${rows[i]} C 700 ${rows[i]}, 720 270, 625 270`,
+  })),
+].map((node, i) => ({ ...node, delay: `${((i % 5) * 0.7 + (i < 5 ? 0 : 0.35)).toFixed(2)}s` }));
+---
+
+<section class="section hub-section" id="alati">
+  <div class="wrap">
+    <div class="intro-center">
+      <h2 class="h2 reveal-title">{t.title}</h2>
+      <p class="lead reveal">{t.lead}</p>
+    </div>
+
+    <div class="hub reveal">
+      <svg
+        class="beams"
+        viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="beam-gradient" x1="0" x2="1">
+            <stop offset="0" class="stop-gold"></stop>
+            <stop offset="1" class="stop-teal"></stop>
+          </linearGradient>
+        </defs>
+        {nodes.map(({ path, delay }, i) => (
+          <>
+            <path class="rail" data-i={i} d={path} />
+            <path
+              class="beam"
+              data-i={i}
+              d={path}
+              stroke="url(#beam-gradient)"
+              style={`animation-delay: ${delay}`}
+            />
+          </>
+        ))}
+      </svg>
+
+      <div class="core">
+        <Image src={mark} alt="" width={72} height={72} />
+      </div>
+
+      <ul class="nodes">
+        {nodes.map(({ key, icon, side, y }, i) => (
+          <li
+            class:list={['node', side]}
+            data-i={i}
+            style={`top: ${((y / HEIGHT) * 100).toFixed(1)}%`}
+          >
+            <span class="node-icon">
+              <Icon name={icon} />
+            </span>
+            <span>
+              <span class="node-title">{t.tools[key].title}</span>
+              <span class="caption">{t.tools[key].text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes travel {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .hub {
+    position: relative;
+    max-width: 1100px;
+    margin-inline: auto;
+    aspect-ratio: 1100 / 540;
+  }
+
+  .beams {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .stop-gold {
+    stop-color: var(--price);
+  }
+
+  .stop-teal {
+    stop-color: var(--accent);
+  }
+
+  .rail,
+  .beam {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+    transition:
+      stroke 0.2s var(--ease),
+      stroke-width 0.2s var(--ease),
+      opacity 0.2s var(--ease);
+  }
+
+  .rail {
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+
+  /* A short dash of light that travels the whole path, from the tool to the core. */
+  .beam {
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 70 900;
+    stroke-dashoffset: 970;
+    animation: travel 3.6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  }
+
+  .hub:has(.node:hover) .beam {
+    opacity: 0.25;
+  }
+
+  .hub:has(.node[data-i='0']:hover) :is(.beam, .rail)[data-i='0'],
+  .hub:has(.node[data-i='1']:hover) :is(.beam, .rail)[data-i='1'],
+  .hub:has(.node[data-i='2']:hover) :is(.beam, .rail)[data-i='2'],
+  .hub:has(.node[data-i='3']:hover) :is(.beam, .rail)[data-i='3'],
+  .hub:has(.node[data-i='4']:hover) :is(.beam, .rail)[data-i='4'],
+  .hub:has(.node[data-i='5']:hover) :is(.beam, .rail)[data-i='5'],
+  .hub:has(.node[data-i='6']:hover) :is(.beam, .rail)[data-i='6'],
+  .hub:has(.node[data-i='7']:hover) :is(.beam, .rail)[data-i='7'],
+  .hub:has(.node[data-i='8']:hover) :is(.beam, .rail)[data-i='8'],
+  .hub:has(.node[data-i='9']:hover) :is(.beam, .rail)[data-i='9'] {
+    opacity: 1;
+    stroke-width: 4;
+    animation-duration: 1.4s;
+  }
+
+  .core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 150px;
+    height: 150px;
+    border: 1px solid var(--teal-line);
+    border-radius: 36px;
+    outline: 1px solid var(--teal-line-soft);
+    outline-offset: 10px;
+    background: var(--teal-grad);
+    transform: translate(-50%, -50%);
+  }
+
+  .nodes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .node {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px 12px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+    transition:
+      border-color 0.2s var(--ease),
+      scale 0.2s var(--ease);
+  }
+
+  .node:hover {
+    border-color: var(--accent-border);
+    scale: 1.04;
+  }
+
+  .node.left {
+    left: 13%;
+  }
+
+  .node.right {
+    left: 87%;
+    flex-direction: row-reverse;
+    padding: 12px 12px 12px 16px;
+    text-align: right;
+  }
+
+  .node-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-hover);
+    color: var(--accent-hover);
+  }
+
+  .node-title {
+    display: block;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  @media (max-width: 1080px) {
+    .hub {
+      display: grid;
+      aspect-ratio: auto;
+    }
+
+    .beams {
+      display: none;
+    }
+
+    .core {
+      position: static;
+      justify-self: center;
+      width: 104px;
+      height: 104px;
+      margin-bottom: 28px;
+      border-radius: 28px;
+      transform: none;
+    }
+
+    .core img {
+      width: 52px;
+      height: 52px;
+    }
+
+    .nodes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .node,
+    .node.left,
+    .node.right {
+      position: static;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 14px;
+      text-align: left;
+      white-space: normal;
+      transform: none;
+    }
+
+    .node:hover {
+      scale: none;
+    }
+  }
+</style>

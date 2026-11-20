@@ -1,0 +1,150 @@
+---
+// Who is behind SEVORA, and what it promises and doesn't.
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { getPageUrl } from '@/i18n/routes';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { team } = t.aboutPage;
+const icons: IconName[] = ['info', 'flag', 'shield'];
+---
+
+<section class="section trust">
+  <div class="wrap columns">
+    <div class="reveal-left">
+      <h2 class="h2 reveal-title">{team.title}</h2>
+      <ul class="list">
+        {team.members.map(({ initials, name, role }) => (
+          <li class="person">
+            <span class="avatar" aria-hidden="true">
+              {initials}
+            </span>
+            <span>
+              <span class="name">{name}</span>
+              <span class="caption">{role}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <a class="more" href={getPageUrl(lang, 'about')}>
+        {t.trust.more}
+        <Icon name="north-east" size={16} />
+      </a>
+    </div>
+
+    <div class="reveal-right">
+      <h2 class="h2 reveal-title">{t.trust.promisesTitle}</h2>
+      <ul class="list">
+        {t.trust.promises.map(({ title, text }, i) => (
+          <li class="promise">
+            <span class="promise-icon">
+              <Icon name={icons[i]} size={22} />
+            </span>
+            <span>
+              <span class="name">{title}</span>
+              <span class="body-sm">{text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-top: 0;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 72px;
+    max-width: 1276px;
+    margin-inline: auto;
+  }
+
+  .h2 {
+    margin-bottom: 28px;
+    font-size: 40px;
+    line-height: 44px;
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .person,
+  .promise {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    align-items: center;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 50%;
+    background: var(--surface-hover);
+    color: var(--text-muted);
+    font: 500 14px/1 var(--font-mono);
+  }
+
+  .name {
+    display: block;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .promise {
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .promise-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    background: rgb(245 181 68 / 0.1);
+    color: var(--price);
+  }
+
+  .promise .body-sm {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 20px;
+    color: var(--accent-text);
+    font-weight: 600;
+    text-underline-offset: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .columns {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    .h2 {
+      font-size: 31px;
+      line-height: 36px;
+    }
+  }
+</style>

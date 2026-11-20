@@ -1,27 +1,27 @@
 ---
 // The landing page, shared by every locale. Components read the language from the URL,
-// so locale pages only need to render this. Plans, the Academy and the contact form
-// live on their own pages, linked from the header.
+// so locale pages only need to render this. It reads as one trading day: the plan, the
+// tools, the day itself, then learning, plans and trust. Details live on their own pages.
 import Footer from './Footer.astro';
 import Header from './Header.astro';
-import About from './sections/About.astro';
+import AcademyBand from './sections/AcademyBand.astro';
 import ClosingCta from './sections/ClosingCta.astro';
-import Ecosystem from './sections/Ecosystem.astro';
 import Faq from './sections/Faq.astro';
 import Hero from './sections/Hero.astro';
-import Markets from './sections/Markets.astro';
-import Platform from './sections/Platform.astro';
-import Steps from './sections/Steps.astro';
+import HomePlans from './sections/HomePlans.astro';
+import ToolHub from './sections/ToolHub.astro';
+import TradingDay from './sections/TradingDay.astro';
+import Trust from './sections/Trust.astro';
 ---
 
 <Header />
 <main>
   <Hero />
-  <About />
-  <Markets />
-  <Platform />
-  <Steps />
-  <Ecosystem />
+  <ToolHub />
+  <TradingDay />
+  <AcademyBand />
+  <HomePlans />
+  <Trust />
   <Faq />
   <ClosingCta />
 </main>

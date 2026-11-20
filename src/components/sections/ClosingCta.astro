@@ -1,6 +1,5 @@
 ---
 import Button from '@/components/ui/Button.astro';
-import FramedPanel from '@/components/ui/FramedPanel.astro';
 import { links } from '@/data/links';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -23,64 +22,81 @@ const {
 } = Astro.props;
 ---
 
-<section class="cta section-dark band-haze" data-theme="dark">
-  <div class="wrap">
-    <FramedPanel class="content">
-      <h2 class="display reveal-title">{title}</h2>
-      <p class="lead reveal">{lead}</p>
-      <div class="btn-row reveal">
-        <Button href={primary.href}>{primary.label}</Button>
-        <Button href={secondary.href} variant="ghost" icon="north-east">
-          {secondary.label}
-        </Button>
-      </div>
-    </FramedPanel>
+<section class="cta" data-theme="dark">
+  <div class="horizon" aria-hidden="true"></div>
+  <div class="wrap content">
+    <h2 class="display reveal-title">{title}</h2>
+    <p class="lead reveal">{lead}</p>
+    <div class="btn-row reveal">
+      <Button href={primary.href}>{primary.label}</Button>
+      <Button href={secondary.href} variant="ghost" icon="north-east">
+        {secondary.label}
+      </Button>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Clipped so the horizon's glow stays inside. */
   .cta {
-    padding-block: 72px 120px;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-block: 160px 280px;
+    text-align: center;
   }
 
-  .cta::before {
-    background:
-      radial-gradient(55% 70% at 100% 100%, var(--haze), transparent 70%),
-      radial-gradient(40% 50% at 0% 0%, rgb(22 164 173 / 0.1), transparent 70%);
+  /* A teal horizon rising under the call, the evening to the hero's gold morning. */
+  .horizon {
+    position: absolute;
+    bottom: -1260px;
+    left: 50%;
+    z-index: -1;
+    width: 2200px;
+    height: 1400px;
+    margin-left: -1100px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--page) 97%, transparent 100%);
+    box-shadow:
+      0 -2px 0 0 var(--horizon-teal),
+      0 -20px 80px 10px var(--horizon-teal-glow);
   }
 
   .content {
-    padding: 96px 48px 104px;
+    display: grid;
+    justify-items: center;
   }
 
   .display {
-    max-width: 15ch;
-    font-size: 56px;
-    line-height: 62px;
+    max-width: 12ch;
+    font-size: clamp(44px, 8vw, 112px);
+    line-height: 0.94;
   }
 
   .lead {
-    max-width: 52ch;
-    margin-top: 20px;
+    max-width: 44ch;
+    margin-top: 26px;
+    font-size: 20px;
+    line-height: 31px;
   }
 
   .btn-row {
     justify-content: center;
-    margin-top: 32px;
+    margin-top: 36px;
   }
 
   @media (max-width: 640px) {
     .cta {
-      padding-block: 40px 72px;
+      padding-block: 96px 200px;
     }
 
-    .content {
-      padding: 64px 20px 72px;
+    .horizon {
+      bottom: -1300px;
     }
 
-    .display {
-      font-size: 34px;
-      line-height: 40px;
+    .lead {
+      font-size: 17px;
+      line-height: 27px;
     }
 
     .btn-row {

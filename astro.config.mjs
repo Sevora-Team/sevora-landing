@@ -46,6 +46,16 @@ export default defineConfig({
   },
   // IBM Plex subsets (see README): ~37 KB instead of ~103 KB from Google Fonts.
   fonts: [
+    // Display face for page and section titles; downloaded at build time and self-hosted.
+    {
+      name: 'Bricolage Grotesque',
+      cssVariable: '--font-display',
+      provider: fontProviders.google(),
+      weights: [700],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
     {
       name: 'Sevora Sans',
       cssVariable: '--font-sans',
