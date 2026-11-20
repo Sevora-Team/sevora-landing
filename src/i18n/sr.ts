@@ -1,5 +1,6 @@
 import { links } from '@/data/links';
-import type { Page, SiteLink } from './routes';
+import type { Page } from './locales';
+import type { SiteLink } from './routes';
 
 const plural = new Intl.PluralRules('sr-Latn');
 
@@ -11,9 +12,10 @@ function count(n: number, one: string, few: string, other: string): string {
 
 export const sr = {
   meta: {
-    title: 'SEVORA',
+    title: 'SEVORA · Dnevni AI plan za zlato i akademija trejdinga',
     description:
-      'AI analiza tržišta, dnevni planovi, žurnal, mentor i akademija — sve što ti treba da trguješ promišljeno.',
+      'Dnevni plan za zlato pre Londona: bias, ključni nivoi i šta poništava plan. AI mentor, alarmi, žurnal i Akademija od 6 nivoa, na srpskom. Počni besplatno.',
+    shareAlt: 'SEVORA logo iznad zlatnog horizonta',
   },
   language: 'Jezik',
   nav: {

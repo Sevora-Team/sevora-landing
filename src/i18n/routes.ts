@@ -1,17 +1,6 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import type { Lang } from './locales';
+import { routes, type Lang, type Page } from './locales';
 import { getLangFromUrl, getPathWithoutLocale } from './utils';
-
-/** Each page's slug per language. A new page gets an entry here and a file in each `src/pages` tree. */
-export const routes = {
-  home: { sr: '', en: '' },
-  about: { sr: 'o-nama', en: 'about' },
-  academy: { sr: 'akademija', en: 'academy' },
-  plans: { sr: 'paketi', en: 'pricing' },
-  contact: { sr: 'kontakt', en: 'contact' },
-} as const satisfies Record<string, Record<Lang, string>>;
-
-export type Page = keyof typeof routes;
 
 /** A link to a page of this site, optionally to one of its sections. */
 export interface PageLink {

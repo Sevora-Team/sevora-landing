@@ -3,9 +3,10 @@ import type { Dictionary } from './sr';
 
 export const en: Dictionary = {
   meta: {
-    title: 'SEVORA',
+    title: 'SEVORA · Daily AI gold plan and a trading academy',
     description:
-      'AI market analysis, daily plans, a journal, a mentor and an academy — everything you need to trade with intent.',
+      'A daily gold plan before London: bias, key levels and what cancels the plan. An AI mentor, alerts, a journal and a 6-level Academy, in English and Serbian. Start free.',
+    shareAlt: 'The SEVORA logo above a gold horizon',
   },
   language: 'Language',
   nav: {

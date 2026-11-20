@@ -1,7 +1,7 @@
 ---
 import { Font, getImage } from 'astro:assets';
 import sevoraMark from '@/assets/brand/sevora-mark.webp';
-import heroPhoto from '@/assets/photos/heroes/home.webp';
+import shareCard from '@/assets/brand/share.png';
 import { defaultLang, langTags, languages, ogLocales, type Lang } from '@/i18n/locales';
 import { getPageFromUrl, getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -31,8 +31,8 @@ const [favicon, appleTouchIcon, logo, shareImage] = await Promise.all([
   getImage({ src: sevoraMark, width: 32, height: 32, format: 'png' }),
   getImage({ src: sevoraMark, width: 180, height: 180, format: 'png' }),
   getImage({ src: sevoraMark, width: 512, height: 512, format: 'png' }),
-  // Large link-preview card (1200×630 is the size social networks expect).
-  getImage({ src: heroPhoto, width: 1200, height: 630, format: 'jpg' }),
+  // Large link-preview card: the mark over the hero's gold horizon, 1200×630 as social networks expect.
+  getImage({ src: shareCard, width: 1200, height: 630, format: 'jpg' }),
 ]);
 
 // Canonical, hreflang, og:url, og:image and JSON-LD need absolute production URLs,
@@ -52,18 +52,26 @@ const alternates =
     : [];
 
 const homeUrl = absolute(getPageUrl(lang, 'home'));
+const organizationId = `${homeUrl}#organization`;
 const graph = site
   ? [
       ...(page === 'home'
         ? [
             {
               '@type': 'Organization',
+              '@id': organizationId,
               name: 'SEVORA',
               url: homeUrl,
               logo: absolute(logo.src),
               description: t.meta.description,
             },
-            { '@type': 'WebSite', name: 'SEVORA', url: homeUrl, inLanguage: langTags[lang] },
+            {
+              '@type': 'WebSite',
+              name: 'SEVORA',
+              url: homeUrl,
+              inLanguage: langTags[lang],
+              publisher: { '@id': organizationId },
+            },
           ]
         : []),
       ...structuredData,
@@ -132,6 +140,7 @@ const graph = site
         <meta property="og:image" content={absolute(shareImage.src)} />
         <meta property="og:image:width" content={String(shareImage.attributes.width)} />
         <meta property="og:image:height" content={String(shareImage.attributes.height)} />
+        <meta property="og:image:alt" content={t.meta.shareAlt} />
       </>
     )}
     <meta name="twitter:card" content="summary_large_image" />
