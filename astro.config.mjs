@@ -3,8 +3,9 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, envField, fontProviders } from 'astro/config';
 import { defaultLang, langTags, routes } from './src/i18n/locales.ts';
 
-// Production URL; drives the sitemap, robots.txt, canonical and hreflang links.
-const site = 'https://sevoratrading.com';
+// Production URL; drives the sitemap, robots.txt, canonical and hreflang links. Vercel serves
+// the www host and redirects the bare domain to it, so this must be the www address.
+const site = 'https://www.sevoratrading.com';
 
 /** Absolute URL of a page in one language, the same paths `getPageUrl` builds. */
 const pageUrl = (/** @type {keyof typeof langTags} */ lang, /** @type {string} */ slug) =>
