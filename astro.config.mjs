@@ -3,9 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, envField, fontProviders } from 'astro/config';
 import { defaultLang, langTags, routes } from './src/i18n/locales.ts';
 
-// Production URL; enables the sitemap, canonical and hreflang links. Update it when the
-// custom domain goes live.
-const site = 'https://sevora-landing.vercel.app';
+// Production URL; drives the sitemap, robots.txt, canonical and hreflang links.
+const site = 'https://sevoratrading.com';
 
 /** Absolute URL of a page in one language, the same paths `getPageUrl` builds. */
 const pageUrl = (/** @type {keyof typeof langTags} */ lang, /** @type {string} */ slug) =>
