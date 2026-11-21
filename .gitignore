@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Impeccable working captures and mocks (the record is PRODUCT.md, DESIGN.md, .impeccable/design.json and surfaces/)
+.impeccable/review/
+.impeccable/mocks/

@@ -1,6 +1,7 @@
 ---
 // The plans and pricing page, shared by every locale like HomePage.
 import BillingToggle from '@/components/ui/BillingToggle.astro';
+import Icon from '@/components/ui/Icon.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import { prices } from '@/data/pricing';
 import { getPageUrl } from '@/i18n/routes';
@@ -41,8 +42,14 @@ const product = Astro.site && {
   description={page.meta.description}
   structuredData={product ? [product] : []}
 >
-  <PageHero name={page.name} title={page.title} lead={page.lead} overlap>
-    <BillingToggle />
+  <PageHero name={page.name} title={page.title} lead={page.lead}>
+    <div class="billing" slot="aside">
+      <BillingToggle />
+      <p class="guarantee">
+        <Icon name="verified-user" size={18} />
+        {t.pricing.guarantee}
+      </p>
+    </div>
   </PageHero>
   <Pricing />
   <PlanComparison />
@@ -53,3 +60,32 @@ const product = Astro.site && {
     secondary={{ label: page.cta.contact, href: getPageUrl(lang, 'contact') }}
   />
 </PageLayout>
+
+<style>
+  /* Billing period and the guarantee, at the foot of the hero's right column. */
+  .billing {
+    display: grid;
+    justify-items: end;
+    gap: 14px;
+  }
+
+  .guarantee {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: var(--text-body);
+    font: 400 15px/22px var(--font-sans);
+  }
+
+  .guarantee :global(svg) {
+    flex: none;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 1080px) {
+    .billing {
+      justify-items: start;
+    }
+  }
+</style>

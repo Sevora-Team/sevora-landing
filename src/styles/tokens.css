@@ -133,6 +133,8 @@
   --horizon-teal-glow: rgb(66 202 215 / 0.35);
   /* The time-of-day line, from the gold morning to the teal evening. */
   --day-line: linear-gradient(180deg, #f5b544, #42cad7);
+  /* The same line laid flat: the baseline under every inner page's opening band. */
+  --day-line-x: linear-gradient(90deg, #f5b544, #42cad7 60%, rgb(66 202 215 / 0));
   --haze: rgb(22 164 173 / 0.26);
 
   --gutter: clamp(16px, 4.4vw, 72px);

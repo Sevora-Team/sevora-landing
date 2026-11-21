@@ -29,11 +29,10 @@ src/
 ├── assets/
 │   ├── brand/          # Logo and brand images (optimized by astro:assets)
 │   ├── fonts/          # IBM Plex subsets (Sevora Sans, Sevora Mono), see Fonts below
-│   ├── icons/          # SVG icons, imported as components
-│   └── photos/         # Page photos, duotoned to the SEVORA teal (optimized by astro:assets)
+│   └── icons/          # SVG icons, imported as components
 ├── components/
-│   ├── sections/       # One file per landing page section, in page order in HomePage
-│   ├── ui/             # Reusable building blocks (Button, Icon, PriceCell, PageHero, …)
+│   ├── sections/       # One file per page section (home, Plans, Academy, About, Contact)
+│   ├── ui/             # Reusable building blocks (Button, Icon, PriceCell, PageHero, Facts, …)
 │   ├── Header.astro
 │   ├── Footer.astro
 │   └── HomePage.astro  # The landing page, shared by every locale
@@ -72,8 +71,9 @@ src/
   `src/assets/icons/` and register it in `src/components/ui/icons.ts`. Icons are decorative
   (`aria-hidden`) unless you pass a `label`.
 - **Interactivity:** plain `<script>` tags in components, no UI framework. Prefer HTML and CSS
-  where they suffice (the FAQ is `<details>`; the billing toggle and the About page's risk
-  chart, principles and timeline are radios + `:has()`). Scroll motion is CSS scroll-driven
+  where they suffice (the FAQ and the Academy's lesson lists are `<details>`; the billing toggle
+  and the About page's risk chart are radios + `:has()`). Inner pages are search landing pages,
+  so their copy stays in view rather than behind tabs. Scroll motion is CSS scroll-driven
   animation (`.reveal` and friends in `global.css`).
 - **Generated graphics:** the sample market chart and the About page's risk chart are built at
   build time from fixed data (`src/lib/`) and inlined as SVG, so they follow the theme colours.

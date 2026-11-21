@@ -1,28 +1,24 @@
 ---
-// Support hours, response time and company details, one card each.
-import Icon from '@/components/ui/Icon.astro';
-import type { IconName } from '@/components/ui/icons';
+// Support hours, response time and company details, as a ruled list of reference facts.
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const { info } = useTranslations(getLangFromUrl(Astro.url)).contactPage;
-const icons: IconName[] = ['schedule', 'forum', 'mail', 'verified-user'];
 ---
 
 <section class="section info">
-  <div class="wrap">
-    <h2 class="h2 reveal-title">{info.title}</h2>
-    <ul class="cards">
-      {info.items.map(({ label, value, text }, i) => (
-        <li class="card reveal-pop">
-          <span class="icon-circle reveal-icon">
-            <Icon name={icons[i]} />
-          </span>
-          <p class="caption label">{label}</p>
-          <p class="value">{value}</p>
-          <p class="body-sm">{text}</p>
-        </li>
+  <div class="wrap layout">
+    <h2 class="h2">{info.title}</h2>
+    <dl class="rows">
+      {info.items.map(({ label, value, text }) => (
+        <div class="row">
+          <dt>{label}</dt>
+          <dd>
+            <strong>{value}</strong>
+            <span>{text}</span>
+          </dd>
+        </div>
       ))}
-    </ul>
+    </dl>
   </div>
 </section>
 
@@ -31,110 +27,61 @@ const icons: IconName[] = ['schedule', 'forum', 'mail', 'verified-user'];
     padding-top: 0;
   }
 
-  .cards {
+  .layout {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-    margin: 48px 0 0;
-    padding: 0;
-    list-style: none;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    align-items: start;
+    gap: 72px;
   }
 
-  .card {
-    position: relative;
-    display: grid;
-    align-content: start;
-    gap: 10px;
-    min-height: 230px;
-    padding: 28px;
-    overflow: clip;
-    border: 1px solid var(--teal-line-soft);
-    border-radius: var(--radius-card);
-    background: linear-gradient(180deg, rgb(66 202 215 / 0.06), rgb(12 21 32 / 0.9));
-    transition:
-      border-color 0.3s var(--ease),
-      transform 0.4s var(--ease);
+  .h2 {
+    max-width: 12ch;
   }
 
-  .card:hover {
-    border-color: rgb(66 202 215 / 0.4);
-    transform: translateY(-4px);
-  }
-
-  /* An accent bar draws in along the bottom edge on hover. */
-  .card::after {
-    content: '';
-    position: absolute;
-    inset: auto 28px 0;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s var(--ease);
-  }
-
-  .card:hover::after {
-    transform: scaleX(1);
-  }
-
-  .card:nth-child(2) {
-    animation-range: entry 5% cover 35%;
-  }
-
-  .card:nth-child(3) {
-    animation-range: entry 10% cover 40%;
-  }
-
-  .card:nth-child(4) {
-    animation-range: entry 15% cover 45%;
-  }
-
-  /* Company details close the row in teal. */
-  .card:last-child {
-    border-color: rgb(66 202 215 / 0.26);
-    background: var(--teal-grad);
-  }
-
-  .icon-circle {
-    margin-bottom: 10px;
-  }
-
-  .label {
-    font-family: var(--font-mono);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .value {
+  .rows {
     margin: 0;
-    font: 400 25px/32px var(--font-sans);
-    letter-spacing: -0.01em;
-    color: var(--text);
+    border-top: 1px solid var(--border);
   }
 
-  .card:last-child .value {
-    font-size: 20px;
-    line-height: 28px;
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 8px 32px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .body-sm {
+  dt {
     color: var(--text-muted);
+    font: 400 15px/24px var(--font-sans);
+  }
+
+  dd {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+  }
+
+  strong {
+    color: var(--text);
+    font: 500 18px/26px var(--font-sans);
+  }
+
+  dd span {
+    color: var(--text-body);
+    font: 400 15px/24px var(--font-sans);
   }
 
   @media (max-width: 1080px) {
-    .cards {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
     }
   }
 
   @media (max-width: 640px) {
-    .cards {
+    .row {
       grid-template-columns: minmax(0, 1fr);
-    }
-
-    .card {
-      min-height: 0;
     }
   }
 </style>

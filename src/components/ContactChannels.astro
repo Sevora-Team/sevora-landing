@@ -1,0 +1,91 @@
+---
+// The contact hero's channels: three ways to reach the team, one row each.
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { links } from '@/data/links';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { channels } = useTranslations(getLangFromUrl(Astro.url)).contactPage;
+const rows: { channel: (typeof channels)[keyof typeof channels]; icon: IconName; href: string }[] =
+  [
+    { channel: channels.email, icon: 'mail', href: '#poruka' },
+    { channel: channels.discord, icon: 'forum', href: links.discord },
+    { channel: channels.partners, icon: 'handshake', href: '#poruka' },
+  ];
+---
+
+<ul class="channels">
+  {rows.map(({ channel, icon, href }) => (
+    <li>
+      <a class="channel" href={href}>
+        <Icon name={icon} size={24} class="icon" />
+        <span class="text">
+          <strong>{channel.title}</strong>
+          <span class="body-sm">{channel.text}</span>
+        </span>
+        <span class="value">
+          {channel.value}
+          <Icon name="north-east" size={16} class="arrow" />
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .channels {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+
+  li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 6px 18px;
+    padding: 20px 4px;
+    text-decoration: none;
+    transition: background-color 0.25s var(--ease);
+  }
+
+  .channel:hover {
+    background: rgb(66 202 215 / 0.05);
+  }
+
+  .channel :global(.icon) {
+    grid-row: span 2;
+    margin-top: 2px;
+    color: var(--accent-text);
+  }
+
+  .text {
+    display: grid;
+    gap: 2px;
+  }
+
+  strong {
+    color: var(--text);
+    font: 500 18px/26px var(--font-sans);
+  }
+
+  .value {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-text);
+    font: 500 15px/22px var(--font-sans);
+  }
+
+  .value :global(.arrow) {
+    transition: transform 0.25s var(--ease);
+  }
+
+  .channel:hover .value :global(.arrow) {
+    transform: translate(2px, -2px);
+  }
+</style>

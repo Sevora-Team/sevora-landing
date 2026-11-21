@@ -1,25 +1,28 @@
 ---
-// The Academy hero's path: one step per level, rising to the right, each linking to its card.
+// The Academy hero's path: one step per level, rising to the right and standing on the hero's
+// day line, each linking to its level below.
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { getLevels, levelPlan } from '@/lib/academy';
 
 const lang = getLangFromUrl(Astro.url);
-const page = useTranslations(lang).academyPage;
+const t = useTranslations(lang);
 const levels = await getLevels();
 ---
 
-<nav class="path" aria-label={page.path}>
+<nav class="path" aria-label={t.academyPage.path}>
   {levels.map(({ id, order, label, title, lessonCount }) => (
-    <a
-      class:list={['step', { free: levelPlan(order) === 'free' }]}
-      href={`#${id}`}
-      style={`--i: ${order}`}
-    >
-      <span>
-        <span class="mono-label label">{label[lang]}</span>
-        <strong>{title[lang]}</strong>
+    <a class="step" href={`#${id}`} style={`--i: ${order}`}>
+      <span class="num" aria-hidden="true">
+        {order}
       </span>
-      <span class="caption">{page.level.lessons(lessonCount)}</span>
+      <span class="name">
+        <span class="sr-only">{label[lang]}: </span>
+        {title[lang]}
+      </span>
+      <span class="meta">
+        {t.academyPage.level.lessons(lessonCount)}
+        {levelPlan(order) === 'free' && <span class="free">{t.academyBand.free}</span>}
+      </span>
     </a>
   ))}
 </nav>
@@ -29,107 +32,98 @@ const levels = await getLevels();
     from {
       clip-path: inset(100% 0 0 0);
     }
-
-    to {
-      clip-path: inset(0 0 0 0);
-    }
   }
 
   .path {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     align-items: end;
-    gap: 10px;
-    margin-top: 72px;
+    gap: 8px;
   }
 
   .step {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 8px;
-    height: calc(128px + var(--i) * 46px);
-    padding: 18px 18px 22px;
-    border: 1px solid var(--teal-line);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 6px;
+    height: calc(118px + var(--i) * 26px);
+    padding: 16px 18px 18px;
+    border: 1px solid var(--teal-line-soft);
     border-bottom: 0;
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--radius) var(--radius) 0 0;
     /* Teal deepens with the level. */
     background: linear-gradient(
       180deg,
-      rgb(66 202 215 / calc(0.05 + var(--i) * 0.035)),
-      rgb(12 21 32 / 0.9)
+      rgb(66 202 215 / calc(0.04 + var(--i) * 0.03)),
+      rgb(12 21 32 / 0.6)
     );
     text-decoration: none;
-    animation: step-up 1.1s var(--ease) both;
-    animation-delay: calc(0.35s + var(--i) * 0.09s);
+    animation: step-up 1s var(--ease-out) both;
+    animation-delay: calc(0.3s + var(--i) * 0.07s);
     transition:
       background-color 0.25s var(--ease),
       border-color 0.25s var(--ease);
   }
 
   .step:hover {
-    border-color: var(--border-strong);
+    border-color: var(--teal-line);
     background: linear-gradient(
       180deg,
-      rgb(66 202 215 / calc(0.12 + var(--i) * 0.04)),
-      rgb(12 21 32 / 0.9)
+      rgb(66 202 215 / calc(0.1 + var(--i) * 0.04)),
+      rgb(12 21 32 / 0.6)
     );
   }
 
-  /* Free levels carry an accent line on top. */
-  .free {
-    box-shadow: inset 0 2px 0 var(--accent);
-  }
-
-  .label {
+  .num {
     color: var(--accent-text);
-    text-transform: uppercase;
+    font: 700 28px/1 var(--font-display);
   }
 
-  strong {
-    display: block;
-    margin-top: 6px;
+  .name {
     color: var(--text);
-    font: 400 18px/24px var(--font-sans);
+    font: 500 16px/22px var(--font-sans);
   }
 
-  /* The hero fills the viewport, so the steps scale with its height. */
-  @media (min-width: 641px) {
-    .path {
-      width: 100%;
-      height: 100%;
-      max-height: 420px;
-      margin-top: clamp(24px, 4vh, 64px);
-    }
-
-    .step {
-      height: calc(36% + var(--i) * 12.8%);
-      min-height: 96px;
-      padding: clamp(12px, 1.8vh, 18px) 18px clamp(14px, 2vh, 22px);
-    }
-
-    strong {
-      margin-top: 4px;
-      font-size: clamp(15px, 2vh, 18px);
-      line-height: 1.3;
-    }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    color: var(--text-muted);
+    font: 400 13px/18px var(--font-sans);
   }
 
+  /* Free levels carry the morning gold. */
+  .free {
+    color: var(--price);
+  }
+
+  /* The whole climb fits a phone: narrow risers with just the level number. */
   @media (max-width: 640px) {
     .path {
-      grid-template-columns: repeat(6, 132px);
-      margin-top: 48px;
-      margin-inline: -16px;
-      padding-inline: 16px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      gap: 4px;
     }
 
-    /* A minimum, so a level name on two lines still fits. */
     .step {
-      height: auto;
-      min-height: calc(112px + var(--i) * 18px);
-      padding: 14px;
+      grid-template-rows: auto;
+      height: calc(52px + var(--i) * 16px);
+      padding: 10px 0 0;
+      text-align: center;
+    }
+
+    .num {
+      font-size: 22px;
+    }
+
+    .name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .meta {
+      display: none;
     }
   }
 </style>

@@ -164,13 +164,6 @@ export const en: Dictionary = {
     down: 'down',
     flat: 'unchanged',
   },
-  academy: {
-    stats: [
-      { value: '6', label: 'levels' },
-      { value: '23', label: 'modules' },
-      { value: '138', label: 'lessons' },
-    ],
-  },
   pricing: {
     billingLabel: 'Billing period',
     monthly: 'Monthly',
@@ -358,23 +351,9 @@ export const en: Dictionary = {
     name: 'About us',
     title: 'Trading with a plan, in your language',
     lead: 'SEVORA started from a simple idea: traders in our region need one place for analysis, planning and learning — clear, honest and free of noise.',
-    statement: [
-      { text: 'We don’t sell ' },
-      { text: 'quick profits', tone: 'muted' },
-      { text: '. We build ' },
-      { text: 'tools and knowledge', tone: 'accent' },
-      { text: ' that help you make ' },
-      { text: 'considered decisions', tone: 'accent' },
-      { text: ' — every day.' },
-    ],
-    stats: [
-      { value: '5', label: 'market groups' },
-      { value: '10', label: 'platform tools' },
-      { value: '138', label: 'Academy lessons' },
-      { value: '2', label: 'languages' },
-    ],
+    statement:
+      'We don’t sell quick profits. We build tools and knowledge that help you make considered decisions — every day.',
     why: {
-      kicker: 'Why we exist',
       title: 'Too many signals, too little explanation',
       paragraphs: [
         'Most trading content is in English, scattered across ten apps and boils down to “buy here, sell there” — with no explanation of why.',
@@ -507,17 +486,10 @@ export const en: Dictionary = {
     title: 'A trading course from zero to professional',
     lead: 'Master the mindset, then the market. Six levels in English and Serbian, from absolute zero to professional trader. Each level builds on the last, with no skipped basics.',
     path: 'Academy levels',
-    statement: [
-      { text: 'Six levels, ' },
-      { text: '23 modules and 138 lessons', tone: 'accent' },
-      { text: ' — with a knowledge check after every module, ' },
-      { text: 'in English and Serbian.', tone: 'muted' },
-    ],
     level: {
       startFree: 'Start for free',
       includedIn: (plan: string) => `Included in ${plan}`,
-      check: 'A check after every module',
-      toggle: (n: number) => `See modules (${n})`,
+      check: 'a check after every module',
       modules: (n: number) => `${n} ${n === 1 ? 'module' : 'modules'}`,
       lessons: (n: number) => `${n} ${n === 1 ? 'lesson' : 'lessons'}`,
     },
@@ -538,13 +510,18 @@ export const en: Dictionary = {
           text: 'The whole curriculum is available in both languages.',
         },
       ],
+      demo: {
+        label: 'Example: module 8 from level 2, in progress',
+        progress: (done: number, total: number) => `${done} of ${total} lessons`,
+        current: 'next',
+        check: 'Knowledge check',
+        badge: 'Badge on completion',
+      },
     },
-    quote: [
-      { text: 'Discipline today, freedom tomorrow. ' },
-      { text: 'The market rewards patience, ', tone: 'accent' },
-      { text: 'not emotion.', tone: 'muted' },
-    ],
-    quoteBy: 'SEVORA Academy',
+    cta: {
+      title: 'Discipline today, freedom tomorrow.',
+      lead: 'The market rewards patience, not emotion. The first two levels are free, no card needed.',
+    },
     learnFree: 'Start learning for free',
   },
   plansPage: {
@@ -689,10 +666,6 @@ export const en: Dictionary = {
       { title: 'We reply by email', text: 'On weekdays, usually within [TIME].' },
       { title: 'We continue your way', text: 'Email, a call or Discord — your choice.' },
     ],
-    fast: {
-      title: 'Urgent? Message us on Discord',
-      note: 'For urgent technical questions, Discord is the fastest route.',
-    },
     info: {
       title: 'Support and company details',
       items: [
@@ -709,11 +682,6 @@ export const en: Dictionary = {
           text: 'Tax ID [TAX ID] · Reg. no. [REG. NO.] · [ADDRESS]',
         },
       ],
-    },
-    cta: {
-      title: 'Join the SEVORA community',
-      lead: 'The fastest answers, market discussion and support from other traders — on Discord.',
-      discord: 'Join on Discord',
     },
   },
   notFound: {

@@ -5,7 +5,8 @@ import { links } from '@/data/links';
 import { formatPrice, planPrice, prices } from '@/data/pricing';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-// The plan cards on the plans page. They rise into the page hero, which holds the billing toggle.
+// The plans on the plans page as one ladder: three steps in a single panel, the top step lit.
+// The billing toggle that switches the prices sits in the page hero above.
 const lang = getLangFromUrl(Astro.url);
 const { pricing } = useTranslations(lang);
 
@@ -18,18 +19,17 @@ const plans = [
 
 <section class="pricing" id="paketi">
   <div class="wrap">
-    <div class="plans">
+    <div class="ladder">
       {plans.map(({ name, description, items, cta, price, featured }, i) => (
         <article
           class:list={['plan', 'rise', { featured }]}
-          style={`--delay: ${0.32 + i * 0.08}s`}
-          data-theme={featured ? 'dark' : undefined}
+          style={`--delay: ${0.3 + i * 0.08}s; --step: ${i}`}
         >
-          <div>
-            <h2 class="h3">{name}</h2>
+          <header class="head">
+            <h2 class="name">{name}</h2>
             <p class="body-sm description">{description}</p>
-          </div>
-          <div>
+          </header>
+          <div class="cost">
             {price ? (
               <>
                 <p class="price when-monthly">
@@ -38,11 +38,12 @@ const plans = [
                 </p>
                 <p class="price when-yearly">
                   <strong>{price.yearly}</strong>
-                  <s>{price.monthly}</s>
-                  <span class="per">{pricing.perMonth}</span>
+                  <span class="per">
+                    <s>{price.monthly}</s> {pricing.perMonth}
+                  </span>
                 </p>
-                <p class="caption note when-monthly">{pricing.noteMonthly}</p>
-                <p class="caption note when-yearly">{pricing.noteYearly(price.yearlyTotal)}</p>
+                <p class="caption when-monthly">{pricing.noteMonthly}</p>
+                <p class="caption when-yearly">{pricing.noteYearly(price.yearlyTotal)}</p>
               </>
             ) : (
               <>
@@ -50,127 +51,129 @@ const plans = [
                   <strong>{formatPrice(0, lang)}</strong>
                   <span class="per">{pricing.forever}</span>
                 </p>
-                <p class="caption note">{pricing.noteFree}</p>
+                <p class="caption">{pricing.noteFree}</p>
               </>
             )}
-          </div>
-          <div class="features">
-            <p class="caption">{pricing.included}</p>
-            <ul>
-              {items.map((item) => (
-                <li>
-                  <Icon name="check" class="check" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
           <Button class="cta" href={links.signup} variant={featured ? 'primary' : 'ghost'}>
             {cta}
           </Button>
+          <ul class="features" aria-label={pricing.included}>
+            {items.map((item) => (
+              <li>
+                <Icon name="check" size={18} class="check" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </article>
       ))}
     </div>
-
-    <p class="caption guarantee">
-      <Icon name="verified-user" size={16} />
-      {pricing.guarantee}
-    </p>
   </div>
 </section>
 
 <style>
-  /* Not clipped, so the cards can rise into the page hero. */
   .pricing {
-    content-visibility: visible;
-    padding-bottom: 24px;
+    padding-block: 56px 24px;
   }
 
-  /* The cards rise into the page hero above. */
-  .plans {
-    position: relative;
-    z-index: 3;
+  /* One panel, three steps; each step sits a little higher than the one before. */
+  .ladder {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: -180px;
+    align-items: end;
   }
 
   .plan {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 40px;
-    border: 1px solid var(--teal-line-soft);
-    border-radius: var(--radius-card);
-    background: var(--teal-glass);
-    transition:
-      border-color 0.25s var(--ease),
-      transform 0.35s var(--ease);
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+    align-content: start;
+    gap: 24px;
+    min-height: calc(560px + var(--step) * 32px);
+    padding: 36px 36px 40px;
+    border: 1px solid var(--border);
+    background: rgb(12 21 32 / 0.55);
   }
 
-  .plan:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
+  /* Neighbours share one hairline; each step keeps its own edge where it rises above the last. */
+  .plan + .plan {
+    margin-left: -1px;
+  }
+
+  .plan:first-child {
+    border-radius: var(--radius-card) 0 0 var(--radius-card);
   }
 
   .featured {
+    position: relative;
     border-color: var(--teal-line);
+    border-radius: var(--radius-card);
     background: var(--teal-grad);
   }
 
-  .featured:hover {
-    border-color: rgb(66 202 215 / 0.5);
+  /* The day line runs along the top of the lit step. */
+  .featured::before {
+    content: '';
+    position: absolute;
+    inset: 0 24px auto;
+    height: 1px;
+    background: var(--day-line-x);
+  }
+
+  .name {
+    margin: 0;
+    font: 700 28px/32px var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--text);
   }
 
   .description {
     margin-top: 6px;
   }
 
+  .cost {
+    display: grid;
+    gap: 6px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .featured .cost {
+    border-color: var(--teal-line);
+  }
+
   .price {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
-    gap: 8px;
+    gap: 4px 10px;
     margin: 0;
   }
 
   .price strong {
-    font: 400 44px/52px var(--font-sans);
-    letter-spacing: -0.02em;
+    font: 700 48px/52px var(--font-display);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
     color: var(--text);
   }
 
-  .price s {
-    font: 400 18px/24px var(--font-sans);
-    color: var(--text-muted);
-  }
-
   .per {
-    font: 400 14px/16px var(--font-sans);
+    font: 400 15px/20px var(--font-sans);
     color: var(--text-muted);
   }
 
-  .note {
-    min-height: 16px;
-    margin-top: 4px;
+  .per s {
+    margin-right: 4px;
+  }
+
+  .cta {
+    justify-content: center;
   }
 
   .features {
     display: grid;
-    gap: 14px;
-    padding: 20px;
-    border-radius: var(--radius);
-    background: var(--surface-hover);
-  }
-
-  .featured .features {
-    border: 1px solid var(--teal-line);
-    background: rgb(255 255 255 / 0.04);
-  }
-
-  .features ul {
-    display: grid;
-    gap: 10px;
+    align-content: start;
+    gap: 12px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -180,8 +183,13 @@ const plans = [
     display: flex;
     align-items: flex-start;
     gap: 10px;
+    color: var(--text-body);
     font-size: 15px;
-    line-height: 24px;
+    line-height: 23px;
+  }
+
+  .featured .features li {
+    color: var(--text);
   }
 
   .check {
@@ -190,39 +198,39 @@ const plans = [
     color: var(--accent-text);
   }
 
-  .cta {
-    justify-content: center;
-    margin-top: auto;
-  }
-
-  .guarantee {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    margin-top: 24px;
-    font-size: 14px;
-  }
-
-  .guarantee svg {
-    color: var(--accent-text);
-  }
-
   @media (max-width: 1080px) {
-    .plans {
+    .ladder {
       grid-template-columns: minmax(0, 1fr);
-      max-width: 640px;
+      max-width: 620px;
       margin-inline: auto;
+    }
+
+    .plan {
+      min-height: 0;
+    }
+
+    .plan + .plan {
+      margin: -1px 0 0;
+    }
+
+    .plan:first-child {
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
     }
   }
 
   @media (max-width: 640px) {
-    .plans {
-      margin-top: -140px;
+    .pricing {
+      padding-top: 40px;
     }
 
     .plan {
-      padding: 24px;
+      gap: 20px;
+      padding: 28px 22px 30px;
+    }
+
+    .price strong {
+      font-size: 40px;
+      line-height: 44px;
     }
   }
 </style>

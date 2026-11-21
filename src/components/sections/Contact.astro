@@ -18,7 +18,7 @@ const { contact, contactPage } = useTranslations(lang);
       <ol class="next">
         {contactPage.next.map(({ title, text }, i) => (
           <li class="reveal-left">
-            <span class="number">{String(i + 1).padStart(2, '0')}</span>
+            <span class="number">{i + 1}</span>
             <div>
               <p class="next-title">{title}</p>
               <p class="body-sm">{text}</p>
@@ -26,16 +26,6 @@ const { contact, contactPage } = useTranslations(lang);
           </li>
         ))}
       </ol>
-      <a class="fast reveal" href={links.discord}>
-        <span class="icon-circle">
-          <Icon name="forum" />
-        </span>
-        <span class="fast-text">
-          <strong>{contactPage.fast.title}</strong>
-          <span class="caption">{contactPage.fast.note}</span>
-        </span>
-        <Icon name="north-east" class="fast-arrow" />
-      </a>
     </div>
 
     <div class="card reveal-right">
@@ -242,49 +232,14 @@ const { contact, contactPage } = useTranslations(lang);
     border: 1px solid rgb(66 202 215 / 0.28);
     border-radius: 50%;
     background: var(--bg);
-    color: var(--accent);
-    font: 400 12px/1 var(--font-mono);
+    color: var(--accent-text);
+    font: 700 17px/1 var(--font-display);
   }
 
   .next-title {
     margin: 8px 0 4px;
     color: var(--text);
     font: 600 15px/22px var(--font-sans);
-  }
-
-  /* The Discord shortcut for urgent questions. */
-  .fast {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    border: 1px solid rgb(66 202 215 / 0.22);
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgb(22 164 173 / 0.16), rgb(22 164 173 / 0.03));
-    text-decoration: none;
-    transition:
-      border-color 0.25s var(--ease),
-      transform 0.25s var(--ease);
-  }
-
-  .fast:hover {
-    border-color: rgb(66 202 215 / 0.45);
-    transform: translateY(-2px);
-  }
-
-  .fast-text {
-    display: grid;
-    gap: 2px;
-  }
-
-  .fast-text strong {
-    color: var(--text);
-    font: 600 15px/22px var(--font-sans);
-  }
-
-  .fast-arrow {
-    color: var(--accent);
   }
 
   .card {

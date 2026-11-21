@@ -1,6 +1,8 @@
 ---
 // The Academy page, shared by every locale like HomePage.
+import Button from '@/components/ui/Button.astro';
 import PageHero from '@/components/ui/PageHero.astro';
+import { links } from '@/data/links';
 import { langTags } from '@/i18n/locales';
 import { getPageUrl } from '@/i18n/routes';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -8,8 +10,7 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import AcademyPath from './AcademyPath.astro';
 import AcademyLevels from './sections/AcademyLevels.astro';
 import AcademyMethod from './sections/AcademyMethod.astro';
-import AcademyQuote from './sections/AcademyQuote.astro';
-import StatementIntro from './sections/StatementIntro.astro';
+import ClosingCta from './sections/ClosingCta.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -34,10 +35,14 @@ const course = Astro.site && {
   structuredData={course ? [course] : []}
 >
   <PageHero name={page.name} title={page.title} lead={page.lead}>
+    <Button href={links.signup}>{page.learnFree}</Button>
     <AcademyPath slot="below" />
   </PageHero>
-  <StatementIntro parts={page.statement} stats={t.academy.stats} />
   <AcademyLevels />
   <AcademyMethod />
-  <AcademyQuote />
+  <ClosingCta
+    title={page.cta.title}
+    lead={page.cta.lead}
+    primary={{ label: page.learnFree, href: links.signup }}
+  />
 </PageLayout>

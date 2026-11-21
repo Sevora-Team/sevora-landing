@@ -1,0 +1,622 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-21T20:20:57.308Z",
+  "title": "Design System: SEVORA",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Lagoon Teal",
+        "canonical": "#42cad7",
+        "tonalRamp": [
+          "#001116",
+          "#002d33",
+          "#004c54",
+          "#006d77",
+          "#0093a0",
+          "#4ab7c1",
+          "#86dbe4",
+          "#b8fdff"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Foam Teal",
+        "canonical": "#7adfe7",
+        "tonalRamp": [
+          "#001013",
+          "#002c30",
+          "#004a50",
+          "#006b71",
+          "#1f9199",
+          "#60b4bb",
+          "#94d8de",
+          "#c3faff"
+        ]
+      },
+      "accent-pressed": {
+        "role": "primary",
+        "displayName": "Deep Lagoon",
+        "canonical": "#16a4ad",
+        "tonalRamp": [
+          "#001114",
+          "#002c31",
+          "#004b51",
+          "#006c74",
+          "#00939c",
+          "#52b6bd",
+          "#8bdae0",
+          "#bcfcff"
+        ]
+      },
+      "accent-border": {
+        "role": "primary",
+        "displayName": "Reef Teal",
+        "canonical": "#0e8a92",
+        "tonalRamp": [
+          "#001013",
+          "#002c30",
+          "#004a50",
+          "#006b72",
+          "#1d9199",
+          "#60b4bb",
+          "#94d8de",
+          "#c2fbff"
+        ]
+      },
+      "accent-subtle": {
+        "role": "primary",
+        "displayName": "Lagoon Shadow",
+        "canonical": "#0e242d",
+        "tonalRamp": [
+          "#050d10",
+          "#1a262b",
+          "#33434a",
+          "#4d616a",
+          "#6c8590",
+          "#93a9b2",
+          "#bbced7",
+          "#e2f1f9"
+        ]
+      },
+      "price-gold": {
+        "role": "secondary",
+        "displayName": "Morning Gold",
+        "canonical": "#f5b544",
+        "tonalRamp": [
+          "#1a0500",
+          "#3a1c00",
+          "#5d3600",
+          "#835200",
+          "#af7200",
+          "#cf9a3d",
+          "#f0c27a",
+          "#ffe8ad"
+        ]
+      },
+      "up": {
+        "role": "tertiary",
+        "displayName": "Market Green",
+        "canonical": "#3dd68c",
+        "tonalRamp": [
+          "#001300",
+          "#00310e",
+          "#005124",
+          "#00743b",
+          "#009c56",
+          "#45bf80",
+          "#84e2ac",
+          "#b7ffd5"
+        ]
+      },
+      "down": {
+        "role": "tertiary",
+        "displayName": "Market Red",
+        "canonical": "#f0616d",
+        "tonalRamp": [
+          "#240001",
+          "#4b000f",
+          "#751524",
+          "#a12d3c",
+          "#d44857",
+          "#f47980",
+          "#ffa8ab",
+          "#ffd2d4"
+        ]
+      },
+      "page": {
+        "role": "neutral",
+        "displayName": "Night Page",
+        "canonical": "#05090f",
+        "tonalRamp": [
+          "#090b0e",
+          "#212429",
+          "#3c4046",
+          "#585e65",
+          "#7a818a",
+          "#9fa5ad",
+          "#c6cbd2",
+          "#eaeff5"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Deep Ink",
+        "canonical": "#03060c",
+        "tonalRamp": [
+          "#090b0f",
+          "#212429",
+          "#3b4047",
+          "#585e66",
+          "#7a818b",
+          "#9fa5ae",
+          "#c5cbd3",
+          "#eaeff5"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#070d16",
+        "tonalRamp": [
+          "#080b10",
+          "#20242a",
+          "#3a4048",
+          "#575e68",
+          "#78818e",
+          "#9da5b1",
+          "#c4cbd5",
+          "#e9eff7"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Slate Surface",
+        "canonical": "#0c1520",
+        "tonalRamp": [
+          "#080b10",
+          "#1f252c",
+          "#39404a",
+          "#555f6a",
+          "#768190",
+          "#9ba6b3",
+          "#c2cbd7",
+          "#e8eff9"
+        ]
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Raised Slate",
+        "canonical": "#13202d",
+        "tonalRamp": [
+          "#070c11",
+          "#1d252d",
+          "#37414c",
+          "#525f6c",
+          "#728292",
+          "#98a6b5",
+          "#c0ccd9",
+          "#e5f0fb"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#1e2e3d",
+        "tonalRamp": [
+          "#060c12",
+          "#1c252e",
+          "#35414d",
+          "#505f6e",
+          "#708394",
+          "#96a7b7",
+          "#beccda",
+          "#e4f0fc"
+        ]
+      },
+      "border-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "#5b6e82",
+        "tonalRamp": [
+          "#060c13",
+          "#1b252f",
+          "#34414e",
+          "#4f5f70",
+          "#6f8297",
+          "#95a7b9",
+          "#bdccdd",
+          "#e3f0fe"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#f0f0f0",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "text-body": {
+        "role": "neutral",
+        "displayName": "Fog",
+        "canonical": "#a9b4bf",
+        "tonalRamp": [
+          "#080c0f",
+          "#20252a",
+          "#3a4147",
+          "#565f67",
+          "#77828c",
+          "#9ca6af",
+          "#c3ccd4",
+          "#e9eff6"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Dusk",
+        "canonical": "#7c8996",
+        "tonalRamp": [
+          "#070c10",
+          "#1e252b",
+          "#384149",
+          "#545f69",
+          "#75828f",
+          "#9ba6b2",
+          "#c2ccd6",
+          "#e7f0f8"
+        ]
+      },
+      "mist-bg": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "#f3f6f9",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232425",
+          "#3e4042",
+          "#5c5e60",
+          "#7e8083",
+          "#a2a5a7",
+          "#c9cbcd",
+          "#edeff0"
+        ]
+      },
+      "mist-accent-text": {
+        "role": "primary",
+        "displayName": "Mist Teal",
+        "canonical": "#09707a",
+        "tonalRamp": [
+          "#000f13",
+          "#002b30",
+          "#06494f",
+          "#1e6971",
+          "#378e99",
+          "#6cb2bb",
+          "#9cd6de",
+          "#c9f9ff"
+        ]
+      },
+      "mist-price": {
+        "role": "secondary",
+        "displayName": "Mist Gold",
+        "canonical": "#8c5a00",
+        "tonalRamp": [
+          "#180600",
+          "#371d00",
+          "#593700",
+          "#7e5414",
+          "#a8742b",
+          "#c99b60",
+          "#ebc392",
+          "#ffe8c0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page and section-opening titles; home hero clamp(48px, 8.4vw, 120px), inner heroes clamp(44px, 5.4vw, 80px)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles (.h2)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sub-titles (.h3) in Plex Sans."
+      },
+      "title-sm": {
+        "displayName": "Title small",
+        "purpose": "Row, card and module titles (.h4)."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Paragraph under a title, max 56ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text in text-body."
+      },
+      "body-sm": {
+        "displayName": "Body small",
+        "purpose": "Metadata and secondary text."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Hints, captions, fine print in text-muted."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Prices, tickers, levels and times only; tabular figures."
+      }
+    },
+    "gradients": [
+      {
+        "name": "day-line",
+        "value": "linear-gradient(180deg, #f5b544, #42cad7)",
+        "purpose": "The vertical day line: home timeline, Academy rail, About journey on mobile."
+      },
+      {
+        "name": "day-line-x",
+        "value": "linear-gradient(90deg, #f5b544, #42cad7 60%, rgb(66 202 215 / 0))",
+        "purpose": "The day line laid flat: inner hero baseline and the featured plan top edge."
+      },
+      {
+        "name": "teal-grad",
+        "value": "radial-gradient(120% 85% at 100% 0%, rgb(66 202 215 / 0.42) 0%, rgb(14 138 146 / 0.22) 32%, transparent 64%), linear-gradient(165deg, #0b3a41 0%, #0a252c 46%, #070d16 100%)",
+        "purpose": "Lights the one featured item in a group."
+      },
+      {
+        "name": "teal-glass",
+        "value": "linear-gradient(180deg, rgb(66 202 215 / 0.05), rgb(12 21 32 / 0.9))",
+        "purpose": "Translucent panel for product UI and the contact form."
+      },
+      {
+        "name": "teal-glass-lifted",
+        "value": "linear-gradient(180deg, rgb(66 202 215 / 0.08), rgb(19 32 45 / 0.9))",
+        "purpose": "A lifted glass panel."
+      },
+      {
+        "name": "teal-line",
+        "value": "rgb(66 202 215 / 0.24)",
+        "purpose": "Hairline on lit surfaces."
+      },
+      {
+        "name": "teal-line-soft",
+        "value": "rgb(66 202 215 / 0.14)",
+        "purpose": "Softer hairline on glass panels and level steps."
+      }
+    ],
+    "shadows": [
+      {
+        "name": "horizon-gold",
+        "value": "0 -2px 0 0 rgb(255 214 138 / 0.9), 0 -14px 60px 6px rgb(245 181 68 / 0.32)",
+        "purpose": "The sunrise ellipse behind the home hero."
+      },
+      {
+        "name": "horizon-teal",
+        "value": "0 -2px 0 0 rgb(122 223 231 / 0.9), 0 -20px 80px 10px rgb(66 202 215 / 0.35)",
+        "purpose": "The evening edge behind the closing call."
+      },
+      {
+        "name": "baseline-glow",
+        "value": "0 -6px 24px 0 rgb(245 181 68 / 0.32)",
+        "purpose": "Warm halo over the inner hero day line."
+      },
+      {
+        "name": "panel-drop",
+        "value": "0 40px 80px -40px rgb(0 0 0 / 0.7)",
+        "purpose": "Under a floating product-UI panel."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        "purpose": "State transitions (0.2 to 0.3s): hover, colour, border, arrow nudge."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Long settling entrances: hero rise, baseline draw, horizon rise."
+      },
+      {
+        "name": "rise",
+        "value": "hero-in 0.8s var(--ease-out) var(--delay) both; translateY(30px) to 0",
+        "purpose": "Above-the-fold load-in, staggered by --delay in 0.06s steps."
+      },
+      {
+        "name": "draw-line",
+        "value": "scale 0 1 to 1, 1.6s var(--ease-out) 0.2s, transform-origin left",
+        "purpose": "The inner hero baseline drawing in from the left."
+      },
+      {
+        "name": "rail-fill",
+        "value": "scaleY(0) to 1, animation-timeline: view()",
+        "purpose": "The day line filling the home timeline and Academy rail as they scroll by."
+      },
+      {
+        "name": "reveal",
+        "value": "up-in / in-left / in-right / wipe-up, animation-timeline: view(), range entry 0% cover 30%",
+        "purpose": "CSS-only scroll reveals where supported."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transition: none",
+        "purpose": "prefers-reduced-motion switches every animation and transition off."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "journey",
+        "value": "860px"
+      },
+      {
+        "name": "tablet",
+        "value": "1080px"
+      },
+      {
+        "name": "nav-tight",
+        "value": "1240px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Teal pill for the main action on a band; trailing arrow nudges up-right on hover.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Otvori besplatan nalog <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M6 6v2h8.59L5 17.59 6.41 19 16 9.41V18h2V6z\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border: 1px solid transparent; border-radius: var(--radius-pill, 999px); font: 500 14px/20px var(--font-sans, system-ui, sans-serif); text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color 0.2s cubic-bezier(0.22,0.61,0.36,1), transform 0.2s cubic-bezier(0.22,0.61,0.36,1); } .ds-btn svg { transition: transform 0.25s cubic-bezier(0.22,0.61,0.36,1); } .ds-btn:hover svg { transform: translate(2px, -2px); } .ds-btn:active { transform: scale(0.98); } .ds-btn:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; } .ds-btn-primary { background: var(--accent, #42cad7); color: var(--on-accent, #03060c); } .ds-btn-primary:hover { background: var(--accent-hover, #7adfe7); } .ds-btn-primary:active { background: var(--accent-pressed, #16a4ad); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Outlined pill for the secondary action beside a primary.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Pogledaj pakete</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; padding: 10px 20px; border: 1px solid var(--border-strong, #5b6e82); border-radius: 999px; background: transparent; color: var(--text, #f0f0f0); font: 500 14px/20px var(--font-sans, system-ui, sans-serif); text-decoration: none; cursor: pointer; transition: background-color 0.2s cubic-bezier(0.22,0.61,0.36,1), transform 0.2s cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-ghost:hover { background: var(--surface-hover, #13202d); } .ds-btn-ghost:active { transform: scale(0.98); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "text-field",
+      "description": "Label above, ink field, teal border on focus, optional hint caption.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-email\">Email</label><input id=\"ds-email\" type=\"email\" placeholder=\"ime@primer.rs\" aria-describedby=\"ds-email-hint\"><p id=\"ds-email-hint\" class=\"ds-hint\">Odgovaramo u roku od jednog radnog dana.</p></div>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 360px; } .ds-field label { font: 500 14px/20px var(--font-sans, system-ui, sans-serif); color: var(--text, #f0f0f0); } .ds-field input { padding: 11px 14px; border: 1px solid var(--border-strong, #5b6e82); border-radius: var(--radius-sm, 9px); background: var(--bg, #070d16); color: var(--text, #f0f0f0); font: 400 14px/22px var(--font-sans, system-ui, sans-serif); transition: border-color 0.2s cubic-bezier(0.22,0.61,0.36,1); } .ds-field input::placeholder { color: var(--text-muted, #7c8996); } .ds-field input:focus { border-color: var(--accent-border, #0e8a92); } .ds-field input:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; } .ds-hint { margin: 0; font: 400 12px/16px var(--font-sans, system-ui, sans-serif); color: var(--text-muted, #7c8996); }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Pill-padded links in Fog; the current page is a filled teal pill.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Glavna\"><a href=\"#\">Alati</a><a href=\"#\" aria-current=\"page\">Akademija</a><a href=\"#\">Paketi</a><a href=\"#\">O nama</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 4px; } .ds-nav a { padding: 6px 12px; border-radius: 999px; color: var(--text-body, #a9b4bf); font: 500 14px/20px var(--font-sans, system-ui, sans-serif); text-decoration: none; transition: color 0.25s cubic-bezier(0.22,0.61,0.36,1), background-color 0.25s cubic-bezier(0.22,0.61,0.36,1); } .ds-nav a:hover { color: var(--text, #f0f0f0); } .ds-nav a[aria-current] { background: var(--accent, #42cad7); color: var(--on-accent, #03060c); } .ds-nav a:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; }"
+    },
+    {
+      "name": "Billing Toggle",
+      "kind": "chip",
+      "refersTo": "billing-toggle",
+      "description": "Radio pair in a pill track; the selected option fills teal, the yearly saving badge inverts.",
+      "html": "<fieldset class=\"ds-billing\"><legend class=\"ds-sr\">Naplata</legend><input type=\"radio\" id=\"ds-m\" name=\"ds-b\" checked><label for=\"ds-m\">Mesečno</label><input type=\"radio\" id=\"ds-y\" name=\"ds-b\"><label for=\"ds-y\">Godišnje <span class=\"ds-save\">-10%</span></label></fieldset>",
+      "css": ".ds-billing { position: relative; display: flex; gap: 2px; width: max-content; margin: 0; padding: 4px; border: 1px solid var(--border-strong, #5b6e82); border-radius: 999px; background: var(--surface, #0c1520); } .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } .ds-billing input { position: absolute; opacity: 0; } .ds-billing label { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 999px; color: var(--text-muted, #7c8996); font: 500 14px/20px var(--font-sans, system-ui, sans-serif); cursor: pointer; transition: background-color 0.25s cubic-bezier(0.22,0.61,0.36,1), color 0.25s cubic-bezier(0.22,0.61,0.36,1); } .ds-billing label:hover { color: var(--text, #f0f0f0); } .ds-billing input:checked + label { background: var(--accent, #42cad7); color: var(--on-accent, #03060c); } .ds-billing input:focus-visible + label { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; } .ds-save { padding: 2px 7px; border-radius: 999px; background: var(--accent-subtle, #0e242d); color: var(--accent-text, #42cad7); font: 500 12px/16px var(--font-mono, ui-monospace, monospace); } .ds-billing input:checked + label .ds-save { background: var(--on-accent, #03060c); color: var(--accent, #42cad7); }"
+    },
+    {
+      "name": "Page Hero",
+      "kind": "custom",
+      "description": "Inner page opening: breadcrumbs, left-aligned headline and lead, the page artifact beside or below it (here the Academy level path standing on the line), closed by the flat day line drawing in from the left.",
+      "html": "<section class=\"ds-hero\"><div class=\"ds-hero-top\"><div class=\"ds-hero-text\"><nav aria-label=\"Putanja\"><ol class=\"ds-crumbs\"><li><a href=\"#\">Početna</a></li><li aria-current=\"page\">Akademija</li></ol></nav><h1 class=\"ds-hero-title\">Trejding od nule, na srpskom</h1><p class=\"ds-hero-lead\">Šest nivoa, od prvog grafikona do sopstvene strategije.</p></div></div><div class=\"ds-hero-below\"><nav class=\"ds-path\" aria-label=\"Nivoi\"><a href=\"#\" style=\"--i: 0\"><span class=\"ds-n\">0</span><span class=\"ds-t\">Prvi koraci</span><span class=\"ds-free\">Besplatno</span></a><a href=\"#\" style=\"--i: 1\"><span class=\"ds-n\">1</span><span class=\"ds-t\">Osnove</span><span class=\"ds-free\">Besplatno</span></a><a href=\"#\" style=\"--i: 2\"><span class=\"ds-n\">2</span><span class=\"ds-t\">Analiza</span></a><a href=\"#\" style=\"--i: 3\"><span class=\"ds-n\">3</span><span class=\"ds-t\">Strategija</span></a></nav></div></div><div class=\"ds-baseline\" aria-hidden=\"true\"></div></section>",
+      "css": "@keyframes ds-draw { from { scale: 0 1; } } .ds-hero { padding: 48px 32px 0; background: var(--page, #05090f); } .ds-hero-top { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 32px 48px; padding-bottom: 48px; } .ds-hero-text { display: grid; justify-items: start; gap: 18px; } .ds-crumbs { display: flex; margin: 0; padding: 0; list-style: none; font: 400 14px/20px var(--font-sans, system-ui, sans-serif); color: var(--text-muted, #7c8996); } .ds-crumbs li + li::before { content: \"/\"; margin: 0 10px; color: var(--text-disabled, #5b6e82); } .ds-crumbs a { color: inherit; } .ds-crumbs a:hover { color: var(--text, #f0f0f0); } .ds-crumbs a:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; } .ds-crumbs [aria-current] { color: var(--text-body, #a9b4bf); } .ds-hero-title { margin: 0; max-width: 15ch; font: 700 48px/1 var(--font-display, \"Bricolage Grotesque\", system-ui, sans-serif); letter-spacing: -0.035em; color: var(--text, #f0f0f0); text-wrap: balance; } .ds-hero-lead { margin: 0; max-width: 50ch; font: 400 17px/27px var(--font-sans, system-ui, sans-serif); color: var(--text-body, #a9b4bf); } .ds-hero-below { grid-column: 1 / -1; } .ds-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: end; gap: 8px; } .ds-path a { display: grid; grid-template-rows: auto 1fr auto; gap: 6px; height: calc(110px + var(--i) * 24px); padding: 14px 16px; border: 1px solid rgb(66 202 215 / 0.14); border-bottom: 0; border-radius: 14px 14px 0 0; background: linear-gradient(180deg, rgb(66 202 215 / calc(0.04 + var(--i) * 0.03)), rgb(12 21 32 / 0.6)); text-decoration: none; transition: border-color 0.25s cubic-bezier(0.22,0.61,0.36,1); } .ds-path a:hover { border-color: rgb(66 202 215 / 0.24); } .ds-path a:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; } .ds-n { color: var(--accent-text, #42cad7); font: 700 26px/1 var(--font-display, \"Bricolage Grotesque\", system-ui, sans-serif); } .ds-t { color: var(--text, #f0f0f0); font: 500 15px/21px var(--font-sans, system-ui, sans-serif); } .ds-free { color: var(--price, #f5b544); font: 400 13px/18px var(--font-sans, system-ui, sans-serif); } .ds-baseline { height: 1px; background: linear-gradient(90deg, #f5b544, #42cad7 60%, rgb(66 202 215 / 0)); box-shadow: 0 -6px 24px 0 rgb(245 181 68 / 0.32); transform-origin: left; animation: ds-draw 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; } @media (prefers-reduced-motion: reduce) { .ds-baseline { animation: none; } }"
+    },
+    {
+      "name": "Day Line Rail",
+      "kind": "custom",
+      "description": "A vertical track filled by the gold-to-teal day line, with ringed nodes: gold for the start or free, teal ahead.",
+      "html": "<ol class=\"ds-rail\"><li class=\"ds-free\"><span class=\"ds-node\"></span><span class=\"ds-num\">0</span><span class=\"ds-name\">Osnove tržišta</span></li><li><span class=\"ds-node\"></span><span class=\"ds-num\">1</span><span class=\"ds-name\">Čitanje grafikona</span></li><li><span class=\"ds-node\"></span><span class=\"ds-num\">2</span><span class=\"ds-name\">Plan i rizik</span></li></ol>",
+      "css": ".ds-rail { position: relative; display: grid; gap: 28px; margin: 0; padding: 0 0 0 44px; list-style: none; } .ds-rail::before { content: \"\"; position: absolute; top: 10px; bottom: 10px; left: 13px; width: 2px; border-radius: 2px; background: linear-gradient(180deg, #f5b544, #42cad7); } .ds-rail li { position: relative; display: flex; align-items: baseline; gap: 16px; } .ds-node { position: absolute; top: 50%; left: -38px; width: 16px; height: 16px; margin-top: -8px; border: 2px solid var(--accent, #42cad7); border-radius: 50%; background: var(--page, #05090f); } .ds-free .ds-node { border-color: var(--price, #f5b544); } .ds-num { color: var(--text, #f0f0f0); font: 700 40px/0.9 var(--font-display, \"Bricolage Grotesque\", system-ui, sans-serif); letter-spacing: -0.04em; } .ds-name { color: var(--text, #f0f0f0); font: 500 17px/24px var(--font-sans, system-ui, sans-serif); }"
+    },
+    {
+      "name": "Price Cell",
+      "kind": "custom",
+      "refersTo": "price-cell",
+      "description": "Mono tabular quote with its change in market green or red; the gold quote in Morning Gold. Sample data.",
+      "html": "<span class=\"ds-price ds-gold\"><span class=\"ds-value\">2,384.60</span><span class=\"ds-change ds-up\">+0.42%</span></span>",
+      "css": ".ds-price { display: inline-flex; align-items: baseline; gap: 8px; font-family: var(--font-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; white-space: nowrap; } .ds-value { font-size: 16px; font-weight: 500; line-height: 24px; color: var(--text, #f0f0f0); } .ds-gold .ds-value { color: var(--price, #f5b544); } .ds-change { font-size: 14px; font-weight: 500; } .ds-up { color: var(--up, #3dd68c); } .ds-down { color: var(--down, #f0616d); }"
+    },
+    {
+      "name": "Hairline List",
+      "kind": "custom",
+      "description": "Copy rows separated by 1px rules, no card shell; hover washes the row faintly teal.",
+      "html": "<ul class=\"ds-rows\"><li><a href=\"#\"><strong>Email</strong><span>Pišite nam za sva pitanja o nalogu.</span></a></li><li><a href=\"#\"><strong>Discord</strong><span>Zajednica i podrška uživo.</span></a></li></ul>",
+      "css": ".ds-rows { margin: 0; padding: 0; border-top: 1px solid var(--border, #1e2e3d); list-style: none; } .ds-rows li { border-bottom: 1px solid var(--border, #1e2e3d); } .ds-rows a { display: grid; gap: 2px; padding: 20px 4px; color: var(--text-body, #a9b4bf); text-decoration: none; font: 400 14px/22px var(--font-sans, system-ui, sans-serif); transition: background-color 0.25s cubic-bezier(0.22,0.61,0.36,1); } .ds-rows a:hover { background: rgb(66 202 215 / 0.05); } .ds-rows a:focus-visible { outline: 2px solid var(--focus-ring, #42cad7); outline-offset: 3px; } .ds-rows strong { color: var(--text, #f0f0f0); font: 500 18px/26px var(--font-sans, system-ui, sans-serif); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Day Line",
+    "overview": "**Creative North Star: \"The Day Line\"**\n\nThe whole site is one trading day. It opens in a gold morning (the plan before London) and closes in a teal evening (the journal and a lesson), and a single gradient line carries that passage: vertical through the home timeline, the Academy syllabus and the About journey on mobile, laid flat under every inner page's opening band and along the top of the featured plan. Everything else stays quiet so that line, and the real product UI it frames, does the talking.\n\nThe ground is dark ink throughout (`page`, with soft teal radial glows drifting down the body), with one light \"mist\" band for the Academy on the home page. Density is editorial rather than dashboard-like: generous section padding (120px, 72px on phones), long readable measures, and content separated by hairline rules rather than boxed into cards. Panels appear only where they hold something real: a product screen with sample data, the contact form, the plan ladder.\n\nInner pages share one opening grammar: breadcrumbs, a left-aligned Bricolage headline and lead over a faint dot grid, the page's own artifact beside or below it (the risk chart, the Academy level path, the contact channels, the billing toggle), and the flat day line closing the band. No stock photography anywhere; imagery is the product itself, labelled as sample data.",
+    "keyCharacteristics": [
+      "Dark ink ground, one teal accent, gold reserved for morning, start, free and the gold price.",
+      "The gold-to-teal day line is the one structural colour.",
+      "Bricolage Grotesque 700 for titles and big figures; Plex Sans (Sevora Sans) for reading; Plex Mono (Sevora Mono) only for real data.",
+      "Hairline rules over card shells; panels only for product UI and forms.",
+      "Pill-shaped controls, gently rounded panels.",
+      "One authored motion moment per page, all of it off under `prefers-reduced-motion`."
+    ],
+    "rules": [
+      {
+        "name": "The One Line Rule",
+        "body": "The gold-to-teal day line (`--day-line` vertical, `--day-line-x` flat) is the only structural colour. It runs the home timeline, closes every inner hero, tops the featured plan, fills the Academy syllabus rail and the travelled stretch of the About journey. No other gradient draws structure.",
+        "section": "colors"
+      },
+      {
+        "name": "The Gold Is Morning Rule",
+        "body": "Gold (`--price`) means the morning, the start, free, or the gold price. If it is not one of those, it is not gold.",
+        "section": "colors"
+      },
+      {
+        "name": "The Market Colours Stay In The Market Rule",
+        "body": "Green and red appear only on market data inside product UI, never as brand or status colour for marketing copy.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Voices Rule",
+        "body": "Bricolage speaks titles and big figures, Plex Sans speaks everything you read, Plex Mono speaks only real data (prices, tickers, levels, times). A word set in mono must be something a terminal would print.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plain Sentence Rule",
+        "body": "Headings and sentences are one colour. No eyebrow or kicker labels above titles, no accent-coloured words inside a sentence.",
+        "section": "typography"
+      },
+      {
+        "name": "The Left-Aligned Opening Rule",
+        "body": "Every page below home opens with breadcrumbs, a left-aligned headline and lead, the page's own artifact beside or below, and the flat day line as its baseline. Only the home hero is centred.",
+        "section": "layout"
+      },
+      {
+        "name": "The Show Every Word Rule",
+        "body": "Pages are read by search engines: no tabs or carousels hiding copy. Disclosure (`<details>`) is used only for long reference lists such as Academy lessons and FAQs, and their text is in the HTML.",
+        "section": "layout"
+      },
+      {
+        "name": "The Light Not Lift Rule",
+        "body": "A thing is raised by being lit (teal gradient, teal hairline, glow), not by a hard drop shadow. One lit item per group.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** open every inner page with `PageHero`: breadcrumbs, left-aligned headline and lead, the page's own artifact beside or below, closed by the flat day line (`--day-line-x`).",
+      "**Do** use the day line (`--day-line`, `--day-line-x`) as the only structural colour, gold at the start and teal at the end.",
+      "**Do** reserve Morning Gold (`--price`) for morning, start, free and the gold price.",
+      "**Do** separate copy with 1px hairline rules (`--border`); keep panels for product UI and forms.",
+      "**Do** set titles and big figures in Bricolage Grotesque 700 with negative tracking, reading text in Sevora Sans, and only real data (prices, tickers, levels, times) in Sevora Mono with tabular figures.",
+      "**Do** show real product UI with sample data, and label it as sample data.",
+      "**Do** give each page one authored motion moment (hero rise and baseline draw; the Academy rail filling on scroll) and let `prefers-reduced-motion` switch all animation off.",
+      "**Do** keep every word in the HTML; use `<details>` only for long reference lists."
+    ],
+    "donts": [
+      "**Don't** put eyebrow or kicker labels above headings.",
+      "**Don't** use a row of counts or metrics as a hero artifact; the artifact is the page's own product or tool.",
+      "**Don't** colour individual words inside a heading or sentence with the accent or gold.",
+      "**Don't** hide copy in tabs or carousels; these pages rank in search.",
+      "**Don't** use stock photography or illustration; the product is the image.",
+      "**Don't** wrap copy in card shells or stack bordered boxes for lists of text.",
+      "**Don't** introduce a second structural gradient or colour beside the day line.",
+      "**Don't** use green or red outside market data, or gold for anything that isn't morning, start, free or the gold price.",
+      "**Don't** set labels, headings or prose in mono."
+    ]
+  }
+}

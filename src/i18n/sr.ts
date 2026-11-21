@@ -173,13 +173,6 @@ export const sr = {
     down: 'pad',
     flat: 'bez promene',
   },
-  academy: {
-    stats: [
-      { value: '6', label: 'nivoa' },
-      { value: '23', label: 'modula' },
-      { value: '138', label: 'lekcija' },
-    ],
-  },
   pricing: {
     billingLabel: 'Način plaćanja',
     monthly: 'Mesečno',
@@ -367,23 +360,9 @@ export const sr = {
     name: 'O nama',
     title: 'Trejding sa planom, na tvom jeziku',
     lead: 'SEVORA je nastala iz jednostavne ideje: trejderima sa ovih prostora treba jedno mesto za analizu, plan i učenje — jasno, iskreno i bez buke.',
-    statement: [
-      { text: 'Ne prodajemo ' },
-      { text: 'brzu zaradu', tone: 'muted' },
-      { text: '. Gradimo ' },
-      { text: 'alate i znanje', tone: 'accent' },
-      { text: ' koji ti pomažu da donosiš ' },
-      { text: 'promišljene odluke', tone: 'accent' },
-      { text: ' — svaki dan.' },
-    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
-    stats: [
-      { value: '5', label: 'grupa tržišta' },
-      { value: '10', label: 'alata u platformi' },
-      { value: '138', label: 'lekcija u Akademiji' },
-      { value: '2', label: 'jezika' },
-    ],
+    statement:
+      'Ne prodajemo brzu zaradu. Gradimo alate i znanje koji ti pomažu da donosiš promišljene odluke — svaki dan.',
     why: {
-      kicker: 'Zašto postojimo',
       title: 'Previše signala, premalo objašnjenja',
       paragraphs: [
         'Većina trejding sadržaja je na engleskom, razbacana po deset aplikacija i svodi se na „kupi ovde, prodaj tamo“ — bez objašnjenja zašto.',
@@ -516,17 +495,10 @@ export const sr = {
     title: 'Kurs trejdinga od nule do profesionalca',
     lead: 'Savladaj način razmišljanja, pa tržište. Šest nivoa na srpskom, od apsolutne nule do profesionalnog trejdera. Svaki nivo gradi na prethodnom, bez preskakanja osnova.',
     path: 'Nivoi Akademije',
-    statement: [
-      { text: 'Šest nivoa, ' },
-      { text: '23 modula i 138 lekcija', tone: 'accent' },
-      { text: ' — sa proverom znanja posle svakog modula, ' },
-      { text: 'na srpskom i engleskom.', tone: 'muted' },
-    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
     level: {
       startFree: 'Počni besplatno',
       includedIn: (plan: string) => `Uključeno u ${plan}`,
-      check: 'Provera posle svakog modula',
-      toggle: (n: number) => `Pogledaj module (${n})`,
+      check: 'provera posle svakog modula',
       modules: (n: number) => count(n, 'modul', 'modula', 'modula'),
       lessons: (n: number) => count(n, 'lekcija', 'lekcije', 'lekcija'),
     },
@@ -547,13 +519,18 @@ export const sr = {
         },
         { title: 'Na srpskom i engleskom', text: 'Ceo program je dostupan na oba jezika.' },
       ],
+      demo: {
+        label: 'Primer: modul 8 iz nivoa 2, napredak u toku',
+        progress: (done: number, total: number) => `${done} od ${total} lekcija`,
+        current: 'sledeća',
+        check: 'Provera znanja',
+        badge: 'Bedž po završetku',
+      },
     },
-    quote: [
-      { text: 'Disciplina danas, sloboda sutra. ' },
-      { text: 'Tržište nagrađuje strpljenje, ', tone: 'accent' },
-      { text: 'ne emocije.', tone: 'muted' },
-    ] satisfies { text: string; tone?: 'accent' | 'muted' }[],
-    quoteBy: 'SEVORA Akademija',
+    cta: {
+      title: 'Disciplina danas, sloboda sutra.',
+      lead: 'Tržište nagrađuje strpljenje, ne emocije. Prva dva nivoa su besplatna, bez kartice.',
+    },
     learnFree: 'Počni da učiš besplatno',
   },
   plansPage: {
@@ -698,10 +675,6 @@ export const sr = {
       { title: 'Odgovaramo na email', text: 'Radnim danima, najčešće u roku od [VREME].' },
       { title: 'Nastavljamo kako tebi odgovara', text: 'Email, poziv ili Discord — biraš ti.' },
     ],
-    fast: {
-      title: 'Hitno? Piši nam na Discordu',
-      note: 'Za hitna tehnička pitanja najbrže je preko Discorda.',
-    },
     info: {
       title: 'Podrška i podaci o firmi',
       items: [
@@ -718,11 +691,6 @@ export const sr = {
           text: 'PIB [PIB] · MB [MB] · [ADRESA]',
         },
       ],
-    },
-    cta: {
-      title: 'Pridruži se SEVORA zajednici',
-      lead: 'Najbrži odgovori, razgovori o tržištu i podrška drugih trejdera — na Discordu.',
-      discord: 'Pridruži se na Discordu',
     },
   },
   notFound: {

@@ -1,0 +1,33 @@
+---
+// What we do and don't sell, in one sentence set large under the hero.
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { statement } = useTranslations(getLangFromUrl(Astro.url)).aboutPage;
+---
+
+<section class="statement-band">
+  <div class="wrap">
+    <p class="statement">{statement}</p>
+  </div>
+</section>
+
+<style>
+  .statement-band {
+    padding-block: 120px 24px;
+  }
+
+  .statement {
+    max-width: 24ch;
+    margin: 0;
+    color: var(--text);
+    font: 700 clamp(32px, 4.2vw, 60px) / 1.08 var(--font-display);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  @media (max-width: 640px) {
+    .statement-band {
+      padding-block: 72px 0;
+    }
+  }
+</style>
