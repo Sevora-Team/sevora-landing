@@ -249,6 +249,8 @@ const steps = [
   .body::before {
     content: '';
     position: absolute;
+    /* Above the line that runs through it. */
+    z-index: 1;
     top: 14px;
     left: -8px;
     width: 18px;

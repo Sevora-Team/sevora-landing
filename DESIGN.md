@@ -303,7 +303,7 @@ The opening band of every inner page: breadcrumbs, Display headline, lead and an
 
 ### Plan Ladder
 
-Three plans in one shared-hairline panel, each step a little taller than the last; the featured plan is lit with `--teal-grad`, a full teal hairline border (`--teal-line`) and the flat day line along its top, with no shadow or glow beneath it. Prices are big Bricolage figures with the period in muted Plex.
+Three separate, fully rounded plan panels 12px apart, each starting 32px higher than the one before with their bottoms aligned (an offset, never a forced height, so no column ends in empty space; no shared edges, so no square corner meets a round one); the featured plan is lit with `--teal-grad`, a full teal hairline border (`--teal-line`) and the flat day line along its top, with no shadow or glow beneath it. Prices are big Bricolage figures with the period in muted Plex.
 
 ### Plan Comparison
 
@@ -329,6 +329,7 @@ Mono 500, tabular figures, value in Paper White (Morning Gold for the gold quote
 ### Don't:
 
 - **Don't** put eyebrow or kicker labels above headings.
+- **Don't** end a scroll reveal at a share of the element's height or of the viewport (`cover 30%`): a tall block near the end of a short page never gets there and stays half-faded. Reveals end a fixed distance after entry (`entry 0% entry 220px`), and a page's main task (the contact form) isn't revealed at all.
 - **Don't** use a row of counts or metrics as a hero artifact; the artifact is the page's own product or tool.
 - **Don't** colour individual words inside a heading or sentence with the accent or gold.
 - **Don't** hide copy in tabs or carousels; these pages rank in search.

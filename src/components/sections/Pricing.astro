@@ -5,7 +5,7 @@ import { links } from '@/data/links';
 import { formatPrice, planPrice, prices } from '@/data/pricing';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
-// The plans on the plans page as one ladder: three steps in a single panel, the top step lit.
+// The plans on the plans page as a ladder: three steps, each a little higher, the top step lit.
 // The billing toggle that switches the prices sits in the page hero above.
 const lang = getLangFromUrl(Astro.url);
 const { pricing } = useTranslations(lang);
@@ -77,11 +77,11 @@ const plans = [
     padding-block: 56px 24px;
   }
 
-  /* One panel, three steps; each step sits a little higher than the one before. */
+  /* Three steps, each starting a little higher than the one before; the bottoms line up. */
   .ladder {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: end;
+    gap: 12px;
   }
 
   .plan {
@@ -89,25 +89,16 @@ const plans = [
     grid-template-rows: auto auto auto 1fr;
     align-content: start;
     gap: 24px;
-    min-height: calc(560px + var(--step) * 32px);
+    margin-top: calc((2 - var(--step)) * 32px);
     padding: 36px 36px 40px;
     border: 1px solid var(--border);
+    border-radius: var(--radius-card);
     background: rgb(12 21 32 / 0.55);
-  }
-
-  /* Neighbours share one hairline; each step keeps its own edge where it rises above the last. */
-  .plan + .plan {
-    margin-left: -1px;
-  }
-
-  .plan:first-child {
-    border-radius: var(--radius-card) 0 0 var(--radius-card);
   }
 
   .featured {
     position: relative;
     border-color: var(--teal-line);
-    border-radius: var(--radius-card);
     background: var(--teal-grad);
   }
 
@@ -206,15 +197,7 @@ const plans = [
     }
 
     .plan {
-      min-height: 0;
-    }
-
-    .plan + .plan {
-      margin: -1px 0 0;
-    }
-
-    .plan:first-child {
-      border-radius: var(--radius-card) var(--radius-card) 0 0;
+      margin-top: 0;
     }
   }
 

@@ -309,7 +309,9 @@ main > section + section {
 
 /* Elements ease up as they scroll into view (CSS only, where supported).
    Scroll-driven animations use longhands: the minifier folds a shorthand plus
-   animation-timeline into one invalid `animation` value, which browsers drop. */
+   animation-timeline into one invalid `animation` value, which browsers drop.
+   Ranges end a fixed distance after the element enters, never a share of its height or of
+   the viewport: a tall block near the end of a short page must still finish arriving. */
 @supports (animation-timeline: view()) {
   .reveal,
   .reveal-left,
@@ -318,7 +320,7 @@ main > section + section {
     animation-timing-function: linear;
     animation-fill-mode: both;
     animation-timeline: view();
-    animation-range: entry 0% cover 30%;
+    animation-range: entry 0% entry 220px;
   }
 
   .reveal {
@@ -337,7 +339,7 @@ main > section + section {
   /* Section titles wipe up out of a mask. */
   .reveal-title {
     animation-name: wipe-up;
-    animation-range: entry 10% cover 32%;
+    animation-range: entry 40px entry 240px;
   }
 }
 

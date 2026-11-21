@@ -210,7 +210,7 @@ const nodes = [
     border-radius: var(--radius);
     background: var(--surface);
     white-space: nowrap;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     transition:
       border-color 0.2s var(--ease),
       scale 0.2s var(--ease);
@@ -221,12 +221,14 @@ const nodes = [
     scale: 1.04;
   }
 
+  /* Each card meets its beam: left cards end where their path starts (x 250 of 1100), right
+     cards begin where theirs ends (x 850), whatever the card's width. */
   .node.left {
-    left: 13%;
+    right: calc((1 - 250 / 1100) * 100%);
   }
 
   .node.right {
-    left: 87%;
+    left: calc(850 / 1100 * 100%);
     flex-direction: row-reverse;
     padding: 12px 12px 12px 16px;
     text-align: right;

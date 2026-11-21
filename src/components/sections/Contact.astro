@@ -12,12 +12,12 @@ const { contact, contactPage } = useTranslations(lang);
 
 <section class="section contact" id="poruka">
   <div class="wrap layout">
-    <div class="intro reveal-left">
+    <div class="intro">
       <h2 class="h2">{contact.title}</h2>
       <p class="lead">{contact.lead}</p>
       <ol class="next">
         {contactPage.next.map(({ title, text }, i) => (
-          <li class="reveal-left">
+          <li>
             <span class="number">{i + 1}</span>
             <div>
               <p class="next-title">{title}</p>
@@ -28,7 +28,7 @@ const { contact, contactPage } = useTranslations(lang);
       </ol>
     </div>
 
-    <div class="card reveal-right">
+    <div class="card">
       <form class="form" method="post" action={PUBLIC_CONTACT_ENDPOINT}>
         <input type="hidden" name="lang" value={lang} />
         <!-- Spam trap: hidden from people, filled in by bots. -->
@@ -212,15 +212,6 @@ const { contact, contactPage } = useTranslations(lang);
     grid-template-columns: 40px minmax(0, 1fr);
     gap: 16px;
     padding: 12px 0;
-    animation-range: entry 10% cover 35%;
-  }
-
-  .next li:nth-child(2) {
-    animation-range: entry 16% cover 41%;
-  }
-
-  .next li:nth-child(3) {
-    animation-range: entry 22% cover 47%;
   }
 
   .number {
