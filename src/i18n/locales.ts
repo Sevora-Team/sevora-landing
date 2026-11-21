@@ -27,7 +27,7 @@ export const ogLocales = {
 
 /**
  * Each page's slug per language. A new page gets an entry here and a file in each `src/pages`
- * tree. Kept free of Astro imports so `astro.config.mjs` can read it for the sitemap.
+ * tree. `sitemap.xml.ts` pairs the language versions from it.
  */
 export const routes = {
   home: { sr: '', en: '' },

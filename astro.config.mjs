@@ -1,27 +1,9 @@
 // @ts-check
-import sitemap from '@astrojs/sitemap';
 import { defineConfig, envField, fontProviders } from 'astro/config';
-import { defaultLang, langTags, routes } from './src/i18n/locales.ts';
 
-// Production URL; drives the sitemap, robots.txt, canonical and hreflang links. Vercel serves
+// Production URL; drives sitemap.xml, robots.txt, canonical and hreflang links. Vercel serves
 // the www host and redirects the bare domain to it, so this must be the www address.
 const site = 'https://www.sevoratrading.com';
-
-/** Absolute URL of a page in one language, the same paths `getPageUrl` builds. */
-const pageUrl = (/** @type {keyof typeof langTags} */ lang, /** @type {string} */ slug) =>
-  new URL(`${lang === defaultLang ? '' : `${lang}/`}${slug && `${slug}/`}`, site).href;
-
-/** Every language version of each page, plus x-default, keyed by each version's URL. */
-const alternates = new Map(
-  Object.values(routes).flatMap((slugs) => {
-    const entries = /** @type {[keyof typeof langTags, string][]} */ (Object.entries(slugs));
-    const links = [
-      ...entries.map(([lang, slug]) => ({ lang: langTags[lang], url: pageUrl(lang, slug) })),
-      { lang: 'x-default', url: pageUrl(defaultLang, slugs[defaultLang]) },
-    ];
-    return entries.map(([lang, slug]) => [pageUrl(lang, slug), links]);
-  }),
-);
 
 // Characters in the self-hosted font files: Latin text and punctuation, and the Serbian
 // letters in a separate file that only Serbian pages download.
@@ -47,13 +29,6 @@ export default defineConfig({
       }),
     },
   },
-  integrations: [
-    // Slugs differ per language (/paketi/ and /en/pricing/), so the sitemap's own i18n option
-    // can't pair them; the hreflang links come from the route map instead.
-    sitemap({
-      serialize: (item) => ({ ...item, links: alternates.get(item.url) ?? item.links }),
-    }),
-  ],
   i18n: {
     locales: ['sr', 'en'],
     defaultLocale: 'sr',

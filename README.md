@@ -82,10 +82,10 @@ src/
 ## Before launch
 
 - `site` in `astro.config.mjs` is the production URL, `https://www.sevoratrading.com` (Vercel
-  redirects the bare domain to it). It drives the sitemap (`@astrojs/sitemap`), the `Sitemap:`
-  line in `robots.txt`, canonical URLs and the `hreflang` alternate links in `BaseLayout`;
-  change it there if the domain changes. `vercel.json` also serves the sitemap index at
-  `/sitemap.xml`, the address search tools try first.
+  redirects the bare domain to it). It drives `/sitemap.xml` (`src/pages/sitemap.xml.ts`, one
+  file with every page and its hreflang pairs, styled in browsers by `public/sitemap.css`),
+  the `Sitemap:` line in `robots.txt`, canonical URLs and the `hreflang` links in `BaseLayout`;
+  change it there if the domain changes.
 - Set `PUBLIC_CONTACT_ENDPOINT` (see `.env.example`): the URL the contact form posts to. Until
   it is set, sending shows an error instead of pretending to succeed.
 - Replace the `#` placeholders in `src/data/links.ts` (sign-up, log-in, dashboard, shop, …).
