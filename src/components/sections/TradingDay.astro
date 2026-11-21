@@ -203,6 +203,7 @@ const steps = [
   }
 
   .step {
+    position: relative;
     display: grid;
     grid-template-columns: 250px minmax(0, 1fr);
     padding-bottom: 96px;
@@ -245,14 +246,15 @@ const steps = [
     padding-left: 56px;
   }
 
-  /* The step's dot on the line: hollow ahead, filled once passed, ringed at the current step. */
-  .body::before {
+  /* The step's dot on the line: hollow ahead, filled once passed, ringed at the current step.
+     It hangs off the step, not the animated body: a running reveal makes the body its own
+     stacking layer, which would trap the dot under the line drawn after it. */
+  .step::before {
     content: '';
     position: absolute;
-    /* Above the line that runs through it. */
     z-index: 1;
     top: 14px;
-    left: -8px;
+    left: 242px;
     width: 18px;
     height: 18px;
     border: 2px solid var(--border-strong);
@@ -260,12 +262,12 @@ const steps = [
     background: var(--page);
   }
 
-  .past .body::before {
+  .step.past::before {
     border-color: var(--price);
     background: var(--price);
   }
 
-  .current .body::before {
+  .step.current::before {
     border-color: var(--price);
     outline: 2px solid var(--price);
     outline-offset: 4px;
@@ -439,8 +441,8 @@ const steps = [
       padding-left: 40px;
     }
 
-    .body::before {
-      top: -48px;
+    .step::before {
+      top: 12px;
       left: 0;
     }
 

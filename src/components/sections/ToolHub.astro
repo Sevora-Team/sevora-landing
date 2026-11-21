@@ -221,8 +221,13 @@ const nodes = [
     scale: 1.04;
   }
 
-  /* Each card meets its beam: left cards end where their path starts (x 250 of 1100), right
-     cards begin where theirs ends (x 850), whatever the card's width. */
+  /* Every card is one width, so each side reads as one column; left cards end where their path
+     starts (x 250 of 1100) and right cards begin where theirs ends (x 850). */
+  .node.left,
+  .node.right {
+    width: 240px;
+  }
+
   .node.left {
     right: calc((1 - 250 / 1100) * 100%);
   }
@@ -291,6 +296,7 @@ const nodes = [
       flex-direction: column;
       align-items: flex-start;
       padding: 14px;
+      width: auto;
       text-align: left;
       white-space: normal;
       transform: none;
