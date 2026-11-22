@@ -345,7 +345,6 @@ export const sr = {
     ] satisfies { title: string; links: SiteLink[] }[],
     risk: 'Upozorenje o riziku: trgovanje forex parovima, metalima, kriptovalutama, indeksima i drugim finansijskim instrumentima nosi visok rizik i nije pogodno za svakoga. Sadržaj i alati na ovom sajtu su analitički i edukativni i ne predstavljaju investicioni savet. Prošli rezultati ne garantuju buduće.',
     copyright: '© 2026 SEVORA',
-    legal: '[PRAVNO LICE · PIB · ADRESA]',
   },
   breadcrumb: {
     label: 'Putanja',
@@ -654,7 +653,6 @@ export const sr = {
       email: {
         title: 'Email podrška',
         text: 'Za pitanja o nalogu, paketima i plaćanju.',
-        value: '[EMAIL ADRESA]',
       },
       discord: {
         title: 'Discord zajednica',
@@ -664,7 +662,6 @@ export const sr = {
       partners: {
         title: 'Saradnja i partnerstva',
         text: 'Partnerski program, mediji i poslovni upiti.',
-        value: '[EMAIL ZA SARADNJU]',
       },
     },
     next: [
@@ -672,24 +669,19 @@ export const sr = {
         title: 'Poruka stiže pravoj osobi',
         text: 'Vrsta upita nam govori ko iz tima treba da ti odgovori.',
       },
-      { title: 'Odgovaramo na email', text: 'Radnim danima, najčešće u roku od [VREME].' },
+      { title: 'Odgovaramo na email', text: 'Radnim danima, najčešće u roku od sat vremena.' },
       { title: 'Nastavljamo kako tebi odgovara', text: 'Email, poziv ili Discord — biraš ti.' },
     ],
     info: {
-      title: 'Podrška i podaci o firmi',
+      title: 'Radno vreme podrške',
       items: [
-        { label: 'Radno vreme', value: 'Pon – pet', text: '[VREME] CET' },
+        { label: 'Radno vreme', value: 'Pon – pet', text: '08 – 17h CET' },
         {
           label: 'Vikendom',
           value: 'Discord',
           text: 'Zajednica i tim su tu i kad podrška ne radi.',
         },
-        { label: 'Vreme odgovora', value: 'do [VREME]', text: 'Na email, radnim danima.' },
-        {
-          label: 'Podaci o firmi',
-          value: '[PRAVNO LICE]',
-          text: 'PIB [PIB] · MB [MB] · [ADRESA]',
-        },
+        { label: 'Vreme odgovora', value: 'do 1h', text: 'Na email, radnim danima.' },
       ],
     },
   },

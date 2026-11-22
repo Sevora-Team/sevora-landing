@@ -2,29 +2,33 @@
 // The contact hero's channels: three ways to reach the team, one row each.
 import Icon from '@/components/ui/Icon.astro';
 import type { IconName } from '@/components/ui/icons';
-import { links } from '@/data/links';
+import { emails, links } from '@/data/links';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const { channels } = useTranslations(getLangFromUrl(Astro.url)).contactPage;
-const rows: { channel: (typeof channels)[keyof typeof channels]; icon: IconName; href: string }[] =
-  [
-    { channel: channels.email, icon: 'mail', href: '#poruka' },
-    { channel: channels.discord, icon: 'forum', href: links.discord },
-    { channel: channels.partners, icon: 'handshake', href: '#poruka' },
-  ];
+const rows: { title: string; text: string; value: string; icon: IconName; href: string }[] = [
+  { ...channels.email, value: emails.support, icon: 'mail', href: `mailto:${emails.support}` },
+  { ...channels.discord, icon: 'forum', href: links.discord },
+  {
+    ...channels.partners,
+    value: emails.partnership,
+    icon: 'handshake',
+    href: `mailto:${emails.partnership}`,
+  },
+];
 ---
 
 <ul class="channels">
-  {rows.map(({ channel, icon, href }) => (
+  {rows.map(({ title, text, value, icon, href }) => (
     <li>
       <a class="channel" href={href}>
         <Icon name={icon} size={24} class="icon" />
         <span class="text">
-          <strong>{channel.title}</strong>
-          <span class="body-sm">{channel.text}</span>
+          <strong>{title}</strong>
+          <span class="body-sm">{text}</span>
         </span>
         <span class="value">
-          {channel.value}
+          {value}
           <Icon name="north-east" size={16} class="arrow" />
         </span>
       </a>

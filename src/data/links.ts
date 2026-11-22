@@ -11,3 +11,8 @@ export const links = {
   terms: '#',
   privacy: '#',
 } as const;
+
+export const emails = {
+  support: 'support@sevoratrading.com',
+  partnership: 'partnership@sevoratrading.com',
+} as const;

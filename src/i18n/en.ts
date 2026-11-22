@@ -336,7 +336,6 @@ export const en: Dictionary = {
     ],
     risk: 'Risk warning: trading forex, metals, cryptocurrencies, indices and other financial instruments carries a high level of risk and is not suitable for everyone. The content and tools on this site are analytical and educational and are not investment advice. Past performance does not guarantee future results.',
     copyright: '© 2026 SEVORA',
-    legal: '[LEGAL ENTITY · TAX ID · ADDRESS]',
   },
   breadcrumb: {
     label: 'Breadcrumb',
@@ -645,7 +644,6 @@ export const en: Dictionary = {
       email: {
         title: 'Email support',
         text: 'For questions about your account, plans and billing.',
-        value: '[EMAIL ADDRESS]',
       },
       discord: {
         title: 'Discord community',
@@ -655,7 +653,6 @@ export const en: Dictionary = {
       partners: {
         title: 'Partnerships',
         text: 'Affiliate program, media and business enquiries.',
-        value: '[PARTNERSHIP EMAIL]',
       },
     },
     next: [
@@ -663,24 +660,19 @@ export const en: Dictionary = {
         title: 'It reaches the right person',
         text: 'The enquiry type tells us who on the team should reply.',
       },
-      { title: 'We reply by email', text: 'On weekdays, usually within [TIME].' },
+      { title: 'We reply by email', text: 'On weekdays, usually within an hour.' },
       { title: 'We continue your way', text: 'Email, a call or Discord — your choice.' },
     ],
     info: {
-      title: 'Support and company details',
+      title: 'Support hours',
       items: [
-        { label: 'Support hours', value: 'Mon – Fri', text: '[HOURS] CET' },
+        { label: 'Support hours', value: 'Mon – Fri', text: '08:00 – 17:00 CET' },
         {
           label: 'Weekends',
           value: 'Discord',
           text: 'The community and team are around even when support is closed.',
         },
-        { label: 'Response time', value: 'within [TIME]', text: 'By email, on weekdays.' },
-        {
-          label: 'Company details',
-          value: '[LEGAL ENTITY]',
-          text: 'Tax ID [TAX ID] · Reg. no. [REG. NO.] · [ADDRESS]',
-        },
+        { label: 'Response time', value: 'within 1 hour', text: 'By email, on weekdays.' },
       ],
     },
   },
