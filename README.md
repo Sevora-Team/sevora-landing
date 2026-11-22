@@ -1,99 +1,100 @@
-# sevora-landing
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logo-dark.svg">
+    <img src=".github/assets/logo-light.svg" alt="SEVORA" height="88">
+  </picture>
+</p>
 
-Landing & presentational pages for the Sevora ecosystem, built with [Astro](https://astro.build).
+<p align="center">
+  <img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7">&nbsp;
+  <img src="https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white" alt="TypeScript 6">&nbsp;
+  <img src="https://img.shields.io/badge/Node-24-5FA04E?logo=nodedotjs&logoColor=white" alt="Node 24">&nbsp;
+  <img src="https://img.shields.io/badge/pnpm-11-F69220?logo=pnpm&logoColor=white" alt="pnpm 11">&nbsp;
+  <img src="https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white" alt="Deployed on Vercel">&nbsp;
+  <img src="https://img.shields.io/badge/License-GPL--3.0-blue" alt="License GPL-3.0">
+</p>
 
-## Requirements
+# SEVORA Landing
 
-- **Node.js 24** (`>=24.16`). pnpm reads `devEngines.runtime` in `package.json` and downloads
-  the right Node version for project scripts automatically; `.nvmrc` is there for nvm users.
-- **pnpm 11** — enable it with `corepack enable` (the version is pinned in `packageManager`).
+Landing and presentational pages for the SEVORA ecosystem: home, plans, academy, about and
+contact, in Serbian (default, `/`) and English (`/en/`). A static site, deployed on Vercel at
+[sevoratrading.com](https://www.sevoratrading.com).
 
-## Commands
+## Tech Stack
 
-| Command         | Action                                                |
-| :-------------- | :---------------------------------------------------- |
-| `pnpm install`  | Install dependencies                                  |
-| `pnpm dev`      | Start the dev server at `localhost:4321`              |
-| `pnpm build`    | Type-check (`astro check`) and build to `./dist/`     |
-| `pnpm preview`  | Preview the production build locally                  |
-| `pnpm check`    | Type-check `.astro` and `.ts` files                   |
-| `pnpm lint`     | Lint with ESLint (Astro, TypeScript, a11y rules)      |
-| `pnpm format`   | Format with Prettier                                  |
-| `pnpm validate` | Format check + lint + type-check (run before pushing) |
+| Area      | Choice                                                           |
+| :-------- | :--------------------------------------------------------------- |
+| Framework | [Astro 7](https://astro.build), static output, built-in i18n     |
+| Language  | TypeScript, plain `<script>` tags (no UI framework)              |
+| Styling   | Scoped CSS + design tokens (`src/styles/tokens.css`)             |
+| Fonts     | Bricolage Grotesque, IBM Plex Sans/Mono, self-hosted (Fonts API) |
+| Tooling   | pnpm 11, Node 24, ESLint, Prettier, `astro check`                |
+| Hosting   | Vercel                                                           |
 
-## Project structure
+## Getting Started
 
-```text
-public/                 # Served as-is (favicon.ico)
-src/
-├── assets/
-│   ├── brand/          # Logo and brand images (optimized by astro:assets)
-│   ├── fonts/          # IBM Plex subsets (Sevora Sans, Sevora Mono), see Fonts below
-│   └── icons/          # SVG icons, imported as components
-├── components/
-│   ├── sections/       # One file per page section (home, Plans, Academy, About, Contact)
-│   ├── ui/             # Reusable building blocks (Button, Icon, PriceCell, PageHero, Facts, …)
-│   ├── Header.astro
-│   ├── Footer.astro
-│   └── HomePage.astro  # The landing page, shared by every locale
-├── data/               # Language-independent data: links, prices, sample market data
-├── i18n/               # Copy per language (sr.ts, en.ts), locale config and helpers
-├── layouts/            # Page shells (BaseLayout: <head>, fonts, favicons, hreflang)
-├── lib/                # Pure helpers: number formatting, generated charts
-├── pages/              # Routes — Serbian (default) at /, English under /en/, 404, robots.txt
-└── styles/             # Design tokens (tokens.css) and global base styles (global.css)
+```sh
+corepack enable
+pnpm install
+pnpm dev        # http://localhost:4321
 ```
+
+pnpm downloads the right Node version for scripts on its own (`devEngines.runtime`).
+
+| Command         | Action                                             |
+| :-------------- | :------------------------------------------------- |
+| `pnpm dev`      | Start the dev server                               |
+| `pnpm build`    | Type-check and build to `./dist/`                  |
+| `pnpm preview`  | Preview the production build                       |
+| `pnpm validate` | Format check + lint + type-check (run before push) |
+| `pnpm format`   | Format with Prettier                               |
+
+## Project Structure
+
+| Path              | Contents                                                 |
+| :---------------- | :------------------------------------------------------- |
+| `src/pages/`      | Routes: Serbian at `/`, English under `/en/`             |
+| `src/components/` | Pages, `sections/` (one file each) and reusable `ui/`    |
+| `src/i18n/`       | All copy, `sr.ts` and `en.ts`                            |
+| `src/data/`       | Language-independent data: links, prices, market samples |
+| `src/lib/`        | Pure helpers: formatting, build-time SVG charts          |
+| `src/styles/`     | `tokens.css` (design tokens) and `global.css`            |
+| `src/assets/`     | Brand images, font subsets, SVG icons                    |
 
 ## Conventions
 
-- **Languages:** Serbian (`sr`, default, unprefixed) and English (`en`, `/en/`), via Astro's
-  built-in i18n routing. All copy lives in `src/i18n/sr.ts` and `src/i18n/en.ts`; `en` is typed
-  against the Serbian dictionary, so a missing translation fails the type check. Components get
-  their copy with `useTranslations(getLangFromUrl(Astro.url))`.
-- **Design tokens:** colors, spacing and radii come from the SEVORA design system and live in
-  `src/styles/tokens.css`. Components use semantic tokens (`--text`, `--surface`, `--accent`…),
-  never raw hex values. The site is dark: the base theme is a lifted ink tone and sections
-  opt into the deeper `data-theme="dark"`; the home page's Academy band is the one light
-  section (`data-theme="mist"`). Sections are transparent over one page
-  backdrop (`body`); dark bands fade in and out of it.
-- **Fonts:** Bricolage Grotesque 700 for page and section titles (`--font-display`,
-  downloaded from Google Fonts at build time), IBM Plex Sans (weights 400–600) and IBM Plex
-  Mono (400, 500), all self-hosted through the Astro Fonts API (`--font-sans`, `--font-mono`). The files in
-  `src/assets/fonts/` are subsets of Google's IBM Plex files: Latin text and punctuation, and
-  the Serbian letters in their own file. The character ranges are in `astro.config.mjs`; text
-  outside them falls back to the system font. To add characters, re-subset the originals with
-  fontTools (`pyftsubset`, and `fonttools varLib.instancer` for the Sans weight range).
-  Because of the OFL Reserved Font Name, the subsets are renamed Sevora Sans and Sevora Mono.
-- **Locale pages stay thin:** `pages/index.astro` and `pages/en/index.astro` only render
-  `HomePage`; components read the language from the URL with `getLangFromUrl`.
-- **Icons:** Material Symbols Outlined (weight 300, optical size 20, Apache-2.0) as SVG
-  components. Use `<Icon name="arrow-forward" />`; to add one, put its SVG in
-  `src/assets/icons/` and register it in `src/components/ui/icons.ts`. Icons are decorative
-  (`aria-hidden`) unless you pass a `label`.
-- **Interactivity:** plain `<script>` tags in components, no UI framework. Prefer HTML and CSS
-  where they suffice (the FAQ and the Academy's lesson lists are `<details>`; the billing toggle
-  and the About page's risk chart are radios + `:has()`). Inner pages are search landing pages,
-  so their copy stays in view rather than behind tabs. Scroll motion is CSS scroll-driven
-  animation (`.reveal` and friends in `global.css`).
-- **Generated graphics:** the sample market chart and the About page's risk chart are built at
-  build time from fixed data (`src/lib/`) and inlined as SVG, so they follow the theme colours.
-- **Imports:** use the `@/` alias for anything under `src/`.
+- **Copy** lives only in `src/i18n/`. `en.ts` is typed against `sr.ts`, so a missing
+  translation fails the type check.
+- **Colors, spacing, radii** come from semantic tokens (`--text`, `--surface`, `--accent`),
+  never raw hex.
+- **Icons** are Material Symbols SVGs: add the file to `src/assets/icons/`, register it in
+  `src/components/ui/icons.ts`, use `<Icon name="arrow-forward" />`.
+- **Interactivity** prefers HTML and CSS (`<details>`, radios + `:has()`, scroll-driven
+  animation); the page works without JavaScript.
+- **Imports** use the `@/` alias for `src/`.
 
-## Before launch
+## Before Launch
 
-- `site` in `astro.config.mjs` is the production URL, `https://www.sevoratrading.com` (Vercel
-  redirects the bare domain to it). It drives `/sitemap.xml` (`src/pages/sitemap.xml.ts`, one
-  file with every page and its hreflang pairs, styled in browsers by `public/sitemap.css`),
-  the `Sitemap:` line in `robots.txt`, canonical URLs and the `hreflang` links in `BaseLayout`;
-  change it there if the domain changes.
-- Set `PUBLIC_CONTACT_ENDPOINT` (see `.env.example`): the URL the contact form posts to. Until
-  it is set, sending shows an error instead of pretending to succeed.
-- Replace the `#` placeholders in `src/data/links.ts` (sign-up, log-in, dashboard, shop, …).
-- Confirm the prices in `src/data/pricing.ts`.
-- Fill in the bracketed placeholders in the copy (`[EMAIL ADRESA]`, `[VREME]`,
-  `[USLOVI OTKAZIVANJA]`, `[politiku privatnosti]`, `[PRAVNO LICE · PIB · ADRESA]` and their
-  English counterparts).
+| What                          | Where                              |
+| :---------------------------- | :--------------------------------- |
+| `PUBLIC_CONTACT_ENDPOINT`     | `.env` (see `.env.example`)        |
+| Replace `#` placeholder links | `src/data/links.ts`                |
+| Confirm prices                | `src/data/pricing.ts`              |
+| Fill bracketed placeholders   | `src/i18n/sr.ts`, `src/i18n/en.ts` |
+
+The production URL is `site` in `astro.config.mjs`; it drives the sitemap, `robots.txt`,
+canonical and `hreflang` links.
+
+## Documentation
+
+- [DESIGN.md](DESIGN.md): design system and visual rules
+- [PRODUCT.md](PRODUCT.md): product, audience and voice
+- [Astro docs](https://docs.astro.build)
+
+## Authors
+
+- [@Sevora-Team](https://github.com/Sevora-Team)
 
 ## License
 
-GPL-3.0 — see [LICENSE](LICENSE).
+[GPL-3.0](LICENSE)
